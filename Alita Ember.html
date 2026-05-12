@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Alita Ember — Pyrography Kunst mit Feuer und Seele</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+
+<body class="font-sans text-char-800">
+
+<!-- ============== HEADER ============== -->
+<header id="site-header" class="sticky top-0 z-40">
+  <div class="wood-panel border-b border-wood-400/40 shadow-[0_10px_30px_-20px_rgba(61,43,31,.55)]">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 h-[72px] md:h-[84px] flex items-center justify-between">
+      <a href="Alita Ember.html" class="flex items-center gap-3 group" aria-label="Alita Ember — Startseite">
+        <span class="logo-ring inline-flex items-center justify-center rounded-full overflow-hidden w-12 h-12 md:w-14 md:h-14">
+          <img src="assets/logo.png" alt="" class="w-full h-full object-cover" />
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[17px] font-semibold text-char-800/85">
+        <a href="Alita Ember.html"   class="nav-link active">Home</a>
+        <a href="galerie.html" class="nav-link">Galerie</a>
+        <a href="shop.html"    class="nav-link">Shop</a>
+        <a href="blog.html"        class="nav-link">Blog</a>
+        <a href="ueber.html"   class="nav-link">Über mich</a>
+        <a href="kontakt.html" class="nav-link">Kontakt</a>
+      </nav>
+
+      <button id="burger" aria-label="Menü öffnen" aria-expanded="false"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-wood-50/60 border border-wood-400/40 text-char-800">
+        <svg id="burger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-500 ease-out">
+      <nav class="px-5 pb-5 pt-1 flex flex-col gap-1 text-[17px] font-semibold">
+        <a href="Alita Ember.html"   class="py-3 px-3 rounded-xl active nav-link">Home</a>
+        <a href="galerie.html" class="py-3 px-3 rounded-xl nav-link">Galerie</a>
+        <a href="shop.html"    class="py-3 px-3 rounded-xl nav-link">Shop</a>
+        <a href="blog.html"        class="py-3 px-3 rounded-xl nav-link">Blog</a>
+        <a href="ueber.html"   class="py-3 px-3 rounded-xl nav-link">Über mich</a>
+        <a href="kontakt.html" class="py-3 px-3 rounded-xl nav-link">Kontakt</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section id="home" class="relative">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pt-6 md:pt-8">
+    <div class="wood-bg relative rounded-[28px] overflow-hidden ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.45)]">
+      <div id="embers" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+      <div class="hero-vignette"></div>
+
+      <div class="relative grid md:grid-cols-12 gap-6 md:gap-4 items-center px-6 md:px-12 lg:px-16 pt-14 md:pt-20 pb-10 md:pb-16 min-h-[560px] md:min-h-[640px]">
+        <div class="md:col-span-7 lg:col-span-7 relative z-10">
+          <h1 class="font-display font-extrabold tracking-tight text-char-900 leading-[.95]
+                     text-[64px] sm:text-[84px] md:text-[92px] lg:text-[108px]">
+            Alita<br class="hidden sm:block" /><span class="sm:hidden"> </span>Ember
+          </h1>
+          <p class="mt-5 md:mt-7 text-[22px] md:text-[26px] lg:text-[28px] leading-snug text-char-800 max-w-[18ch]">
+            Pyrography Kunst mit Feuer&nbsp;und&nbsp;Seele
+          </p>
+
+          <div class="mt-8 md:mt-10 flex flex-wrap gap-4">
+            <a href="galerie.html" class="btn btn-orange">Zur Galerie</a>
+            <a href="shop.html"    class="btn btn-yellow">Shop entdecken</a>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 lg:col-span-5 relative z-10 hero-character-wrap">
+          <div class="relative">
+            <div class="absolute -inset-6 md:-inset-10 rounded-full blur-3xl opacity-90 pointer-events-none"
+                 style="background: radial-gradient(closest-side, rgba(255,150,40,.55), rgba(232,93,4,.20) 55%, transparent 75%);"></div>
+            <img src="assets/alita-character.png" alt="Alita Ember — Pyrography Künstlerin mit feurigen Goggles und brennendem Brenneisen"
+                 class="relative hero-character float-slow w-full max-w-[420px] md:max-w-none mx-auto select-none"
+                 draggable="false" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FEATURED WORKS (overview → galerie.html) ============== -->
+<section id="galerie" class="relative">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-12 md:pb-16">
+    <div class="cream-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 shadow-[0_20px_50px_-30px_rgba(61,43,31,.35)] ring-1 ring-wood-300/60">
+
+      <header class="text-center mb-10 md:mb-14">
+        <p class="eyebrow">Galerie · Auswahl</p>
+        <h2 class="mt-3 font-display font-extrabold text-char-900 text-[40px] sm:text-[52px] md:text-[60px] leading-tight">
+          Featured Works
+        </h2>
+        <p class="mt-4 text-char-800/80 max-w-xl mx-auto text-[16px] md:text-[17px]">
+          Vier ausgewählte Stücke — von glühendem Phönix bis zur Mechanik der Zeit. Die vollständige Sammlung wartet in der Galerie.
+        </p>
+      </header>
+
+      <div id="works-grid" class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6"></div>
+
+      <div class="mt-12 md:mt-14 flex flex-col sm:flex-row gap-4 items-center justify-center">
+        <a href="galerie.html" class="btn btn-orange">
+          Zur vollen Galerie
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="galerie.html#filter" class="arrow-link">Nach Kategorien filtern</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ABOUT (overview → ueber.html) ============== -->
+<section id="ueber" class="relative">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pb-12 md:pb-16">
+    <div class="wood-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-14 md:py-20 ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.4)] grid md:grid-cols-12 gap-10 items-center">
+      <div class="md:col-span-7">
+        <p class="eyebrow">Über mich · Kurz</p>
+        <h2 class="mt-3 font-display font-extrabold text-char-900 text-[36px] md:text-[48px] leading-tight">
+          Mit dem Brenneisen erzähle ich Geschichten.
+        </h2>
+        <p class="mt-5 text-[17px] md:text-[18px] leading-relaxed text-char-800/90 max-w-2xl">
+          Ich bin Alita — Pyrographie-Künstlerin aus Leidenschaft. Jedes Stück entsteht in stundenlanger
+          Handarbeit, Linie für Linie, Funke für Funke. Holz, Hitze, Atem.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-4">
+          <a href="ueber.html" class="btn btn-orange">
+            Meine Geschichte
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="ueber.html#prozess" class="arrow-link">Mein Prozess im Detail</a>
+        </div>
+      </div>
+      <div class="md:col-span-5">
+        <div class="relative">
+          <div class="absolute -inset-4 rounded-full blur-2xl opacity-80"
+               style="background: radial-gradient(closest-side, rgba(255,150,40,.45), transparent 70%);"></div>
+          <img src="assets/logo.png" alt="" class="relative w-44 h-44 md:w-56 md:h-56 rounded-full object-cover ring-1 ring-wood-400/60 mx-auto shadow-ember-glow" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SHOP (overview → shop.html) ============== -->
+<section id="shop" class="relative">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pb-12 md:pb-16">
+    <div class="cream-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-14 md:py-20 ring-1 ring-wood-300/60 text-center">
+      <p class="eyebrow">Shop · Überblick</p>
+      <h2 class="mt-3 font-display font-extrabold text-char-900 text-[36px] md:text-[48px] leading-tight">
+        Originale & limitierte Editionen
+      </h2>
+      <p class="mt-4 text-char-800/80 max-w-xl mx-auto text-[16px] md:text-[17px]">
+        Jedes Werk ist ein Unikat — signiert, datiert, in liebevoller Verpackung versendet. Im Shop findest du Preise, Versandinfos und verfügbare Stücke.
+      </p>
+
+      <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+        <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/30 p-5">
+          <div class="font-display font-bold text-char-900 text-2xl">Originale</div>
+          <p class="mt-1 text-sm text-char-800/80">Einzelstücke, signiert.</p>
+        </div>
+        <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/30 p-5">
+          <div class="font-display font-bold text-char-900 text-2xl">Editionen</div>
+          <p class="mt-1 text-sm text-char-800/80">Kleinserien, nummeriert.</p>
+        </div>
+        <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/30 p-5">
+          <div class="font-display font-bold text-char-900 text-2xl">Auftrag</div>
+          <p class="mt-1 text-sm text-char-800/80">Dein Motiv, gebrannt.</p>
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="shop.html" class="btn btn-yellow">
+          Zum vollen Shop
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="kontakt.html#auftrag" class="arrow-link">Auftragsarbeit anfragen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CONTACT (overview → kontakt.html) ============== -->
+<section id="kontakt" class="relative">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pb-24 md:pb-32">
+    <div class="wood-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 ring-1 ring-wood-400/40 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <p class="eyebrow">Kontakt · Kurz</p>
+        <h2 class="mt-3 font-display font-extrabold text-char-900 text-[32px] md:text-[42px] leading-tight">
+          Sag Hallo. <br/>Oder: erzähl mir deine Idee.
+        </h2>
+        <p class="mt-4 text-char-800/85 text-[16px] md:text-[17px] leading-relaxed max-w-md">
+          Für ausführliche Anfragen, Auftragsarbeiten und Presse findest du alle Details auf der Kontaktseite.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="kontakt.html" class="btn btn-orange">
+            Zur Kontaktseite
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="kontakt.html#auftrag" class="arrow-link">Auftragsarbeit</a>
+        </div>
+      </div>
+      <form class="grid gap-3" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Gesendet ✓'; this.reset();">
+        <input required type="text"  placeholder="Dein Name"     class="field" />
+        <input required type="email" placeholder="Deine E-Mail"  class="field" />
+        <textarea required rows="3"  placeholder="Kurze Nachricht" class="field"></textarea>
+        <button class="btn btn-orange justify-self-start">Nachricht senden</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="border-t border-wood-400/40">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-char-800/70">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="" class="w-8 h-8 rounded-full object-cover ring-1 ring-wood-400/60" />
+      <span>© <span id="yr"></span> Alita Ember · Pyrography</span>
+    </div>
+    <div class="flex items-center gap-5">
+      <a href="galerie.html" class="hover:text-ember-700">Galerie</a>
+      <a href="shop.html"    class="hover:text-ember-700">Shop</a>
+      <a href="blog.html"    class="hover:text-ember-700">Blog</a>
+      <a href="ueber.html"   class="hover:text-ember-700">Über mich</a>
+      <a href="kontakt.html" class="hover:text-ember-700">Kontakt</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============== MODAL ============== -->
+<div id="modal" class="fixed inset-0 z-[60] hidden items-center justify-center px-4">
+  <div id="modal-backdrop" class="absolute inset-0 modal-backdrop"></div>
+  <div id="modal-card" class="relative modal-pop w-full max-w-3xl rounded-3xl overflow-hidden shadow-ember-glow-lg ring-1 ring-ember-500/40 bg-wood-100">
+    <button id="modal-close" aria-label="Schließen"
+            class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/30 hover:bg-black/50 text-white grid place-items-center backdrop-blur">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="grid md:grid-cols-2">
+      <div class="bg-wood-200 p-6 md:p-8 grid place-items-center">
+        <div class="relative w-full aspect-[3/4] max-w-[360px]">
+          <div class="absolute -inset-4 rounded-3xl blur-2xl opacity-80"
+               style="background: radial-gradient(closest-side, rgba(255,140,30,.45), transparent 70%);"></div>
+          <img id="modal-img" alt="" class="relative w-full h-full object-cover rounded-2xl ring-1 ring-wood-400/50" />
+        </div>
+      </div>
+      <div class="p-7 md:p-10 wood-panel">
+        <p class="eyebrow" id="modal-eyebrow">Werk</p>
+        <h3 id="modal-title" class="mt-2 font-display font-extrabold text-char-900 text-3xl md:text-4xl leading-tight">Titel</h3>
+        <p id="modal-desc"  class="mt-4 text-char-800/90 text-[16px] leading-relaxed"></p>
+        <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a id="modal-shop-link" href="shop.html" class="btn btn-orange">In den Shop</a>
+          <button id="modal-close-2" class="btn btn-yellow">Schließen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/site.js"></script>
+<script>
+  // works data shared with subpages would normally live in a JS module;
+  // for this homepage we inline the four featured items.
+  const WORKS = [
+    { id:'phoenix', title:'Phönix', img:'assets/work-phoenix.png',
+      eyebrow:'Holzscheibe · Ø 28 cm',
+      desc:'Aus der Asche aufsteigend: ein Phönix mit lodernden Schwingen, gebrannt in handgesägte Birkenscheibe. Glüht im Gegenlicht.',
+      meta:[['Material','Birke, naturbelassen'],['Technik','Pyrographie + Akzent-Lasur'],['Größe','28 cm Durchmesser'],['Auflage','Unikat · signiert']] },
+    { id:'rose', title:'Rose', img:'assets/work-rose.png',
+      eyebrow:'Holzscheibe · Ø 22 cm',
+      desc:'Eine Rose in Glut: weiche Schattierungen, brennende Konturen — ein Stück Stille auf warmem Birkenholz.',
+      meta:[['Material','Birke, geölt'],['Technik','Feinpyrographie'],['Größe','22 cm Durchmesser'],['Auflage','Unikat · signiert']] },
+    { id:'forest', title:'Nebelwald', img:'assets/work-forest.png',
+      eyebrow:'Holzpaneel · 30 × 40 cm',
+      desc:'Ein verlorener Pfad im Nebelwald, gesäumt von glühenden Funken. Tiefe durch Schichten — gebrannt, nicht gemalt.',
+      meta:[['Material','Eiche'],['Technik','Pyrographie mit Funken-Akzent'],['Größe','30 × 40 cm'],['Auflage','3 von 5']] },
+    { id:'clock', title:'Steampunk-Uhr', img:'assets/work-clock.png',
+      eyebrow:'Holzpaneel · 28 × 38 cm',
+      desc:'Zahnräder, Federn, eine schweigende Uhr — Mechanik aus Holz und Hitze, Stück für Stück gebrannt.',
+      meta:[['Material','Birke, gewachst'],['Technik','Hochdetail-Pyrographie'],['Größe','28 × 38 cm'],['Auflage','Unikat · signiert']] }
+  ];
+
+  (function(){
+    const grid = document.getElementById('works-grid');
+    grid.innerHTML = WORKS.map(w => `
+      <button class="work-card group relative text-left focus:outline-none focus:ring-2 focus:ring-ember-500/60 rounded-2xl" data-id="${w.id}" aria-label="${w.title} Details öffnen">
+        <span class="work-card-glow"></span>
+        <div class="work-card-frame p-3 md:p-4">
+          <div class="aspect-[3/4] overflow-hidden rounded-xl bg-wood-300">
+            <img src="${w.img}" alt="${w.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" />
+          </div>
+          <div class="mt-3 md:mt-4 flex items-center justify-between">
+            <span class="font-display font-bold text-char-900 text-[18px] md:text-[20px]">${w.title}</span>
+            <span class="text-ember-700 text-sm font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              Ansehen
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </button>
+    `).join('');
+    grid.querySelectorAll('.work-card').forEach(btn => {
+      btn.addEventListener('click', () => openModal(btn.dataset.id));
+    });
+  })();
+
+  const modal = document.getElementById('modal');
+  const backdrop = document.getElementById('modal-backdrop');
+  function openModal(id){
+    const w = WORKS.find(x => x.id === id);
+    if (!w) return;
+    document.getElementById('modal-img').src = w.img;
+    document.getElementById('modal-img').alt = w.title;
+    document.getElementById('modal-eyebrow').textContent = w.eyebrow;
+    document.getElementById('modal-title').textContent = w.title;
+    document.getElementById('modal-desc').textContent  = w.desc;
+    document.getElementById('modal-shop-link').href = 'shop.html#' + w.id;
+    document.getElementById('modal-meta').innerHTML = w.meta.map(([k,v]) => `
+      <li class="rounded-xl bg-white/55 border border-wood-400/40 px-3 py-2">
+        <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>
+        <span class="block mt-0.5 font-medium">${v}</span>
+      </li>
+    `).join('');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-close-2').addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
