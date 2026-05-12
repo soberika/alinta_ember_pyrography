@@ -1,0 +1,11 @@
+{
+  "id": "custom-commission",
+  "title": "Auftragsarbeit",
+  "price": 250,
+  "img": "/images/logo.png",
+  "desc": "Dein Motiv, gebrannt in Holz. Tier, Portrait, Landschaft oder Erinnerungsstück — ich melde mich mit Skizze und Angebot binnen 3 Werktagen.",
+  "available": true,
+  "edition": "Ab 250 € · individuell",
+  "size": "nach Absprache",
+  "material": "Birke, Eiche oder Linde"
+}

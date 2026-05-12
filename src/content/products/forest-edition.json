@@ -1,0 +1,11 @@
+{
+  "id": "forest-edition",
+  "title": "Nebelwald — Edition 3/5",
+  "price": 290,
+  "img": "/images/work-forest.png",
+  "desc": "Limitierte Edition des Nebelwalds auf Eichenpaneel. Nummer 3 von 5, nummeriert und signiert.",
+  "available": true,
+  "edition": "3 von 5 · nummeriert",
+  "size": "30 × 40 cm",
+  "material": "Eiche"
+}

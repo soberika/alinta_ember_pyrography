@@ -1,0 +1,16 @@
+{
+  "id": "phoenix",
+  "title": "Phönix",
+  "eyebrow": "Holzscheibe · Ø 28 cm",
+  "img": "/images/work-phoenix.png",
+  "desc": "Aus der Asche aufsteigend: ein Phönix mit lodernden Schwingen, gebrannt in handgesägte Birkenscheibe. Glüht im Gegenlicht.",
+  "category": "tiere",
+  "meta": [
+    ["Material", "Birke, naturbelassen"],
+    ["Technik", "Pyrographie + Akzent-Lasur"],
+    ["Größe", "28 cm Durchmesser"],
+    ["Auflage", "Unikat · signiert"]
+  ],
+  "shopSlug": "phoenix",
+  "featured": true
+}

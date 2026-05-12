@@ -1,0 +1,16 @@
+{
+  "id": "clock",
+  "title": "Steampunk-Uhr",
+  "eyebrow": "Holzpaneel · 28 × 38 cm",
+  "img": "/images/work-clock.png",
+  "desc": "Zahnräder, Federn, eine schweigende Uhr — Mechanik aus Holz und Hitze, Stück für Stück gebrannt.",
+  "category": "steampunk",
+  "meta": [
+    ["Material", "Birke, gewachst"],
+    ["Technik", "Hochdetail-Pyrographie"],
+    ["Größe", "28 × 38 cm"],
+    ["Auflage", "Unikat · signiert"]
+  ],
+  "shopSlug": "clock",
+  "featured": true
+}

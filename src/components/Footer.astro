@@ -1,0 +1,23 @@
+---
+const links = [
+  { href: '/galerie', label: 'Galerie' },
+  { href: '/shop',    label: 'Shop' },
+  { href: '/blog',    label: 'Blog' },
+  { href: '/ueber',   label: 'Über mich' },
+  { href: '/kontakt', label: 'Kontakt' },
+];
+---
+
+<footer class="border-t border-wood-400/40">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-char-800/70">
+    <div class="flex items-center gap-3">
+      <img src="/images/logo.png" alt="" class="w-8 h-8 rounded-full object-cover ring-1 ring-wood-400/60" />
+      <span>© <span id="yr"></span> Alita Ember · Pyrography</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-5 justify-center">
+      {links.map(l => (
+        <a href={l.href} class="hover:text-ember-700 transition-colors">{l.label}</a>
+      ))}
+    </div>
+  </div>
+</footer>

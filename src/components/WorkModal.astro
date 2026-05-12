@@ -1,0 +1,85 @@
+---
+interface WorkData {
+  id: string;
+  title: string;
+  eyebrow: string;
+  img: string;
+  desc: string;
+  meta: [string, string][];
+  shopSlug?: string;
+}
+interface Props {
+  works: WorkData[];
+}
+const { works } = Astro.props;
+---
+
+<!-- Modal overlay -->
+<div id="modal" class="fixed inset-0 z-[60] hidden items-center justify-center px-4">
+  <div id="modal-backdrop" class="absolute inset-0 modal-backdrop"></div>
+  <div id="modal-card" class="relative modal-pop w-full max-w-3xl rounded-3xl overflow-hidden shadow-ember-glow-lg ring-1 ring-ember-500/40 bg-wood-100">
+    <button id="modal-close" aria-label="Schließen"
+            class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/30 hover:bg-black/50 text-white grid place-items-center backdrop-blur transition-colors">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+    <div class="grid md:grid-cols-2">
+      <div class="bg-wood-200 p-6 md:p-8 grid place-items-center">
+        <div class="relative w-full aspect-[3/4] max-w-[360px]">
+          <div class="absolute -inset-4 rounded-3xl blur-2xl opacity-80"
+               style="background: radial-gradient(closest-side, rgba(255,140,30,.45), transparent 70%);"></div>
+          <img id="modal-img" alt="" class="relative w-full h-full object-cover rounded-2xl ring-1 ring-wood-400/50" />
+        </div>
+      </div>
+      <div class="p-7 md:p-10 wood-panel">
+        <p class="eyebrow" id="modal-eyebrow">Werk</p>
+        <h3 id="modal-title" class="mt-2 font-display font-extrabold text-char-900 text-3xl md:text-4xl leading-tight">Titel</h3>
+        <p id="modal-desc"  class="mt-4 text-char-800/90 text-[16px] leading-relaxed"></p>
+        <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a id="modal-shop-link" href="/shop" class="btn btn-orange">In den Shop</a>
+          <button id="modal-close-2" class="btn btn-yellow">Schließen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ works }}>
+  const modal    = document.getElementById('modal');
+  const backdrop = document.getElementById('modal-backdrop');
+
+  function openModal(id) {
+    const w = works.find(x => x.id === id);
+    if (!w || !modal) return;
+    document.getElementById('modal-img').src         = w.img;
+    document.getElementById('modal-img').alt         = w.title;
+    document.getElementById('modal-eyebrow').textContent = w.eyebrow;
+    document.getElementById('modal-title').textContent   = w.title;
+    document.getElementById('modal-desc').textContent    = w.desc;
+    const shopLink = document.getElementById('modal-shop-link');
+    shopLink.href = w.shopSlug ? `/shop#${w.shopSlug}` : '/shop';
+    document.getElementById('modal-meta').innerHTML = w.meta.map(([k, v]) => `
+      <li class="rounded-xl bg-white/55 border border-wood-400/40 px-3 py-2">
+        <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>
+        <span class="block mt-0.5 font-medium">${v}</span>
+      </li>
+    `).join('');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-close-2').addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  window.addEventListener('open-modal', e => openModal(e.detail));
+</script>

@@ -1,0 +1,11 @@
+{
+  "id": "phoenix-print",
+  "title": "Phönix — Fine Art Print",
+  "price": 65,
+  "img": "/images/work-phoenix.png",
+  "desc": "Hochauflösender Fine Art Print des Phönix-Originals auf Baumwollpapier. Signiert, 5er Auflage.",
+  "available": true,
+  "edition": "5er Auflage · signiert",
+  "size": "30 × 40 cm",
+  "material": "Baumwollpapier 300g"
+}

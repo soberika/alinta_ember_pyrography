@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  activeNav?: string;
+}
+
+const {
+  title,
+  description = 'Alita Ember — Pyrography Kunst mit Feuer und Seele. Handgebrannte Unikate aus Holz. Originale, limitierte Editionen und Auftragsarbeiten.',
+  ogImage = '/images/logo.png',
+  activeNav = '',
+} = Astro.props;
+
+const siteUrl = 'https://alinta-ember-pyrography.vercel.app';
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content={siteUrl + Astro.url.pathname} />
+  <meta property="og:title"       content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image"       content={siteUrl + ogImage} />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <!-- Preload fonts (also loaded via global.css @import for non-JS render) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+
+  <!-- Theme init (before paint to avoid FOUC) -->
+  <script is:inline>
+    (function(){try{var t=localStorage.getItem('alita-theme');if(t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();
+  </script>
+</head>
+<body class="font-sans text-char-800">
+  <Header activeNav={activeNav} />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+
+  <script>
+    import '../scripts/site.ts';
+  </script>
+</body>
+</html>

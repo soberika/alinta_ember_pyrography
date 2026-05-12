@@ -1,0 +1,16 @@
+{
+  "id": "forest",
+  "title": "Nebelwald",
+  "eyebrow": "Holzpaneel · 30 × 40 cm",
+  "img": "/images/work-forest.png",
+  "desc": "Ein verlorener Pfad im Nebelwald, gesäumt von glühenden Funken. Tiefe durch Schichten — gebrannt, nicht gemalt.",
+  "category": "natur",
+  "meta": [
+    ["Material", "Eiche"],
+    ["Technik", "Pyrographie mit Funken-Akzent"],
+    ["Größe", "30 × 40 cm"],
+    ["Auflage", "3 von 5"]
+  ],
+  "shopSlug": "forest",
+  "featured": true
+}

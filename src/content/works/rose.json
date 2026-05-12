@@ -1,0 +1,16 @@
+{
+  "id": "rose",
+  "title": "Rose",
+  "eyebrow": "Holzscheibe · Ø 22 cm",
+  "img": "/images/work-rose.png",
+  "desc": "Eine Rose in Glut: weiche Schattierungen, brennende Konturen — ein Stück Stille auf warmem Birkenholz.",
+  "category": "natur",
+  "meta": [
+    ["Material", "Birke, geölt"],
+    ["Technik", "Feinpyrographie"],
+    ["Größe", "22 cm Durchmesser"],
+    ["Auflage", "Unikat · signiert"]
+  ],
+  "shopSlug": "rose",
+  "featured": true
+}

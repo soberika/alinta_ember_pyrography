@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Static blog posts (can be migrated to Content Collections later)
+const posts = [
+  {
+    id: 'lichtfuehrung-im-nebel',
+    title: 'Lichtführung im Nebel — Wie Tiefe entsteht',
+    category: 'Technik',
+    date: '2024-11-12',
+    readTime: 6,
+    featured: true,
+    excerpt: 'Wie ich mit variierender Hitze und mehreren Schichten eine atmosphärische Tiefe im Nebelwald-Motiv geschaffen habe — von der ersten Konturlinie bis zum letzten Funken-Akzent.',
+    tags: ['Lichtführung im Nebel', 'Hitze-Kalibrierung', 'Funken-Akzente in Glut', 'Versiegelung & Geduld'],
+  },
+  {
+    id: 'steampunk-edition',
+    title: 'Steampunk-Edition · Vorbestellung offen',
+    category: 'News',
+    date: '2024-10-28',
+    readTime: 3,
+    featured: false,
+    excerpt: 'Die neue Steampunk-Serie ist fertig — 5 Stücke, jedes ein Unikat. Zahnräder, Federn, schweigendes Uhrwerk. Vorbestellung ab sofort möglich.',
+    tags: [],
+  },
+  {
+    id: 'holzauswahl',
+    title: 'Warum Holzauswahl alles ist',
+    category: 'Prozess',
+    date: '2024-09-15',
+    readTime: 5,
+    featured: false,
+    excerpt: 'Birke, Eiche, Linde — jede Holzart reagiert anders auf Hitze. Ein Blick in die Werkstatt und warum ich jedes Brett mindestens 12 Monate lagere.',
+    tags: [],
+  },
+  {
+    id: 'werkzeug',
+    title: 'Werkzeug-Check: Mein Brennkolben-Setup',
+    category: 'Werkstatt',
+    date: '2024-08-03',
+    readTime: 4,
+    featured: false,
+    excerpt: '14 Spitzen, Temperaturen von 380 bis 750 °C — ein ehrlicher Überblick über mein Setup und was ich für Einsteiger empfehlen würde.',
+    tags: [],
+  },
+];
+
+const categories = ['Alle', 'Technik', 'News', 'Prozess', 'Werkstatt'];
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+
+<BaseLayout
+  title="Blog — Alita Ember Pyrography"
+  description="Werkstatt-Tagebuch von Alita Ember: Techniken, News, Werkstatt-Einblicke und Geschichten aus dem Atelier."
+  activeNav="blog"
+>
+
+<div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-24 md:pb-32">
+
+  <!-- Header -->
+  <div class="text-center mb-10 md:mb-14">
+    <p class="eyebrow">Blog</p>
+    <h1 class="mt-3 font-display font-extrabold text-char-900 text-[40px] sm:text-[52px] md:text-[64px] leading-tight">
+      Werkstatt-Tagebuch
+    </h1>
+    <p class="mt-4 text-char-800/80 max-w-xl mx-auto text-[16px] md:text-[17px]">
+      Skizzen, Techniken, Werkstatt-Notizen und News aus dem Atelier — frisch aus dem Rauch.
+    </p>
+  </div>
+
+  <!-- Category filter -->
+  <div class="flex flex-wrap gap-3 justify-center mb-10">
+    {categories.map((cat, i) => (
+      <button class={`filter-chip${i === 0 ? ' active' : ''}`} data-filter={cat === 'Alle' ? 'alle' : cat.toLowerCase()}>
+        {cat}
+      </button>
+    ))}
+  </div>
+
+  <!-- Featured post -->
+  {posts.filter(p => p.featured).map(post => (
+    <div class="wood-panel rounded-[28px] ring-1 ring-wood-400/40 overflow-hidden mb-6 grid md:grid-cols-2 group" data-category={post.category.toLowerCase()}>
+      <div class="bg-wood-300/60 min-h-[220px] md:min-h-auto flex items-center justify-center p-8">
+        <div class="text-center">
+          <div class="inline-block rounded-full px-3 py-1 bg-ember-500 text-white text-[11px] font-bold uppercase tracking-widest mb-3">
+            Featured
+          </div>
+          <div class="font-display font-extrabold text-char-900 text-[48px] md:text-[64px] leading-none opacity-20">✦</div>
+        </div>
+      </div>
+      <div class="px-7 md:px-10 py-8 md:py-10">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-[11px] font-bold uppercase tracking-widest text-ember-700 bg-ember-500/10 px-2.5 py-1 rounded-full">{post.category}</span>
+          <span class="text-[13px] text-char-800/60">{formatDate(post.date)}</span>
+          <span class="text-[13px] text-char-800/60">{post.readTime} min Lesezeit</span>
+        </div>
+        <h2 class="font-display font-extrabold text-char-900 text-[24px] md:text-[30px] leading-snug">{post.title}</h2>
+        <p class="mt-3 text-char-800/80 text-[15px] leading-relaxed">{post.excerpt}</p>
+        {post.tags.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-2">
+            {post.tags.map(tag => (
+              <span class="text-[12px] bg-white/55 ring-1 ring-wood-400/30 px-2.5 py-1 rounded-full text-char-800/70">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        <a href={`/blog/${post.id}`} class="mt-6 inline-flex items-center gap-2 arrow-link">
+          Weiterlesen
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  ))}
+
+  <!-- Post grid -->
+  <div id="posts-grid" class="grid md:grid-cols-3 gap-5 md:gap-6 mb-10">
+    {posts.filter(p => !p.featured).map(post => (
+      <article class="cream-panel rounded-[24px] ring-1 ring-wood-300/60 overflow-hidden group transition-transform duration-300 hover:-translate-y-1" data-category={post.category.toLowerCase()}>
+        <div class="bg-wood-300/40 min-h-[140px] flex items-center justify-center">
+          <span class="font-display font-extrabold text-char-900 text-[48px] opacity-15">✦</span>
+        </div>
+        <div class="p-5 md:p-6">
+          <div class="flex items-center gap-2 mb-3 flex-wrap">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-ember-700 bg-ember-500/10 px-2 py-0.5 rounded-full">{post.category}</span>
+            <span class="text-[12px] text-char-800/55">{formatDate(post.date)} · {post.readTime} min</span>
+          </div>
+          <h2 class="font-display font-bold text-char-900 text-[17px] md:text-[19px] leading-snug">{post.title}</h2>
+          <p class="mt-2 text-[14px] text-char-800/75 leading-relaxed line-clamp-3">{post.excerpt}</p>
+          <a href={`/blog/${post.id}`} class="mt-4 inline-flex items-center gap-1.5 arrow-link text-[14px]">
+            Weiterlesen
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- Newsletter -->
+  <div class="wood-panel rounded-[28px] px-6 md:px-12 py-10 md:py-14 ring-1 ring-wood-400/40 text-center">
+    <p class="eyebrow">Newsletter</p>
+    <h2 class="mt-3 font-display font-extrabold text-char-900 text-[26px] md:text-[36px] leading-tight">
+      Funken im Posteingang.
+    </h2>
+    <p class="mt-3 text-char-800/80 max-w-md mx-auto text-[15px]">
+      Ein Brief pro Monat: neue Werke, Werkstatt-Einblicke, Auftragstermine. Kein Spam, jederzeit abbestellbar.
+    </p>
+    <form
+      class="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+      onsubmit="event.preventDefault(); this.querySelector('button').textContent='Abonniert ✓'; this.reset();"
+    >
+      <input type="email" required placeholder="Deine E-Mail" class="field flex-1" />
+      <button type="submit" class="btn btn-orange shrink-0">Abonnieren</button>
+    </form>
+    <p class="mt-3 text-[12px] text-char-800/55 max-w-sm mx-auto">
+      Mit dem Abonnieren stimmst du der Verarbeitung deiner E-Mail zum Versand des Newsletters zu.
+    </p>
+  </div>
+
+</div>
+
+</BaseLayout>
+
+<script>
+const chips = document.querySelectorAll<HTMLButtonElement>('.filter-chip[data-filter]');
+const posts = document.querySelectorAll<HTMLElement>('[data-category]');
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    const filter = chip.dataset.filter ?? 'alle';
+    posts.forEach(post => {
+      post.style.display = (filter === 'alle' || post.dataset.category === filter) ? '' : 'none';
+    });
+  });
+});
+</script>
