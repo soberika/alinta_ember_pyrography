@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blogPosts');
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const allPosts = await getCollection('blogPosts');
+const related = allPosts
+  .filter(p => p.slug !== post.slug)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function capitalise(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+const { title, date, category, excerpt, readTime, img } = post.data;
+---
+
+<BaseLayout
+  title={`${title} — Alita Ember Pyrography`}
+  description={excerpt}
+  ogImage={img ?? '/images/logo.png'}
+  activeNav="blog"
+>
+
+<div class="max-w-3xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-24 md:pb-32">
+
+  <!-- Back link -->
+  <a href="/blog" class="inline-flex items-center gap-2 text-[14px] font-semibold text-char-800/60 hover:text-ember-700 transition-colors mb-10">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Zurück zum Blog
+  </a>
+
+  <!-- Article header -->
+  <header class="mb-10 md:mb-12">
+    <div class="flex flex-wrap items-center gap-3 mb-5">
+      <span class="text-[11px] font-bold uppercase tracking-widest text-ember-700 bg-ember-500/10 px-3 py-1 rounded-full">
+        {capitalise(category)}
+      </span>
+      <span class="text-[13px] text-char-800/60">{formatDate(date)}</span>
+      <span class="text-[13px] text-char-800/60">{readTime} min Lesezeit</span>
+    </div>
+    <h1 class="font-display font-extrabold text-char-900 text-[32px] sm:text-[40px] md:text-[52px] leading-tight">
+      {title}
+    </h1>
+    <p class="mt-5 text-[17px] md:text-[19px] text-char-800/75 leading-relaxed border-l-4 border-ember-500/40 pl-5">
+      {excerpt}
+    </p>
+  </header>
+
+  <!-- Divider -->
+  <div class="section-divider mb-10"></div>
+
+  <!-- Markdown body -->
+  <div class="prose-ember">
+    <Content />
+  </div>
+
+  <!-- Divider -->
+  <div class="section-divider mt-14 mb-10"></div>
+
+  <!-- Related posts -->
+  {related.length > 0 && (
+    <aside>
+      <p class="eyebrow mb-6">Weitere Beiträge</p>
+      <div class="grid sm:grid-cols-3 gap-4">
+        {related.map(p => (
+          <a href={`/blog/${p.slug}`} class="cream-panel rounded-[20px] ring-1 ring-wood-300/60 p-5 group hover:-translate-y-1 transition-transform duration-300 block">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-ember-700 block mb-2">{capitalise(p.data.category)}</span>
+            <span class="font-display font-bold text-char-900 text-[15px] leading-snug group-hover:text-ember-700 transition-colors block">
+              {p.data.title}
+            </span>
+            <span class="mt-2 text-[12px] text-char-800/55 block">{p.data.readTime} min</span>
+          </a>
+        ))}
+      </div>
+    </aside>
+  )}
+
+</div>
+
+</BaseLayout>
