@@ -1,0 +1,83 @@
+[
+  {
+    "id": "phoenix",
+    "category": "tiere",
+    "title": "Phönix",
+    "image": "assets/work-phoenix.png",
+    "eyebrow": "Holzscheibe · Ø 28 cm",
+    "description": "Aus der Asche aufsteigend — lodernde Schwingen auf handgesägter Birkenscheibe.",
+    "meta": [["Material","Birke"],["Größe","Ø 28 cm"],["Jahr","2025"],["Auflage","Unikat"]]
+  },
+  {
+    "id": "rose",
+    "category": "natur",
+    "title": "Rose",
+    "image": "assets/work-rose.png",
+    "eyebrow": "Holzscheibe · Ø 22 cm",
+    "description": "Eine Rose in Glut — weiche Schattierungen, brennende Konturen.",
+    "meta": [["Material","Birke, geölt"],["Größe","Ø 22 cm"],["Jahr","2025"],["Auflage","Unikat"]]
+  },
+  {
+    "id": "forest",
+    "category": "natur",
+    "title": "Nebelwald",
+    "image": "assets/work-forest.png",
+    "eyebrow": "Holzpaneel · 30 × 40 cm",
+    "description": "Verlorener Pfad im Nebel, gesäumt von glühenden Funken.",
+    "meta": [["Material","Eiche"],["Größe","30 × 40 cm"],["Jahr","2024"],["Auflage","3 von 5"]]
+  },
+  {
+    "id": "clock",
+    "category": "steampunk",
+    "title": "Steampunk-Uhr",
+    "image": "assets/work-clock.png",
+    "eyebrow": "Holzpaneel · 28 × 38 cm",
+    "description": "Zahnräder, Federn, eine schweigende Uhr — Mechanik aus Holz und Hitze.",
+    "meta": [["Material","Birke, gewachst"],["Größe","28 × 38 cm"],["Jahr","2024"],["Auflage","Unikat"]]
+  },
+  {
+    "id": "phoenix-ii",
+    "category": "tiere",
+    "title": "Phönix II — Studie",
+    "image": "assets/work-phoenix.png",
+    "eyebrow": "Holzscheibe · Ø 18 cm",
+    "description": "Vorstudie zum großen Phönix — reduzierte Konturen, klare Bewegung.",
+    "meta": [["Material","Birke"],["Größe","Ø 18 cm"],["Jahr","2025"],["Auflage","1 von 3"]]
+  },
+  {
+    "id": "rose-noir",
+    "category": "natur",
+    "title": "Rose Noir",
+    "image": "assets/work-rose.png",
+    "eyebrow": "Holzscheibe · Ø 22 cm",
+    "description": "Dieselbe Rose, dunkler gebrannt — schwerer Atem, mehr Schatten.",
+    "meta": [["Material","Birke"],["Größe","Ø 22 cm"],["Jahr","2025"],["Auflage","Unikat"]]
+  },
+  {
+    "id": "forest-dusk",
+    "category": "natur",
+    "title": "Nebelwald · Dämmerung",
+    "image": "assets/work-forest.png",
+    "eyebrow": "Holzpaneel · 24 × 32 cm",
+    "description": "Kleinere Studie zum Nebelwald — letztes Licht zwischen den Stämmen.",
+    "meta": [["Material","Eiche"],["Größe","24 × 32 cm"],["Jahr","2024"],["Auflage","Unikat"]]
+  },
+  {
+    "id": "gears",
+    "category": "steampunk",
+    "title": "Zahnräder",
+    "image": "assets/work-clock.png",
+    "eyebrow": "Holzpaneel · 22 × 30 cm",
+    "description": "Detailstudie aus der Steampunk-Reihe — nur die Mechanik, ohne Zifferblatt.",
+    "meta": [["Material","Birke"],["Größe","22 × 30 cm"],["Jahr","2024"],["Auflage","2 von 4"]]
+  },
+  {
+    "id": "alita-self",
+    "category": "portrait",
+    "title": "Selbstporträt · Alita",
+    "image": "assets/alita-character.png",
+    "eyebrow": "Holzpaneel · 30 × 45 cm",
+    "description": "Selbstporträt im Werkstattlicht — Goggles, Funken, ein Lächeln.",
+    "meta": [["Material","Birke"],["Größe","30 × 45 cm"],["Jahr","2025"],["Auflage","Unikat"]]
+  }
+]

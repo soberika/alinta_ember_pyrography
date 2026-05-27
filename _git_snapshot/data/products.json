@@ -1,0 +1,8 @@
+[
+  { "id": "phoenix",   "title": "Phönix",          "image": "assets/work-phoenix.png", "price": 420, "stock": "verfügbar", "tag": "Original",      "date": "2025-09" },
+  { "id": "rose",      "title": "Rose",            "image": "assets/work-rose.png",    "price": 280, "stock": "verfügbar", "tag": "Original",      "date": "2025-08" },
+  { "id": "forest",    "title": "Nebelwald",       "image": "assets/work-forest.png",  "price": 540, "stock": "3 von 5",   "tag": "Edition · 3/5", "date": "2024-11" },
+  { "id": "clock",     "title": "Steampunk-Uhr",   "image": "assets/work-clock.png",   "price": 620, "stock": "verfügbar", "tag": "Original",      "date": "2024-10" },
+  { "id": "rose-noir", "title": "Rose Noir",       "image": "assets/work-rose.png",    "price": 310, "stock": "verfügbar", "tag": "Original",      "date": "2025-06" },
+  { "id": "gears",     "title": "Zahnräder",       "image": "assets/work-clock.png",   "price": 380, "stock": "2 von 4",   "tag": "Edition · 2/4", "date": "2024-09" }
+]

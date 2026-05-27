@@ -1,0 +1,124 @@
+[
+  {
+    "slug": "nebelwald",
+    "category": "prozess",
+    "categoryLabel": "Prozess",
+    "date": "10. Mai 2026",
+    "readTime": "6 Min",
+    "title": "Nebelwald · Werkstattbericht",
+    "excerpt": "Drei Wochen, 48 Stunden Brennzeit. Warum Linde manchmal lügt — und wie ich die Glut auf den Boden bekommen habe.",
+    "thumbnail": "illus:funke",
+    "featured": true,
+    "body": [
+      "Der Nebelwald war eine Idee aus dem Winter — geboren in einer feuchten Februar-Frühe, in der die Birken hinter dem Atelier wie Tinte aus dem Nebel traten. Drei Skizzen, vierzehn Tassen Kaffee.",
+      "Die größte Schwierigkeit: das Licht am Boden. Ich wollte echtes Glühen, nicht nur Helligkeit. Lösung war eine zweite Hitzestufe (~620 °C) für die Funkenpunkte, ausschließlich mit der feinsten Spitze.",
+      "Lindenholz war hier eine Diskussion. Es nimmt Hitze gut an, kann aber bei mittleren Temperaturen \"weichlügen\" — die Linie sieht im Moment des Brennens schöner aus, als sie nach dem Abkühlen tatsächlich ist. Ich habe deshalb komplett auf gut gelagerte Birke gewechselt.",
+      "Am Ende standen 48 Stunden Brennzeit, eine Versiegelung mit Walnussöl und ein langer Abend auf der Werkstattstufe."
+    ]
+  },
+  {
+    "slug": "spitzen",
+    "category": "technik",
+    "categoryLabel": "Technik",
+    "date": "02. Mai 2026",
+    "readTime": "4 Min",
+    "title": "14 Spitzen, 14 Stimmen",
+    "excerpt": "Eine kleine Typologie der Brennspitzen — und welche ich für was nutze. Mit Vergleichsschnitten auf Birke.",
+    "thumbnail": "illus:spitzen",
+    "body": [
+      "Brennspitzen sind wie Pinsel: kein \"besser\" oder \"schlechter\", sondern Charaktere. Die haarfeine Skalpellspitze ist für Konturen unschlagbar, die Schraffurspitze frisst Flächen.",
+      "Mein häufigster Fehler in den ersten Jahren: zu wenig Spitzenwechsel. Wer mit derselben Spitze einen ganzen Phönix brennt, vergibt 70 % der Tiefe.",
+      "Übungstipp: dieselbe Form (eine Feder, ein Auge) fünfmal nebeneinander brennen, jedes Mal mit anderer Spitze. Der Unterschied wird sofort sichtbar."
+    ]
+  },
+  {
+    "slug": "steampunk-edition",
+    "category": "news",
+    "categoryLabel": "News",
+    "date": "28. Apr 2026",
+    "readTime": "2 Min",
+    "title": "Steampunk-Edition · Vorbestellung offen",
+    "excerpt": "24 nummerierte Stücke, signiert. Versand ab Juni. Vorbestellung im Shop ab sofort möglich.",
+    "thumbnail": "illus:edition",
+    "body": [
+      "Die Steampunk-Reihe, an der ich seit dem Herbst arbeite, geht in eine erste Edition: 24 Stücke, jeweils signiert und nummeriert.",
+      "Motive: Drei Zifferblätter, zwei Zahnrad-Studien, ein Kompass. Größe 30×30 cm auf Birken-Scheibe, Walnussöl-finish.",
+      "Vorbestellung bis 15. Mai im Shop. Versand startet Anfang Juni — wer früh bucht, sichert sich die niedrigeren Nummern."
+    ]
+  },
+  {
+    "slug": "holz",
+    "category": "technik",
+    "categoryLabel": "Technik",
+    "date": "19. Apr 2026",
+    "readTime": "5 Min",
+    "title": "Welche Holzart, für welches Motiv?",
+    "excerpt": "Birke, Eiche, Linde, Pappel. Ein praktischer Vergleich an drei Motiven — und zwei Lektionen, die ich teuer gelernt habe.",
+    "thumbnail": "illus:holz",
+    "body": [
+      "Birke ist der Allrounder: feinporig, gleichmäßig, verzeiht viel. Für Konturarbeit und Portraits meine Erste Wahl.",
+      "Eiche bringt eigene Maserung mit — die musst du ins Motiv einplanen, sonst kämpfst du dagegen. Bei mythologischen Motiven wirkt sie magisch.",
+      "Linde ist weich und freundlich, aber wie oben beschrieben: bei mittleren Temperaturen unzuverlässig. Ideal für sehr feine, ruhige Arbeiten mit konstant niedriger Hitze."
+    ]
+  },
+  {
+    "slug": "werkstatt",
+    "category": "werkstatt",
+    "categoryLabel": "Werkstatt",
+    "date": "11. Apr 2026",
+    "readTime": "3 Min",
+    "title": "Frühjahrsputz im Atelier",
+    "excerpt": "Neue Ablage, sortierte Spitzen, ein Regal nur für Hölzer. Vorher-Nachher und warum Ordnung beim Brennen Stunden spart.",
+    "thumbnail": "illus:studio",
+    "body": [
+      "Drei Tage Pause vom Brennen, dafür: neue Regale, sortierte Spitzen, ein eigener Platz für Hölzer nach Maserung.",
+      "Wichtigste Erkenntnis: Spitzen-Suche kostet im Schnitt 12 Minuten pro Werk. Auf das Jahr gerechnet ist das eine ganze Auftragsarbeit.",
+      "Wer mich besuchen möchte: Tür ist offen, einfach kurz vorher melden."
+    ]
+  },
+  {
+    "slug": "skizze",
+    "category": "prozess",
+    "categoryLabel": "Prozess",
+    "date": "30. Mär 2026",
+    "readTime": "4 Min",
+    "title": "Warum jede Linie zweimal gezeichnet wird",
+    "excerpt": "Mein Skizzen-Prozess in zwei Iterationen — und warum die erste fast nie überlebt.",
+    "thumbnail": "illus:skizze",
+    "body": [
+      "Ich skizziere jedes Motiv zweimal: einmal frei, einmal sauber auf Pauspapier. Die erste Skizze ist Denken, die zweite ist Komposition.",
+      "In neun von zehn Fällen ändert sich zwischen den beiden Skizzen die Bildmitte. Das ist Absicht.",
+      "Erst danach geht es ans Übertragen aufs Holz — mit Bleistift, nie mit Kohle. Kohle hinterlässt Spuren, die beim Brennen mitziehen."
+    ]
+  },
+  {
+    "slug": "auftrag",
+    "category": "news",
+    "categoryLabel": "News",
+    "date": "21. Mär 2026",
+    "readTime": "2 Min",
+    "title": "Auftragsbücher Sommer geöffnet",
+    "excerpt": "Slots für Juni und Juli sind ab heute buchbar. August ist bereits halb voll.",
+    "thumbnail": "illus:klang",
+    "body": [
+      "Auftragsarbeiten für Juni und Juli sind ab heute über die Kontaktseite buchbar.",
+      "Bitte plant ca. 4–8 Wochen Vorlauf für mittlere Größen, 8–12 Wochen für Großformate.",
+      "August ist bereits halb voll — Hochzeitsgeschenke bitte früh anfragen."
+    ]
+  },
+  {
+    "slug": "glut",
+    "category": "prozess",
+    "categoryLabel": "Prozess",
+    "date": "12. Mär 2026",
+    "readTime": "3 Min",
+    "title": "Die Glut auf den Boden bringen",
+    "excerpt": "Echtes Leuchten entsteht nicht aus Hitze, sondern aus dem, was du *nicht* brennst. Ein kurzer Negativraum-Essay.",
+    "thumbnail": "illus:zahn",
+    "body": [
+      "Pyrographie ist ein Negativ-Medium. Das Holz selbst ist das Licht — alles, was du brennst, ist Schatten.",
+      "Glut funktioniert nur, wenn die hellen Stellen wirklich hell bleiben. Das heißt: Disziplin, nicht mehr Hitze.",
+      "Mein bester Trick: ein Stück Pauspapier über die Komposition legen und die geplanten Brennlinien noch einmal nachzeichnen. Was nicht durchscheint, bleibt Holz."
+    ]
+  }
+]
