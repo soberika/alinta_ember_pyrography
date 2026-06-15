@@ -1,0 +1,17 @@
+{
+  "title": "Nebelwald",
+  "category": "natur",
+  "image": "/images/work-forest.png",
+  "eyebrow": "Holzpaneel · 30 × 40 cm",
+  "description": "Verlorener Pfad im Nebel, gesäumt von glühenden Funken.",
+  "year": 2024,
+  "available": true,
+  "type": "Edition",
+  "order": 3,
+  "meta": [
+    { "label": "Material", "value": "Eiche" },
+    { "label": "Größe", "value": "30 × 40 cm" },
+    { "label": "Jahr", "value": "2024" },
+    { "label": "Auflage", "value": "3 von 5" }
+  ]
+}

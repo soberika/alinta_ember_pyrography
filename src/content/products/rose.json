@@ -1,0 +1,12 @@
+{
+  "title": "Rose",
+  "image": "/images/work-rose.png",
+  "price": 280,
+  "stock": "verfügbar",
+  "tag": "Original",
+  "date": "2025-08",
+  "category": "natur",
+  "available": true,
+  "type": "Original",
+  "order": 2
+}
