@@ -63,9 +63,15 @@ automatisch auf GitHub committet, einmalig Tina Cloud verbinden:
    `npm run build` (= `tinacms build && astro build`) durch und das Admin unter
    `https://<deine-domain>/admin` committet Änderungen automatisch auf `main`.
 
-> **Vercel Build Command:** Standardmäßig `npm run build`. Solange Tina Cloud
-> noch **nicht** verbunden ist, stattdessen `npm run build:site` verwenden,
-> damit der Deploy nicht an den fehlenden Tina-Cloud-Zugängen scheitert.
+> **Vercel Build Command:** einfach `npm run build` lassen. Das Script
+> (`scripts/build.mjs`) erkennt automatisch, ob `TINA_PUBLIC_CLIENT_ID` und
+> `TINA_TOKEN` gesetzt sind:
+> - **nicht gesetzt** → nur Astro-Build (Deploy klappt sofort, ohne Tina Cloud)
+> - **gesetzt** → voller `tinacms build` + Astro-Build
+>
+> Du musst bei Vercel also **nichts** umstellen. Sobald du die beiden Variablen
+> einträgst, läuft beim nächsten Deploy automatisch der volle Tina-Build mit.
+> (`npm run build:full` erzwingt den vollen Build, `npm run build:site` nur Astro.)
 
 ---
 
