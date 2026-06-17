@@ -1,0 +1,31 @@
+fragment WorksParts on Works {
+  __typename
+  title
+  category
+  image
+  eyebrow
+  description
+  year
+  available
+  type
+  order
+  meta {
+    __typename
+    label
+    value
+  }
+}
+
+fragment ProductsParts on Products {
+  __typename
+  title
+  image
+  price
+  stock
+  tag
+  date
+  category
+  available
+  type
+  order
+}

@@ -8,8 +8,14 @@ node_modules/
 # astro
 .astro/
 
-# tinacms generated client/types (regenerated on dev/build)
-tina/__generated__/
+# tinacms — Schema-Dateien (_graphql.json, _schema.json, _lookup.json, *.gql)
+# MÜSSEN committet werden, sonst kann Tina Cloud den Branch nicht indexieren.
+# Nur die abgeleiteten/credential-tragenden bzw. volatilen Dateien ignorieren:
+tina/__generated__/.cache/
+tina/__generated__/client.ts
+tina/__generated__/types.ts
+tina/__generated__/types.js
+tina/__generated__/config.prebuild.jsx
 public/admin/
 
 # env / secrets — Tina Cloud clientId & token gehören hier rein, NICHT ins Repo
