@@ -1,0 +1,157 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const products = (await getCollection('products')).sort(
+  (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999),
+);
+
+const items = products.map((p) => ({
+  id: p.id,
+  title: p.data.title,
+  img: p.data.image,
+  price: p.data.price,
+  stock: p.data.stock ?? '',
+  tag: p.data.tag ?? '',
+  date: p.data.date ?? '',
+}));
+---
+
+<Base title="Shop — Alita Ember">
+  <Header active="shop" />
+
+  <!-- INTRO -->
+  <section class="relative">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-6 md:pt-8">
+      <div class="wood-bg relative rounded-[28px] overflow-hidden ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.45)] px-6 md:px-12 lg:px-16 py-14 md:py-20">
+        <div id="embers" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+        <div class="relative max-w-3xl">
+          <p class="eyebrow">Shop</p>
+          <h1 class="mt-3 font-display font-extrabold text-char-900 leading-[1] text-[44px] sm:text-[64px] md:text-[80px]">Originale<br/>& Editionen</h1>
+          <p class="mt-5 text-[18px] md:text-[20px] text-char-800/90 leading-relaxed max-w-xl">
+            Jedes Werk handgebrannt, signiert und in liebevoller Verpackung versendet. Versand innerhalb 5–7 Werktagen aus Deutschland.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID -->
+  <section class="relative">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-12">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+        <div>
+          <p class="eyebrow">Verfügbar</p>
+          <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[36px]">Aktuelle Stücke</h2>
+        </div>
+        <div class="flex items-center gap-2 text-sm text-char-800/70">
+          <span>Sortierung:</span>
+          <select id="sort" class="field !py-2 !w-auto">
+            <option value="featured">Empfohlen</option>
+            <option value="price-asc">Preis aufsteigend</option>
+            <option value="price-desc">Preis absteigend</option>
+            <option value="new">Neueste zuerst</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- AUFTRAG -->
+  <section id="auftrag" class="relative">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pb-16">
+      <div class="cream-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 ring-1 ring-wood-300/60 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <p class="eyebrow">Auftragsarbeit</p>
+          <h2 class="mt-3 font-display font-extrabold text-char-900 text-[32px] md:text-[44px] leading-tight">Dein Motiv. In Holz gebrannt.</h2>
+          <p class="mt-4 text-char-800/85 leading-relaxed">
+            Erzähl mir, was du dir vorstellst — Tier, Portrait, Hochzeitsbild, Erinnerungsstück. Ich melde mich mit Skizze und Angebot innerhalb von 3 Werktagen.
+          </p>
+          <a href="/kontakt#auftrag" class="btn btn-orange mt-7">Anfrage starten</a>
+        </div>
+        <ul class="grid sm:grid-cols-2 gap-3 text-[15px]">
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Lieferzeit</div><div class="mt-1 font-semibold">4–8 Wochen</div></li>
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Ab</div><div class="mt-1 font-semibold">180&nbsp;€</div></li>
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Größen</div><div class="mt-1 font-semibold">15–60 cm</div></li>
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Versand</div><div class="mt-1 font-semibold">Weltweit</div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERSAND / INFO -->
+  <section class="relative">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pb-24 md:pb-32 grid md:grid-cols-3 gap-5">
+      <div class="rounded-3xl bg-white/55 ring-1 ring-wood-400/40 p-6">
+        <div class="text-ember-700"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></div>
+        <h3 class="mt-3 font-display font-bold text-xl text-char-900">Versand & Verpackung</h3>
+        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">DHL versichert, plastikfrei verpackt in handbeschriftetem Karton. Versand innerhalb von 5–7 Werktagen nach Bestellung.</p>
+      </div>
+      <div class="rounded-3xl bg-white/55 ring-1 ring-wood-400/40 p-6">
+        <div class="text-ember-700"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8 4-8-4"/><rect x="4" y="5" width="16" height="14" rx="2"/></svg></div>
+        <h3 class="mt-3 font-display font-bold text-xl text-char-900">Zahlung</h3>
+        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">PayPal, Klarna, Überweisung. Alle Preise inkl. MwSt. — Kleinunternehmerregelung §19 UStG.</p>
+      </div>
+      <div class="rounded-3xl bg-white/55 ring-1 ring-wood-400/40 p-6">
+        <div class="text-ember-700"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3.5-7.1"/><path d="M21 5v6h-6"/></svg></div>
+        <h3 class="mt-3 font-display font-bold text-xl text-char-900">Rückgabe</h3>
+        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">14 Tage Rückgaberecht für Lagerstücke. Auftragsarbeiten sind vom Widerruf ausgenommen.</p>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script define:vars={{ PRODUCTS: items }}>
+    const grid = document.getElementById('products');
+    function render(){
+      grid.innerHTML = PRODUCTS.map(p => `
+        <article id="${p.id}" class="work-card relative text-left rounded-2xl">
+          <span class="work-card-glow"></span>
+          <div class="work-card-frame p-4">
+            <div class="aspect-[3/4] overflow-hidden rounded-xl bg-wood-300 relative">
+              <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 text-[11px] uppercase tracking-[.18em] font-semibold bg-char-900/80 text-wood-100 px-2 py-1 rounded-full">${p.tag}</span>
+            </div>
+            <div class="mt-4 flex items-start justify-between gap-3">
+              <div>
+                <div class="font-display font-bold text-char-900 text-[20px] leading-tight">${p.title}</div>
+                <div class="mt-1 text-sm text-char-800/70">${p.stock}</div>
+              </div>
+              <div class="text-right shrink-0">
+                <div class="font-display font-bold text-char-900 text-[22px]">${p.price}&nbsp;€</div>
+                <div class="text-[11px] text-char-800/60 uppercase tracking-[.18em]">inkl. MwSt.</div>
+              </div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="btn btn-orange flex-1 !py-2.5 !text-sm" data-add="${p.id}">In den Warenkorb</button>
+              <a href="/galerie#${p.id}" class="btn btn-ghost !py-2.5 !text-sm">Details</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      grid.querySelectorAll('[data-add]').forEach(b => {
+        b.addEventListener('click', () => {
+          const orig = b.textContent;
+          b.textContent = 'Hinzugefügt ✓';
+          b.style.filter = 'saturate(1.1)';
+          setTimeout(() => { b.textContent = orig; b.style.filter = ''; }, 1600);
+        });
+      });
+    }
+    render();
+
+    document.getElementById('sort').addEventListener('change', (e) => {
+      const v = e.target.value;
+      if (v === 'price-asc')  PRODUCTS.sort((a,b) => a.price - b.price);
+      if (v === 'price-desc') PRODUCTS.sort((a,b) => b.price - a.price);
+      if (v === 'new')        PRODUCTS.sort((a,b) => (b.date > a.date ? 1 : -1));
+      if (v === 'featured')   PRODUCTS.sort((a,b) => (a.id > b.id ? 1 : -1));
+      render();
+    });
+  </script>
+</Base>

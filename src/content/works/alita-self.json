@@ -1,0 +1,17 @@
+{
+  "title": "Selbstporträt · Alita",
+  "category": "portrait",
+  "image": "/images/alita-character.png",
+  "eyebrow": "Holzpaneel · 30 × 45 cm",
+  "description": "Selbstporträt im Werkstattlicht — Goggles, Funken, ein Lächeln.",
+  "year": 2025,
+  "available": true,
+  "type": "Unikat",
+  "order": 9,
+  "meta": [
+    { "label": "Material", "value": "Birke" },
+    { "label": "Größe", "value": "30 × 45 cm" },
+    { "label": "Jahr", "value": "2025" },
+    { "label": "Auflage", "value": "Unikat" }
+  ]
+}

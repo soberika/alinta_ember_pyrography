@@ -1,0 +1,22 @@
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules/
+
+# astro
+.astro/
+
+# tinacms generated client/types (regenerated on dev/build)
+tina/__generated__/
+public/admin/
+
+# env / secrets — Tina Cloud clientId & token gehören hier rein, NICHT ins Repo
+.env
+.env.*
+!.env.example
+
+# logs / os
+npm-debug.log*
+.DS_Store

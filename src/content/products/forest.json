@@ -1,0 +1,12 @@
+{
+  "title": "Nebelwald",
+  "image": "/images/work-forest.png",
+  "price": 540,
+  "stock": "3 von 5",
+  "tag": "Edition · 3/5",
+  "date": "2024-11",
+  "category": "natur",
+  "available": true,
+  "type": "Edition",
+  "order": 3
+}

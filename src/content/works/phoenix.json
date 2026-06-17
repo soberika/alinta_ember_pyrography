@@ -1,0 +1,17 @@
+{
+  "title": "Phönix",
+  "category": "tiere",
+  "image": "/images/work-phoenix.png",
+  "eyebrow": "Holzscheibe · Ø 28 cm",
+  "description": "Aus der Asche aufsteigend — lodernde Schwingen auf handgesägter Birkenscheibe.",
+  "year": 2025,
+  "available": true,
+  "type": "Unikat",
+  "order": 1,
+  "meta": [
+    { "label": "Material", "value": "Birke" },
+    { "label": "Größe", "value": "Ø 28 cm" },
+    { "label": "Jahr", "value": "2025" },
+    { "label": "Auflage", "value": "Unikat" }
+  ]
+}

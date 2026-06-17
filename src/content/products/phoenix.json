@@ -1,0 +1,12 @@
+{
+  "title": "Phönix",
+  "image": "/images/work-phoenix.png",
+  "price": 420,
+  "stock": "verfügbar",
+  "tag": "Original",
+  "date": "2025-09",
+  "category": "tiere",
+  "available": true,
+  "type": "Original",
+  "order": 1
+}
