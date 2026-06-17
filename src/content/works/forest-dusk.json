@@ -3,15 +3,27 @@
   "category": "natur",
   "image": "/images/work-forest.png",
   "eyebrow": "Holzpaneel · 24 × 32 cm",
-  "description": "Kleinere Studie zum Nebelwald — letztes Licht zwischen den Stämmen.",
+  "description": "Kleinere Studie zum Nebelwald — letztes Licht zwischen den Stämmen. ",
   "year": 2024,
   "available": true,
   "type": "Unikat",
   "order": 7,
   "meta": [
-    { "label": "Material", "value": "Eiche" },
-    { "label": "Größe", "value": "24 × 32 cm" },
-    { "label": "Jahr", "value": "2024" },
-    { "label": "Auflage", "value": "Unikat" }
+    {
+      "label": "Material",
+      "value": "Eiche"
+    },
+    {
+      "label": "Größe",
+      "value": "24 × 32 cm"
+    },
+    {
+      "label": "Jahr",
+      "value": "2024"
+    },
+    {
+      "label": "Auflage",
+      "value": "Unikat"
+    }
   ]
 }
