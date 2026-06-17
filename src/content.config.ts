@@ -60,6 +60,12 @@ const posts = defineCollection({
     thumbnail: z.string().optional(),
     body: z.array(z.string()).optional().default([]),
     order: z.number().optional(),
+    // Hervorgehobener Beitrag (großer Hero oben auf der Blog-Seite)
+    featured: z.boolean().optional(),
+    featuredHeading: z.string().optional(),
+    featuredExcerpt: z.string().optional(),
+    featuredImage: z.string().optional(),
+    highlights: z.array(z.string()).optional().default([]),
   }),
 });
 

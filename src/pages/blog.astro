@@ -27,6 +27,20 @@ const POSTS = posts.map((p) => ({
   thumb: p.data.thumbnail ?? 'illus:funke',
   body: p.data.body ?? [],
 }));
+
+// Hervorgehobener Beitrag für den Hero (Schalter „featured", sonst der erste)
+const featuredEntry = posts.find((p) => p.data.featured) ?? posts[0];
+const featured = featuredEntry
+  ? {
+      slug: featuredEntry.id,
+      heading: featuredEntry.data.featuredHeading || featuredEntry.data.title,
+      excerpt: featuredEntry.data.featuredExcerpt || featuredEntry.data.excerpt || '',
+      image: featuredEntry.data.featuredImage || '/assets/work-forest.png',
+      date: featuredEntry.data.date,
+      read: featuredEntry.data.readTime ?? '',
+      highlights: featuredEntry.data.highlights ?? [],
+    }
+  : null;
 ---
 
 <Base title="Blog — Alita Ember">
@@ -63,40 +77,43 @@ const POSTS = posts.map((p) => ({
   </section>
 
   <!-- FEATURED POST -->
-  <section class="relative">
-    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-14">
-      <div class="pin-card">
-        <div class="bg"><img src="/assets/work-forest.png" alt="" /></div>
-        <div class="relative grid md:grid-cols-12 gap-6 items-center px-6 md:px-12 py-10 md:py-14 text-wood-50">
-          <div class="md:col-span-8">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="pcat" style="position:static;">Featured</span>
-              <span class="text-[12px] tracking-[.18em] uppercase font-bold text-wood-200/80">10. Mai 2026 · 6 Min Lesezeit</span>
+  {featured && (
+    <section class="relative">
+      <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-14">
+        <div class="pin-card">
+          <div class="bg"><img src={featured.image} alt="" /></div>
+          <div class="relative grid md:grid-cols-12 gap-6 items-center px-6 md:px-12 py-10 md:py-14 text-wood-50">
+            <div class="md:col-span-8">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="pcat" style="position:static;">Featured</span>
+                <span class="text-[12px] tracking-[.18em] uppercase font-bold text-wood-200/80">{featured.date} · {featured.read} Lesezeit</span>
+              </div>
+              <h2 class="font-display font-extrabold leading-tight text-[30px] md:text-[44px]">{featured.heading}</h2>
+              <p class="mt-4 text-[16px] md:text-[18px] text-wood-100/85 max-w-2xl">
+                {featured.excerpt}
+              </p>
+              <div class="mt-7 flex flex-wrap gap-3">
+                <a href={`#post-${featured.slug}`} data-post={featured.slug} class="btn btn-orange open-post">Weiterlesen</a>
+                <a href="/galerie" class="btn btn-yellow">Werk in der Galerie</a>
+              </div>
             </div>
-            <h2 class="font-display font-extrabold leading-tight text-[30px] md:text-[44px]">Wie ein Nebelwald entsteht — von der Skizze bis zur letzten Glut.</h2>
-            <p class="mt-4 text-[16px] md:text-[18px] text-wood-100/85 max-w-2xl">
-              Drei Wochen, vierzehn Spitzen, achtundvierzig Stunden Brennzeit. Ein Werkstattbericht über das Stück, das mich diesen Frühling am meisten gefordert hat — inklusive Skizzen-Galerie und der Frage, warum Linde manchmal lügt.
-            </p>
-            <div class="mt-7 flex flex-wrap gap-3">
-              <a href="#post-nebelwald" data-post="nebelwald" class="btn btn-orange open-post">Weiterlesen</a>
-              <a href="/galerie" class="btn btn-yellow">Werk in der Galerie</a>
-            </div>
-          </div>
-          <div class="md:col-span-4 hidden md:block">
-            <div class="bg-black/30 backdrop-blur-sm border border-white/15 rounded-2xl p-5">
-              <p class="text-[11px] tracking-[.22em] uppercase font-bold text-ember-300">Im Beitrag</p>
-              <ul class="mt-3 space-y-2 text-[14px] text-wood-100/90">
-                <li class="flex gap-2"><span class="text-ember-300">01</span><span>Lichtführung im Nebel</span></li>
-                <li class="flex gap-2"><span class="text-ember-300">02</span><span>Hitze-Kalibrierung</span></li>
-                <li class="flex gap-2"><span class="text-ember-300">03</span><span>Funken-Akzente in Glut</span></li>
-                <li class="flex gap-2"><span class="text-ember-300">04</span><span>Versiegelung & Geduld</span></li>
-              </ul>
-            </div>
+            {featured.highlights.length > 0 && (
+              <div class="md:col-span-4 hidden md:block">
+                <div class="bg-black/30 backdrop-blur-sm border border-white/15 rounded-2xl p-5">
+                  <p class="text-[11px] tracking-[.22em] uppercase font-bold text-ember-300">Im Beitrag</p>
+                  <ul class="mt-3 space-y-2 text-[14px] text-wood-100/90">
+                    {featured.highlights.map((h, i) => (
+                      <li class="flex gap-2"><span class="text-ember-300">{String(i + 1).padStart(2, '0')}</span><span>{h}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- FILTERS + GRID -->
   <section class="relative">
