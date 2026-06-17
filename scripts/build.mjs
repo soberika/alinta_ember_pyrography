@@ -25,7 +25,11 @@ const hasTinaCloud =
 
 if (hasTinaCloud) {
   console.log('[build] Tina Cloud erkannt → tinacms build + astro build');
-  run(`${bin('tinacms')} build`);
+  // --skip-cloud-checks: überspringt die Cloud-/Branch-Prüfung (ERR_CLOUD_CHECK_FAILED),
+  // damit das Admin auch dann deployt wird, wenn der Branch in Tina Cloud noch nicht
+  // indexiert ist. Das Indexieren von "main" passiert beim ersten Login + Commit über
+  // das Live-Admin (/admin) bzw. anschließend automatisch via GitHub-Webhook.
+  run(`${bin('tinacms')} build --skip-cloud-checks`);
 } else {
   console.warn(
     [
