@@ -8,14 +8,10 @@ node_modules/
 # astro
 .astro/
 
-# tinacms — Schema-Dateien (_graphql.json, _schema.json, _lookup.json, *.gql)
-# MÜSSEN committet werden, sonst kann Tina Cloud den Branch nicht indexieren.
-# Nur die abgeleiteten/credential-tragenden bzw. volatilen Dateien ignorieren:
-tina/__generated__/.cache/
-tina/__generated__/client.ts
-tina/__generated__/types.ts
-tina/__generated__/types.js
-tina/__generated__/config.prebuild.jsx
+# tinacms: tina/tina-lock.json (Schema-Lock) MUSS committet werden — Tina Cloud
+# liest sie, um den Branch zu indexieren. Der __generated__-Ordner wird komplett
+# ignoriert (wird bei `tinacms dev`/`build` automatisch neu erzeugt).
+tina/__generated__/
 public/admin/
 
 # env / secrets — Tina Cloud clientId & token gehören hier rein, NICHT ins Repo
