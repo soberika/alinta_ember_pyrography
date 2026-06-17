@@ -172,6 +172,70 @@ export default defineConfig({
           },
         ],
       },
+
+      // ── Blog-Beiträge ────────────────────────────────────────────────
+      {
+        name: 'posts',
+        label: 'Blog (Beiträge)',
+        path: 'src/content/posts',
+        format: 'json',
+        ui: {
+          filename: {
+            slugify: (values) =>
+              (values?.title || 'beitrag')
+                .toString()
+                .toLowerCase()
+                .replace(/[äÄ]/g, 'a')
+                .replace(/[öÖ]/g, 'o')
+                .replace(/[üÜ]/g, 'u')
+                .replace(/ß/g, 'ss')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, ''),
+          },
+        },
+        fields: [
+          { type: 'string', name: 'title', label: 'Titel', isTitle: true, required: true },
+          {
+            type: 'string',
+            name: 'category',
+            label: 'Kategorie',
+            required: true,
+            options: [
+              { value: 'prozess', label: 'Prozess' },
+              { value: 'technik', label: 'Technik' },
+              { value: 'news', label: 'News' },
+              { value: 'werkstatt', label: 'Werkstatt' },
+            ],
+          },
+          { type: 'string', name: 'date', label: 'Datum (Anzeigetext, z. B. „10. Mai 2026“)' },
+          { type: 'string', name: 'readTime', label: 'Lesezeit (z. B. „4 Min“)' },
+          {
+            type: 'string',
+            name: 'excerpt',
+            label: 'Teaser (Kurzbeschreibung in der Liste)',
+            ui: { component: 'textarea' },
+          },
+          {
+            type: 'string',
+            name: 'thumbnail',
+            label: 'Vorschaubild',
+            description:
+              'Eingebautes Motiv: illus:funke, illus:spitzen, illus:edition, illus:studio, illus:skizze, illus:holz, illus:klang, illus:zahn — oder ein Bildpfad wie /images/foto.jpg',
+          },
+          {
+            type: 'string',
+            name: 'body',
+            label: 'Absätze',
+            list: true,
+            ui: { component: 'textarea' },
+          },
+          {
+            type: 'number',
+            name: 'order',
+            label: 'Reihenfolge (kleiner = weiter oben / neuer)',
+          },
+        ],
+      },
     ],
   },
 });

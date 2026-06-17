@@ -47,4 +47,20 @@ const products = defineCollection({
   }),
 });
 
-export const collections = { works, products };
+// Blog-Beiträge → src/content/posts/*.json
+const posts = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/posts' }),
+  schema: z.object({
+    title: z.string(),
+    category: z.enum(['prozess', 'technik', 'news', 'werkstatt']),
+    date: z.string(),
+    readTime: z.string().optional(),
+    excerpt: z.string().optional(),
+    // "illus:funke" … (eingebautes SVG-Motiv) oder ein Bildpfad wie /images/foto.jpg
+    thumbnail: z.string().optional(),
+    body: z.array(z.string()).optional().default([]),
+    order: z.number().optional(),
+  }),
+});
+
+export const collections = { works, products, posts };
