@@ -1,0 +1,22 @@
+{
+  "heroSubtitle": "Pyrography Kunst mit Feuer und Seele",
+  "heroCta1": "Zur Galerie",
+  "heroCta2": "Shop entdecken",
+  "featuredEyebrow": "Galerie · Auswahl",
+  "featuredHeading": "Featured Works",
+  "featuredIntro": "Vier ausgewählte Stücke — von glühendem Phönix bis zur Mechanik der Zeit. Die vollständige Sammlung wartet in der Galerie.",
+  "aboutEyebrow": "Über mich · Kurz",
+  "aboutHeading": "Mit dem Brenneisen erzähle ich Geschichten.",
+  "aboutText": "Ich bin Alita — Pyrographie-Künstlerin aus Leidenschaft. Jedes Stück entsteht in stundenlanger Handarbeit, Linie für Linie, Funke für Funke. Holz, Hitze, Atem.",
+  "shopEyebrow": "Shop · Überblick",
+  "shopHeading": "Originale & limitierte Editionen",
+  "shopIntro": "Jedes Werk ist ein Unikat — signiert, datiert, in liebevoller Verpackung versendet. Im Shop findest du Preise, Versandinfos und verfügbare Stücke.",
+  "shopCards": [
+    { "title": "Originale", "text": "Einzelstücke, signiert." },
+    { "title": "Editionen", "text": "Kleinserien, nummeriert." },
+    { "title": "Auftrag", "text": "Dein Motiv, gebrannt." }
+  ],
+  "contactEyebrow": "Kontakt · Kurz",
+  "contactHeading": "Sag Hallo. Oder: erzähl mir deine Idee.",
+  "contactText": "Für ausführliche Anfragen, Auftragsarbeiten und Presse findest du alle Details auf der Kontaktseite."
+}

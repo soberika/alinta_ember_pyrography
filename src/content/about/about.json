@@ -1,0 +1,35 @@
+{
+  "heroEyebrow": "Über mich",
+  "heroTitle": "Hallo, ich bin Alita.",
+  "heroIntro": "Pyrographie-Künstlerin aus Süddeutschland. Ich brenne Geschichten in Holz — von feurigen Phönixen bis zu schweigenden Uhrwerken.",
+  "storyHeading": "Vom ersten Funken bis zum letzten Strich.",
+  "storyParagraphs": [
+    "Mit zwölf habe ich meinen ersten Brennkolben in der Hand gehalten — geliehen vom Großvater, eigentlich gedacht für Modellbau. Aus „nur kurz probieren“ wurden viele Stunden. Aus den Stunden ein Handwerk.",
+    "Heute arbeite ich in einer kleinen Werkstatt am Waldrand. Birke, Eiche, manchmal Linde. Skizze auf Pauspapier, dann Kontur, dann Schicht für Schicht Schatten. Nichts wird gemalt, alles gebrannt.",
+    "Mich faszinieren Übergänge: das Moment, in dem Glut zu Asche wird, ein Tier zum Mythos, eine Linie zur Geschichte. Genau darum geht es in jedem Stück."
+  ],
+  "processEyebrow": "Prozess",
+  "processHeading": "So entsteht ein Werk.",
+  "processIntro": "Vier Phasen, viele Stunden — jedes Stück durchläuft sie in dieser Reihenfolge.",
+  "processSteps": [
+    { "title": "Skizze", "text": "Konzept, Komposition, Lichtführung. Vorzeichnung in mehreren Iterationen." },
+    { "title": "Holzauswahl", "text": "Birke, Eiche, Linde — Maserung muss zum Motiv passen. Geschliffen, geölt, bereit." },
+    { "title": "Brennen", "text": "Konturen zuerst, dann Schicht für Schicht Tiefe. 15–80 Stunden je nach Größe." },
+    { "title": "Finish", "text": "Akzent-Lasur, Versiegelung mit Naturöl, Signatur. Versand-bereit verpackt." }
+  ],
+  "materialEyebrow": "Material",
+  "materialHeading": "Holz aus regionaler Forstwirtschaft",
+  "materialText": "Birke für Feinheit, Eiche für Tiefe, Linde für weiche Übergänge. Jedes Stück Holz wird vor Bearbeitung mindestens 12 Monate gelagert.",
+  "toolsEyebrow": "Werkzeug",
+  "toolsHeading": "Brennkolben mit auswechselbarer Spitze",
+  "toolsText": "14 Spitzen, von Haarlinie bis Schraffur. Temperaturen zwischen 380 °C und 750 °C — jede Holzart braucht ihre eigene Hitze.",
+  "timelineHeading": "Stationen",
+  "timeline": [
+    { "year": "2019", "title": "Erste Ausstellung", "subtitle": "Kleine Galerie · Freiburg" },
+    { "year": "2021", "title": "Werkstatteröffnung", "subtitle": "Eigene Werkstatt am Waldrand" },
+    { "year": "2023", "title": "Steampunk-Reihe", "subtitle": "Erste Serien-Edition · 24 Stücke" },
+    { "year": "2025", "title": "Selbstporträt-Serie", "subtitle": "Laufend · individuelle Aufträge willkommen" }
+  ],
+  "ctaHeading": "Sehen wir uns in der Werkstatt?",
+  "ctaText": "Auftragsarbeiten, Studio-Besuche und Presseanfragen sind herzlich willkommen."
+}

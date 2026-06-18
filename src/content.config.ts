@@ -69,4 +69,88 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { works, products, posts };
+// ── Seiten-Inhalte (Singletons) ────────────────────────────────────────
+
+// Startseite → src/content/home/home.json
+const home = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/home' }),
+  schema: z.object({
+    heroSubtitle: z.string(),
+    heroCta1: z.string().optional(),
+    heroCta2: z.string().optional(),
+    featuredEyebrow: z.string().optional(),
+    featuredHeading: z.string().optional(),
+    featuredIntro: z.string().optional(),
+    aboutEyebrow: z.string().optional(),
+    aboutHeading: z.string().optional(),
+    aboutText: z.string().optional(),
+    shopEyebrow: z.string().optional(),
+    shopHeading: z.string().optional(),
+    shopIntro: z.string().optional(),
+    shopCards: z
+      .array(z.object({ title: z.string(), text: z.string() }))
+      .optional()
+      .default([]),
+    contactEyebrow: z.string().optional(),
+    contactHeading: z.string().optional(),
+    contactText: z.string().optional(),
+  }),
+});
+
+// Über-mich-Seite → src/content/about/about.json
+const about = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/about' }),
+  schema: z.object({
+    heroEyebrow: z.string().optional(),
+    heroTitle: z.string(),
+    heroIntro: z.string().optional(),
+    storyHeading: z.string().optional(),
+    storyParagraphs: z.array(z.string()).optional().default([]),
+    processEyebrow: z.string().optional(),
+    processHeading: z.string().optional(),
+    processIntro: z.string().optional(),
+    processSteps: z
+      .array(z.object({ title: z.string(), text: z.string() }))
+      .optional()
+      .default([]),
+    materialEyebrow: z.string().optional(),
+    materialHeading: z.string().optional(),
+    materialText: z.string().optional(),
+    toolsEyebrow: z.string().optional(),
+    toolsHeading: z.string().optional(),
+    toolsText: z.string().optional(),
+    timelineHeading: z.string().optional(),
+    timeline: z
+      .array(z.object({ year: z.string(), title: z.string(), subtitle: z.string() }))
+      .optional()
+      .default([]),
+    ctaHeading: z.string().optional(),
+    ctaText: z.string().optional(),
+  }),
+});
+
+// Kontaktseite → src/content/contact/contact.json
+const contact = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/contact' }),
+  schema: z.object({
+    heroEyebrow: z.string().optional(),
+    heroTitle: z.string(),
+    heroIntro: z.string().optional(),
+    email: z.string().optional(),
+    addressLines: z.array(z.string()).optional().default([]),
+    addressNote: z.string().optional(),
+    socials: z
+      .array(z.object({ label: z.string(), url: z.string() }))
+      .optional()
+      .default([]),
+    responseTime: z.string().optional(),
+    responseNote: z.string().optional(),
+    formHeading: z.string().optional(),
+    faq: z
+      .array(z.object({ question: z.string(), answer: z.string() }))
+      .optional()
+      .default([]),
+  }),
+});
+
+export const collections = { works, products, posts, home, about, contact };

@@ -2,6 +2,23 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const home = (await getCollection('home'))[0].data;
+
+// Featured-Werke = die ersten 4 aus der Werke-Collection (nach Reihenfolge)
+const works = (await getCollection('works'))
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
+  .slice(0, 4);
+
+const WORKS = works.map((w) => ({
+  id: w.id,
+  title: w.data.title,
+  img: w.data.image,
+  eyebrow: w.data.eyebrow ?? '',
+  desc: w.data.description ?? '',
+  meta: (w.data.meta ?? []).map((m) => [m.label, m.value]),
+}));
 ---
 
 <Base title="Alita Ember — Pyrography Kunst mit Feuer und Seele">
@@ -21,12 +38,12 @@ import Footer from '../components/Footer.astro';
               Alita<br class="hidden sm:block" /><span class="sm:hidden"> </span>Ember
             </h1>
             <p class="mt-5 md:mt-7 text-[22px] md:text-[26px] lg:text-[28px] leading-snug text-char-800 max-w-[18ch]">
-              Pyrography Kunst mit Feuer&nbsp;und&nbsp;Seele
+              {home.heroSubtitle}
             </p>
 
             <div class="mt-8 md:mt-10 flex flex-wrap gap-4">
-              <a href="/galerie" class="btn btn-orange">Zur Galerie</a>
-              <a href="/shop" class="btn btn-yellow">Shop entdecken</a>
+              <a href="/galerie" class="btn btn-orange">{home.heroCta1 ?? 'Zur Galerie'}</a>
+              <a href="/shop" class="btn btn-yellow">{home.heroCta2 ?? 'Shop entdecken'}</a>
             </div>
           </div>
 
@@ -50,12 +67,12 @@ import Footer from '../components/Footer.astro';
       <div class="cream-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 shadow-[0_20px_50px_-30px_rgba(61,43,31,.35)] ring-1 ring-wood-300/60">
 
         <header class="text-center mb-10 md:mb-14">
-          <p class="eyebrow">Galerie · Auswahl</p>
+          <p class="eyebrow">{home.featuredEyebrow}</p>
           <h2 class="mt-3 font-display font-extrabold text-char-900 text-[40px] sm:text-[52px] md:text-[60px] leading-tight">
-            Featured Works
+            {home.featuredHeading}
           </h2>
           <p class="mt-4 text-char-800/80 max-w-xl mx-auto text-[16px] md:text-[17px]">
-            Vier ausgewählte Stücke — von glühendem Phönix bis zur Mechanik der Zeit. Die vollständige Sammlung wartet in der Galerie.
+            {home.featuredIntro}
           </p>
         </header>
 
@@ -77,13 +94,12 @@ import Footer from '../components/Footer.astro';
     <div class="max-w-6xl mx-auto px-5 md:px-8 pb-12 md:pb-16">
       <div class="wood-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-14 md:py-20 ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.4)] grid md:grid-cols-12 gap-10 items-center">
         <div class="md:col-span-7">
-          <p class="eyebrow">Über mich · Kurz</p>
+          <p class="eyebrow">{home.aboutEyebrow}</p>
           <h2 class="mt-3 font-display font-extrabold text-char-900 text-[36px] md:text-[48px] leading-tight">
-            Mit dem Brenneisen erzähle ich Geschichten.
+            {home.aboutHeading}
           </h2>
           <p class="mt-5 text-[17px] md:text-[18px] leading-relaxed text-char-800/90 max-w-2xl">
-            Ich bin Alita — Pyrographie-Künstlerin aus Leidenschaft. Jedes Stück entsteht in stundenlanger
-            Handarbeit, Linie für Linie, Funke für Funke. Holz, Hitze, Atem.
+            {home.aboutText}
           </p>
           <div class="mt-7 flex flex-wrap gap-4">
             <a href="/ueber" class="btn btn-orange">
@@ -108,27 +124,21 @@ import Footer from '../components/Footer.astro';
   <section id="shop" class="relative">
     <div class="max-w-6xl mx-auto px-5 md:px-8 pb-12 md:pb-16">
       <div class="cream-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-14 md:py-20 ring-1 ring-wood-300/60 text-center">
-        <p class="eyebrow">Shop · Überblick</p>
+        <p class="eyebrow">{home.shopEyebrow}</p>
         <h2 class="mt-3 font-display font-extrabold text-char-900 text-[36px] md:text-[48px] leading-tight">
-          Originale & limitierte Editionen
+          {home.shopHeading}
         </h2>
         <p class="mt-4 text-char-800/80 max-w-xl mx-auto text-[16px] md:text-[17px]">
-          Jedes Werk ist ein Unikat — signiert, datiert, in liebevoller Verpackung versendet. Im Shop findest du Preise, Versandinfos und verfügbare Stücke.
+          {home.shopIntro}
         </p>
 
         <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
-          <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/30 p-5">
-            <div class="font-display font-bold text-char-900 text-2xl">Originale</div>
-            <p class="mt-1 text-sm text-char-800/80">Einzelstücke, signiert.</p>
-          </div>
-          <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/30 p-5">
-            <div class="font-display font-bold text-char-900 text-2xl">Editionen</div>
-            <p class="mt-1 text-sm text-char-800/80">Kleinserien, nummeriert.</p>
-          </div>
-          <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/30 p-5">
-            <div class="font-display font-bold text-char-900 text-2xl">Auftrag</div>
-            <p class="mt-1 text-sm text-char-800/80">Dein Motiv, gebrannt.</p>
-          </div>
+          {home.shopCards.map((c) => (
+            <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/30 p-5">
+              <div class="font-display font-bold text-char-900 text-2xl">{c.title}</div>
+              <p class="mt-1 text-sm text-char-800/80">{c.text}</p>
+            </div>
+          ))}
         </div>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -147,12 +157,12 @@ import Footer from '../components/Footer.astro';
     <div class="max-w-6xl mx-auto px-5 md:px-8 pb-24 md:pb-32">
       <div class="wood-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 ring-1 ring-wood-400/40 grid md:grid-cols-2 gap-8 items-center">
         <div>
-          <p class="eyebrow">Kontakt · Kurz</p>
+          <p class="eyebrow">{home.contactEyebrow}</p>
           <h2 class="mt-3 font-display font-extrabold text-char-900 text-[32px] md:text-[42px] leading-tight">
-            Sag Hallo. <br/>Oder: erzähl mir deine Idee.
+            {home.contactHeading}
           </h2>
           <p class="mt-4 text-char-800/85 text-[16px] md:text-[17px] leading-relaxed max-w-md">
-            Für ausführliche Anfragen, Auftragsarbeiten und Presse findest du alle Details auf der Kontaktseite.
+            {home.contactText}
           </p>
           <div class="mt-6 flex flex-wrap gap-4">
             <a href="/kontakt" class="btn btn-orange">
@@ -204,27 +214,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </div>
 
-  <script is:inline>
-    // Vier ausgewählte Werke für die Startseite (eigenständig, bewusst inline).
-    const WORKS = [
-      { id:'phoenix', title:'Phönix', img:'/assets/work-phoenix.png',
-        eyebrow:'Holzscheibe · Ø 28 cm',
-        desc:'Aus der Asche aufsteigend: ein Phönix mit lodernden Schwingen, gebrannt in handgesägte Birkenscheibe. Glüht im Gegenlicht.',
-        meta:[['Material','Birke, naturbelassen'],['Technik','Pyrographie + Akzent-Lasur'],['Größe','28 cm Durchmesser'],['Auflage','Unikat · signiert']] },
-      { id:'rose', title:'Rose', img:'/assets/work-rose.png',
-        eyebrow:'Holzscheibe · Ø 22 cm',
-        desc:'Eine Rose in Glut: weiche Schattierungen, brennende Konturen — ein Stück Stille auf warmem Birkenholz.',
-        meta:[['Material','Birke, geölt'],['Technik','Feinpyrographie'],['Größe','22 cm Durchmesser'],['Auflage','Unikat · signiert']] },
-      { id:'forest', title:'Nebelwald', img:'/assets/work-forest.png',
-        eyebrow:'Holzpaneel · 30 × 40 cm',
-        desc:'Ein verlorener Pfad im Nebelwald, gesäumt von glühenden Funken. Tiefe durch Schichten — gebrannt, nicht gemalt.',
-        meta:[['Material','Eiche'],['Technik','Pyrographie mit Funken-Akzent'],['Größe','30 × 40 cm'],['Auflage','3 von 5']] },
-      { id:'clock', title:'Steampunk-Uhr', img:'/assets/work-clock.png',
-        eyebrow:'Holzpaneel · 28 × 38 cm',
-        desc:'Zahnräder, Federn, eine schweigende Uhr — Mechanik aus Holz und Hitze, Stück für Stück gebrannt.',
-        meta:[['Material','Birke, gewachst'],['Technik','Hochdetail-Pyrographie'],['Größe','28 × 38 cm'],['Auflage','Unikat · signiert']] }
-    ];
-
+  <script define:vars={{ WORKS }}>
     (function(){
       const grid = document.getElementById('works-grid');
       grid.innerHTML = WORKS.map(w => `
