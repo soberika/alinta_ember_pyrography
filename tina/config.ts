@@ -124,7 +124,6 @@ export default defineConfig({
               { type: 'string', name: 'unit', label: 'Einheit (z. B. cm)' },
             ],
           },
-          { type: 'number', name: 'price', label: 'Preis (€, optional)' },
           {
             type: 'string',
             name: 'tags',

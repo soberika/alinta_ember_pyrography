@@ -12,7 +12,6 @@
     "diameter": 28,
     "unit": "cm"
   },
-  "price": 480,
   "tags": ["phönix", "vogel", "feuer", "birke", "unikat"],
   "meta": [
     { "label": "Material", "value": "Birke" },

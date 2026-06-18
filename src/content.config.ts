@@ -32,8 +32,6 @@ const works = defineCollection({
       })
       .optional()
       .default({}),
-    // Optionaler Preis — für Werke, die auch verkauft werden
-    price: z.number().optional(),
     // Schlagworte für Filterung / Suche
     tags: z.array(z.string()).optional().default([]),
     // Detail-Tabelle im Modal (Material, Größe, Jahr, Auflage …)
