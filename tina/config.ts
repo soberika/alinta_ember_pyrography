@@ -113,6 +113,26 @@ export default defineConfig({
           },
           {
             type: 'object',
+            name: 'dimensions',
+            label: 'Maße (strukturiert)',
+            description:
+              'Strukturierte Maße — besser filter-/auswertbar als das Detail-Array. Bei runden Werken Durchmesser, sonst Breite × Höhe.',
+            fields: [
+              { type: 'number', name: 'width', label: 'Breite' },
+              { type: 'number', name: 'height', label: 'Höhe' },
+              { type: 'number', name: 'diameter', label: 'Durchmesser (Ø)' },
+              { type: 'string', name: 'unit', label: 'Einheit (z. B. cm)' },
+            ],
+          },
+          { type: 'number', name: 'price', label: 'Preis (€, optional)' },
+          {
+            type: 'string',
+            name: 'tags',
+            label: 'Tags (für Filterung / Suche)',
+            list: true,
+          },
+          {
+            type: 'object',
             name: 'meta',
             label: 'Details (Material, Größe, Jahr, Auflage …)',
             list: true,
