@@ -22,6 +22,20 @@ const works = defineCollection({
     available: z.boolean().optional(),
     type: z.string().optional(),
     order: z.number().optional(),
+    // Strukturierte Maße (besser filter-/auswertbar als nur im meta-Array)
+    dimensions: z
+      .object({
+        width: z.number().optional(),
+        height: z.number().optional(),
+        diameter: z.number().optional(),
+        unit: z.string().optional(), // z. B. "cm"
+      })
+      .optional()
+      .default({}),
+    // Optionaler Preis — für Werke, die auch verkauft werden
+    price: z.number().optional(),
+    // Schlagworte für Filterung / Suche
+    tags: z.array(z.string()).optional().default([]),
     // Detail-Tabelle im Modal (Material, Größe, Jahr, Auflage …)
     meta: z
       .array(z.object({ label: z.string(), value: z.string() }))

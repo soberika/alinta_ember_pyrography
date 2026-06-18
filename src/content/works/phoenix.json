@@ -8,6 +8,12 @@
   "available": true,
   "type": "Unikat",
   "order": 1,
+  "dimensions": {
+    "diameter": 28,
+    "unit": "cm"
+  },
+  "price": 480,
+  "tags": ["phönix", "vogel", "feuer", "birke", "unikat"],
   "meta": [
     { "label": "Material", "value": "Birke" },
     { "label": "Größe", "value": "Ø 28 cm" },
