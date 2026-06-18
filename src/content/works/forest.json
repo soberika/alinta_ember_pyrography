@@ -8,10 +8,28 @@
   "available": true,
   "type": "Edition",
   "order": 3,
+  "gallery": [
+    {
+      "image": "/images/81yYU3CJXYL._SL1500_.jpg",
+      "caption": "Wow"
+    }
+  ],
   "meta": [
-    { "label": "Material", "value": "Eiche" },
-    { "label": "Größe", "value": "30 × 40 cm" },
-    { "label": "Jahr", "value": "2024" },
-    { "label": "Auflage", "value": "3 von 5" }
+    {
+      "label": "Material",
+      "value": "Eiche"
+    },
+    {
+      "label": "Größe",
+      "value": "30 × 40 cm"
+    },
+    {
+      "label": "Jahr",
+      "value": "2024"
+    },
+    {
+      "label": "Auflage",
+      "value": "3 von 5"
+    }
   ]
 }
