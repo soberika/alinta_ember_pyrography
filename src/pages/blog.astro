@@ -11,9 +11,9 @@ const LABELS: Record<string, string> = {
   werkstatt: 'Werkstatt',
 };
 
-const posts = (await getCollection('posts')).sort(
-  (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999),
-);
+const posts = (await getCollection('posts'))
+  .filter((p) => (p.data.status ?? 'public') === 'public')
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
 // In das Format bringen, das das Client-Skript erwartet
 const POSTS = posts.map((p) => ({

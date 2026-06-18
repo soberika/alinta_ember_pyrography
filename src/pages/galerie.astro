@@ -4,9 +4,9 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
-const works = (await getCollection('works')).sort(
-  (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999),
-);
+const works = (await getCollection('works'))
+  .filter((w) => (w.data.status ?? 'public') === 'public')
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
 // Maße aus dem strukturierten dimensions-Objekt zu einem lesbaren Text formen
 function formatDimensions(d) {

@@ -8,6 +8,7 @@ const home = (await getCollection('home'))[0].data;
 
 // Featured-Werke = die ersten 4 aus der Werke-Collection (nach Reihenfolge)
 const works = (await getCollection('works'))
+  .filter((w) => (w.data.status ?? 'public') === 'public')
   .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
   .slice(0, 4);
 
