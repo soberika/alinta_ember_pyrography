@@ -8,6 +8,17 @@ const works = (await getCollection('works')).sort(
   (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999),
 );
 
+// Maße aus dem strukturierten dimensions-Objekt zu einem lesbaren Text formen
+function formatDimensions(d) {
+  if (!d) return '';
+  const u = d.unit ? ` ${d.unit}` : '';
+  if (d.diameter != null) return `Ø ${d.diameter}${u}`;
+  if (d.width != null && d.height != null) return `${d.width} × ${d.height}${u}`;
+  if (d.width != null) return `${d.width}${u}`;
+  if (d.height != null) return `${d.height}${u}`;
+  return '';
+}
+
 // In das Format bringen, das das Client-Skript erwartet
 const items = works.map((w) => ({
   id: w.id,
@@ -16,6 +27,9 @@ const items = works.map((w) => ({
   img: w.data.image,
   eyebrow: w.data.eyebrow ?? '',
   desc: w.data.description ?? '',
+  dims: formatDimensions(w.data.dimensions),
+  wood: w.data.woodType ?? '',
+  gallery: (w.data.gallery ?? []).map((g) => ({ img: g.image, caption: g.caption ?? '' })),
   meta: (w.data.meta ?? []).map((m) => [m.label, m.value]),
 }));
 ---
@@ -78,11 +92,13 @@ const items = works.map((w) => ({
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
       <div class="grid md:grid-cols-2">
-        <div class="bg-wood-200 p-6 md:p-8 grid place-items-center">
+        <div class="bg-wood-200 p-6 md:p-8 flex flex-col items-center justify-center gap-4">
           <div class="relative w-full aspect-[3/4] max-w-[360px]">
             <div class="absolute -inset-4 rounded-3xl blur-2xl opacity-80" style="background: radial-gradient(closest-side, rgba(255,140,30,.45), transparent 70%);"></div>
             <img id="modal-img" alt="" class="relative w-full h-full object-cover rounded-2xl ring-1 ring-wood-400/50" />
           </div>
+          <!-- Work-in-Progress-Thumbnails (nur sichtbar, wenn vorhanden) -->
+          <div id="modal-thumbs" class="hidden w-full max-w-[360px] flex flex-wrap gap-2 justify-center"></div>
         </div>
         <div class="p-7 md:p-10 wood-panel">
           <p class="eyebrow" id="modal-eyebrow">Werk</p>
@@ -116,6 +132,15 @@ const items = works.map((w) => ({
       border-color:transparent;
       box-shadow: 0 6px 18px -6px rgba(232,93,4,.6);
     }
+    .modal-thumb{
+      width:56px; height:56px; flex:0 0 auto;
+      border-radius:.6rem; overflow:hidden; cursor:pointer;
+      border:2px solid rgba(184,138,85,.5);
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .modal-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .modal-thumb:hover{ transform: translateY(-2px); border-color:#e85d04; }
+    .modal-thumb.active{ border-color:#e85d04; box-shadow:0 4px 12px -4px rgba(232,93,4,.6); }
   </style>
 
   <script define:vars={{ ITEMS: items }}>
@@ -156,20 +181,48 @@ const items = works.map((w) => ({
     // modal
     const modal = document.getElementById('modal');
     const backdrop = document.getElementById('modal-backdrop');
+    const mainImg = document.getElementById('modal-img');
+    const thumbsEl = document.getElementById('modal-thumbs');
     function openModal(id){
       const w = ITEMS.find(x => x.id === id); if (!w) return;
-      document.getElementById('modal-img').src = w.img;
-      document.getElementById('modal-img').alt = w.title;
+      mainImg.src = w.img;
+      mainImg.alt = w.title;
       document.getElementById('modal-eyebrow').textContent = w.eyebrow;
       document.getElementById('modal-title').textContent = w.title;
       document.getElementById('modal-desc').textContent  = w.desc;
       document.getElementById('modal-shop-link').href = '/shop#' + w.id;
-      document.getElementById('modal-meta').innerHTML = w.meta.map(([k,v]) => `
+      const tile = (k, v) => `
         <li class="rounded-xl bg-white/55 border border-wood-400/40 px-3 py-2">
           <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>
           <span class="block mt-0.5 font-medium">${v}</span>
-        </li>
-      `).join('');
+        </li>`;
+      const dimsTile = w.dims ? tile('Maße', w.dims) : '';
+      const woodTile = w.wood ? tile('Holzart', w.wood) : '';
+      document.getElementById('modal-meta').innerHTML =
+        dimsTile + woodTile + w.meta.map(([k,v]) => tile(k, v)).join('');
+
+      // Work-in-Progress-Galerie: Hauptbild + Zusatzbilder als Thumbnails.
+      // Klick auf ein Thumbnail vergrößert es im Hauptbild-Bereich.
+      if (w.gallery && w.gallery.length){
+        const shots = [{ img: w.img, caption: w.title }, ...w.gallery];
+        thumbsEl.innerHTML = shots.map((s, i) => `
+          <button type="button" class="modal-thumb${i === 0 ? ' active' : ''}" data-src="${s.img}" title="${s.caption}" aria-label="${s.caption}">
+            <img src="${s.img}" alt="${s.caption}" />
+          </button>`).join('');
+        thumbsEl.querySelectorAll('.modal-thumb').forEach(btn => {
+          btn.addEventListener('click', () => {
+            mainImg.src = btn.dataset.src;
+            thumbsEl.querySelectorAll('.modal-thumb').forEach(b => b.classList.toggle('active', b === btn));
+          });
+        });
+        thumbsEl.classList.remove('hidden');
+        thumbsEl.classList.add('flex');
+      } else {
+        thumbsEl.innerHTML = '';
+        thumbsEl.classList.add('hidden');
+        thumbsEl.classList.remove('flex');
+      }
+
       modal.classList.remove('hidden'); modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
     }
