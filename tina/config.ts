@@ -124,11 +124,23 @@ export default defineConfig({
               { type: 'string', name: 'unit', label: 'Einheit (z. B. cm)' },
             ],
           },
+          { type: 'string', name: 'woodType', label: 'Holzart (z. B. Birke, Eiche)' },
           {
             type: 'string',
             name: 'tags',
             label: 'Tags (für Filterung / Suche)',
             list: true,
+          },
+          {
+            type: 'object',
+            name: 'gallery',
+            label: 'Work-in-Progress-Galerie (Thumbnails neben dem Hauptbild)',
+            list: true,
+            ui: { itemProps: (item) => ({ label: item?.caption || 'Bild' }) },
+            fields: [
+              { type: 'image', name: 'image', label: 'Bild' },
+              { type: 'string', name: 'caption', label: 'Bildunterschrift (optional)' },
+            ],
           },
           {
             type: 'object',

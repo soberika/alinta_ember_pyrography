@@ -12,10 +12,13 @@
     "diameter": 28,
     "unit": "cm"
   },
+  "woodType": "Birke",
   "tags": ["phönix", "vogel", "feuer", "birke", "unikat"],
+  "gallery": [
+    { "image": "/images/work-forest.png", "caption": "WIP: Vorzeichnung (Beispielbild — bitte ersetzen)" },
+    { "image": "/images/work-rose.png", "caption": "WIP: Erste Brennschicht (Beispielbild — bitte ersetzen)" }
+  ],
   "meta": [
-    { "label": "Material", "value": "Birke" },
-    { "label": "Größe", "value": "Ø 28 cm" },
     { "label": "Jahr", "value": "2025" },
     { "label": "Auflage", "value": "Unikat" }
   ]
