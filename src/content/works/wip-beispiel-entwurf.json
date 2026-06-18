@@ -1,0 +1,22 @@
+{
+  "title": "WIP-Beispiel (Entwurf)",
+  "category": "steampunk",
+  "image": "/images/work-clock.png",
+  "eyebrow": "Holzscheibe · Ø 30 cm",
+  "description": "Platzhalter-Eintrag für ein Work-in-Progress. Dieses Werk ist noch in Arbeit und dient nur als Beispiel für einen unveröffentlichten Entwurf.",
+  "year": 2026,
+  "type": "Unikat",
+  "order": 99,
+  "status": "unlisted",
+  "gallery": [
+    {
+      "image": "/images/work-forest.png",
+      "caption": "Platzhalter – WIP-Schritt 1 (Vorzeichnung)"
+    }
+  ],
+  "meta": [
+    {
+      "label": "Sperrholz"
+    }
+  ]
+}
