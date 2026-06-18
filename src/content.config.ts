@@ -22,6 +22,8 @@ const works = defineCollection({
     available: z.boolean().optional(),
     type: z.string().optional(),
     order: z.number().optional(),
+    // Sichtbarkeit: 'public' (gelistet) oder 'unlisted' (ausgeblendet / Entwurf)
+    status: z.enum(['public', 'unlisted']).optional().default('public'),
     // Strukturierte Maße (besser filter-/auswertbar als nur im meta-Array)
     dimensions: z
       .object({
@@ -79,6 +81,8 @@ const posts = defineCollection({
     thumbnail: z.string().optional(),
     body: z.array(z.string()).optional().default([]),
     order: z.number().optional(),
+    // Sichtbarkeit: 'public' (gelistet) oder 'unlisted' (ausgeblendet / Entwurf)
+    status: z.enum(['public', 'unlisted']).optional().default('public'),
     // Hervorgehobener Beitrag (großer Hero oben auf der Blog-Seite)
     featured: z.boolean().optional(),
     featuredHeading: z.string().optional(),

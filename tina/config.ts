@@ -63,6 +63,7 @@ export default defineConfig({
         path: 'src/content/works',
         format: 'json',
         ui: {
+          defaultItem: { status: 'public' },
           // Dateiname aus dem Titel ableiten (z. B. "Phönix II" → phoenix-ii)
           filename: {
             slugify: (values) =>
@@ -110,6 +111,17 @@ export default defineConfig({
             type: 'number',
             name: 'order',
             label: 'Reihenfolge (kleiner = weiter vorne)',
+          },
+          {
+            type: 'string',
+            name: 'status',
+            label: 'Sichtbarkeit',
+            description:
+              'Öffentlich = in der Galerie sichtbar. Nicht gelistet = ausgeblendet (Entwurf / vorerst rausgenommen).',
+            options: [
+              { value: 'public', label: 'Öffentlich (sichtbar)' },
+              { value: 'unlisted', label: 'Nicht gelistet / Entwurf (ausgeblendet)' },
+            ],
           },
           {
             type: 'object',
@@ -211,6 +223,7 @@ export default defineConfig({
         path: 'src/content/posts',
         format: 'json',
         ui: {
+          defaultItem: { status: 'public' },
           filename: {
             slugify: (values) =>
               (values?.title || 'beitrag')
@@ -264,6 +277,17 @@ export default defineConfig({
             type: 'number',
             name: 'order',
             label: 'Reihenfolge (kleiner = weiter oben / neuer)',
+          },
+          {
+            type: 'string',
+            name: 'status',
+            label: 'Sichtbarkeit',
+            description:
+              'Öffentlich = im Blog sichtbar. Nicht gelistet = ausgeblendet (Entwurf / vorerst rausgenommen).',
+            options: [
+              { value: 'public', label: 'Öffentlich (sichtbar)' },
+              { value: 'unlisted', label: 'Nicht gelistet / Entwurf (ausgeblendet)' },
+            ],
           },
           {
             type: 'boolean',
