@@ -277,7 +277,7 @@ const WORKS = works.map((w) => ({
 
       const tagsEl = document.getElementById('modal-tags');
       tagsEl.innerHTML = (w.tags || [])
-        .map(t => `<a class="work-tag" href="/galerie?tag=${encodeURIComponent(t)}" title="Alle Werke mit #${t} in der Galerie">#${t}</a>`)
+        .map(t => `<a class="tag-btn" href="/galerie?tag=${encodeURIComponent(t)}" title="Alle Werke mit #${t} in der Galerie">#${t}</a>`)
         .join('');
       tagsEl.classList.toggle('hidden', !(w.tags && w.tags.length));
       modal.classList.remove('hidden');
