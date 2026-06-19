@@ -93,6 +93,19 @@ body{
   color:#b4530a; background:rgba(232,93,4,.10);
   border:1px solid rgba(232,93,4,.30);
 }
+/* Klickbare Tags (Filter in der Galerie / Link von der Startseite) */
+a.work-tag, button.work-tag{
+  cursor:pointer; text-decoration:none;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+a.work-tag:hover, button.work-tag:hover{
+  background:rgba(232,93,4,.20); border-color:rgba(232,93,4,.55);
+}
+/* Aktiver Tag-Filter (gefüllter Chip mit ✕ zum Entfernen) */
+.work-tag--active{
+  color:#fff; background:#e85d04; border-color:transparent;
+}
+.work-tag--active:hover{ background:#d24f03; border-color:transparent; }
 
 /* arrow-link */
 .arrow-link{

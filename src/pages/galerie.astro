@@ -66,9 +66,12 @@ const items = works.map((w) => ({
         ))}
       </div>
 
+      <!-- Aktiver Tag-Filter (per Klick auf einen Tag im Werk-Modal gesetzt) -->
+      <div id="tagbar" class="hidden flex-wrap items-center gap-2 -mt-3 mb-8"></div>
+
       <div id="works-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6"></div>
 
-      <p id="empty-state" class="hidden text-center text-char-800/70 mt-10">Keine Werke in dieser Kategorie. Schau bald wieder vorbei — die Werkstatt brennt täglich.</p>
+      <p id="empty-state" class="hidden text-center text-char-800/70 mt-10">Keine Werke in dieser Auswahl. Schau bald wieder vorbei — die Werkstatt brennt täglich.</p>
     </div>
   </section>
 
@@ -150,10 +153,15 @@ const items = works.map((w) => ({
     const grid = document.getElementById('works-grid');
     const filters = document.getElementById('filters');
     const empty = document.getElementById('empty-state');
+    const tagbar = document.getElementById('tagbar');
     let active = 'all';
+    let activeTag = null;
 
     function render(){
-      const list = ITEMS.filter(i => active === 'all' || i.cat === active);
+      const list = ITEMS.filter(i =>
+        (active === 'all' || i.cat === active) &&
+        (!activeTag || (i.tags || []).includes(activeTag))
+      );
       empty.classList.toggle('hidden', list.length > 0);
       grid.innerHTML = list.map(w => `
         <button class="work-card group relative text-left focus:outline-none focus:ring-2 focus:ring-ember-500/60 rounded-2xl" data-id="${w.id}" aria-label="${w.title}">
@@ -173,12 +181,42 @@ const items = works.map((w) => ({
         btn.addEventListener('click', () => openModal(btn.dataset.id));
       });
     }
+
+    // Aktiven Tag-Filter setzen/entfernen (+ in der URL spiegeln, damit teilbar/deeplinkbar)
+    function setTag(tag){
+      activeTag = tag || null;
+      const url = new URL(location.href);
+      if (activeTag) url.searchParams.set('tag', activeTag);
+      else url.searchParams.delete('tag');
+      history.replaceState(null, '', url);
+      updateTagbar();
+      render();
+    }
+    function updateTagbar(){
+      if (activeTag){
+        tagbar.innerHTML =
+          `<span class="text-[13px] text-char-800/70">Gefiltert nach Tag:</span>` +
+          `<button type="button" id="tag-clear" class="work-tag work-tag--active">#${activeTag} ✕</button>`;
+        tagbar.classList.remove('hidden'); tagbar.classList.add('flex');
+        tagbar.querySelector('#tag-clear').addEventListener('click', () => setTag(null));
+      } else {
+        tagbar.innerHTML = '';
+        tagbar.classList.add('hidden'); tagbar.classList.remove('flex');
+      }
+    }
+
     filters.addEventListener('click', (e) => {
       const b = e.target.closest('.filter-chip'); if (!b) return;
       active = b.dataset.cat;
       filters.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c === b));
-      render();
+      // Kategorie und Tag schließen sich aus → Tag-Filter aufheben (setTag rendert mit)
+      setTag(null);
     });
+
+    // Tag aus der URL übernehmen (?tag=…), z. B. wenn von der Startseite verlinkt
+    const initialTag = new URLSearchParams(location.search).get('tag');
+    if (initialTag) activeTag = initialTag;
+    updateTagbar();
     render();
 
     // modal
@@ -204,8 +242,18 @@ const items = works.map((w) => ({
         yearTile + dimsTile + w.meta.map(([k,v]) => tile(k, v)).join('');
 
       const tagsEl = document.getElementById('modal-tags');
-      tagsEl.innerHTML = (w.tags || []).map(t => `<span class="work-tag">#${t}</span>`).join('');
+      tagsEl.innerHTML = (w.tags || [])
+        .map(t => `<button type="button" class="work-tag" data-tag="${t}" title="Nur Werke mit #${t} zeigen">#${t}</button>`)
+        .join('');
       tagsEl.classList.toggle('hidden', !(w.tags && w.tags.length));
+      tagsEl.querySelectorAll('[data-tag]').forEach(b => b.addEventListener('click', () => {
+        // Tag-Filter setzen, Kategorie zurück auf „Alle", Modal schließen, zum Raster scrollen
+        active = 'all';
+        filters.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.cat === 'all'));
+        setTag(b.dataset.tag);
+        closeModal();
+        document.getElementById('filter').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }));
 
       // Work-in-Progress-Galerie: Hauptbild + Zusatzbilder als Thumbnails.
       // Klick auf ein Thumbnail vergrößert es im Hauptbild-Bereich.

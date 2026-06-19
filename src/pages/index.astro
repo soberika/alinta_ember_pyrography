@@ -274,7 +274,9 @@ const WORKS = works.map((w) => ({
         yearTile + dimsTile + w.meta.map(([k,v]) => tile(k, v)).join('');
 
       const tagsEl = document.getElementById('modal-tags');
-      tagsEl.innerHTML = (w.tags || []).map(t => `<span class="work-tag">#${t}</span>`).join('');
+      tagsEl.innerHTML = (w.tags || [])
+        .map(t => `<a class="work-tag" href="/galerie?tag=${encodeURIComponent(t)}" title="Alle Werke mit #${t} in der Galerie">#${t}</a>`)
+        .join('');
       tagsEl.classList.toggle('hidden', !(w.tags && w.tags.length));
       modal.classList.remove('hidden');
       modal.classList.add('flex');
