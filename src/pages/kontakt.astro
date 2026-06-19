@@ -63,6 +63,7 @@ const contact = (await getCollection('contact'))[0].data;
         <div id="auftrag" class="cream-panel rounded-[28px] ring-1 ring-wood-300/60 p-7 md:p-10">
           <p class="eyebrow">Nachricht senden</p>
           <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[36px] leading-tight">{contact.formHeading}</h2>
+          <p id="werk-bezug" class="hidden mt-3 w-fit items-center gap-2 rounded-full bg-ember-500/10 text-ember-700 border border-ember-500/30 px-4 py-1.5 text-sm font-semibold"></p>
 
           <form class="mt-6 grid gap-4" onsubmit="event.preventDefault(); document.getElementById('thanks').classList.remove('hidden'); this.reset();">
             <div class="grid sm:grid-cols-2 gap-4">
@@ -96,7 +97,7 @@ const contact = (await getCollection('contact'))[0].data;
 
             <label class="block">
               <span class="text-sm font-semibold text-char-800/85">Deine Nachricht</span>
-              <textarea required rows="5" class="field mt-1" placeholder="Erzähl mir kurz von deiner Idee, Größe, gewünschtem Lieferzeitpunkt …"></textarea>
+              <textarea required rows="5" id="contact-message" class="field mt-1" placeholder="Erzähl mir kurz von deiner Idee, Größe, gewünschtem Lieferzeitpunkt …"></textarea>
             </label>
 
             <label class="flex items-start gap-3 text-sm text-char-800/85">
@@ -128,6 +129,28 @@ const contact = (await getCollection('contact'))[0].data;
   </section>
 
   <Footer />
+
+  <!-- Vorbelegung bei Anfrage zu einem konkreten Werk (?werk=…) aus dem Galerie-/Featured-Modal -->
+  <script is:inline>
+    (function () {
+      const werk = new URLSearchParams(location.search).get('werk');
+      if (!werk) return;
+      const auftrag = document.querySelector('input[name="topic"][value="auftrag"]');
+      if (auftrag) auftrag.checked = true;
+      const msg = document.getElementById('contact-message');
+      if (msg && !msg.value) {
+        msg.value =
+          'Hallo Alita,\n\nich interessiere mich für eine Neuauflage von „' + werk +
+          '“. Ist das als Auftragsarbeit möglich? Über Größe, Holzart und gewünschten Zeitrahmen würde ich gern sprechen.';
+      }
+      const bezug = document.getElementById('werk-bezug');
+      if (bezug) {
+        bezug.textContent = 'Bezug: Neuauflage von „' + werk + '“';
+        bezug.classList.remove('hidden');
+        bezug.classList.add('inline-flex');
+      }
+    })();
+  </script>
 
   <style is:global>
     .topic{ display:inline-flex; align-items:center; gap:.4rem; padding:.5rem .9rem; border-radius:9999px;
