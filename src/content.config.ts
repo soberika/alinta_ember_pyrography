@@ -65,6 +65,23 @@ const products = defineCollection({
     available: z.boolean().optional(),
     type: z.string().optional(),
     order: z.number().optional(),
+    // Ausführliche Produktbeschreibung
+    description: z.string().optional(),
+    // Strukturierte Maße (gleiches Objekt wie bei Works)
+    dimensions: z
+      .object({
+        width: z.number().optional(),
+        height: z.number().optional(),
+        diameter: z.number().optional(),
+        unit: z.string().optional(), // z. B. "cm"
+      })
+      .optional()
+      .default({}),
+    // Gewicht in Gramm (für Versandinfos)
+    weight: z.number().optional(),
+    // Auflage: Gesamtanzahl und laufende Nummer (z. B. 3 von 5)
+    editionSize: z.number().optional(),
+    editionNumber: z.number().optional(),
   }),
 });
 

@@ -213,6 +213,36 @@ export default defineConfig({
             name: 'order',
             label: 'Reihenfolge (kleiner = weiter vorne)',
           },
+          {
+            type: 'string',
+            name: 'description',
+            label: 'Beschreibung',
+            ui: { component: 'textarea' },
+          },
+          {
+            type: 'object',
+            name: 'dimensions',
+            label: 'Maße (strukturiert)',
+            description:
+              'Strukturierte Maße — besser filter-/auswertbar als ein Freitext. Bei runden Werken Durchmesser, sonst Breite × Höhe.',
+            fields: [
+              { type: 'number', name: 'width', label: 'Breite' },
+              { type: 'number', name: 'height', label: 'Höhe' },
+              { type: 'number', name: 'diameter', label: 'Durchmesser (Ø)' },
+              { type: 'string', name: 'unit', label: 'Einheit (z. B. cm)' },
+            ],
+          },
+          { type: 'number', name: 'weight', label: 'Gewicht (g, für Versandinfos)' },
+          {
+            type: 'number',
+            name: 'editionSize',
+            label: 'Auflage gesamt (z. B. 5 bei „3 von 5“)',
+          },
+          {
+            type: 'number',
+            name: 'editionNumber',
+            label: 'Auflage Nr. (z. B. 3 bei „3 von 5“)',
+          },
         ],
       },
 
