@@ -83,13 +83,18 @@ export default defineConfig({
           {
             type: 'string',
             name: 'category',
-            label: 'Kategorie',
+            label: 'Kategorie (Produkt-Typ)',
+            description:
+              'Was das Stück ist (nicht das Motiv). Muss mit src/lib/categories.ts synchron bleiben.',
             required: true,
             options: [
-              { value: 'tiere', label: 'Tiere & Mythos' },
-              { value: 'natur', label: 'Natur' },
-              { value: 'steampunk', label: 'Steampunk' },
-              { value: 'portrait', label: 'Portrait' },
+              { value: 'untersetzer', label: 'Untersetzer' },
+              { value: 'miniaturen', label: 'Miniaturen' },
+              { value: 'schneidebretter', label: 'Schneidebretter' },
+              { value: 'deko', label: 'Deko' },
+              { value: 'wandbild', label: 'Wandbild' },
+              { value: 'aufbewahrung', label: 'Aufbewahrung' },
+              { value: 'funktionale-dekoration', label: 'Funktionale Dekoration' },
             ],
           },
           { type: 'image', name: 'image', label: 'Bild', required: true },
@@ -104,7 +109,12 @@ export default defineConfig({
             label: 'Beschreibung',
             ui: { component: 'textarea' },
           },
-          { type: 'number', name: 'year', label: 'Jahr' },
+          {
+            type: 'datetime',
+            name: 'date',
+            label: 'Datum (Entstehung — steuert die chronologische Sortierung)',
+            ui: { dateFormat: 'DD.MM.YYYY' },
+          },
           { type: 'boolean', name: 'available', label: 'Verfügbar' },
           { type: 'string', name: 'type', label: 'Typ (Unikat / Edition)' },
           {

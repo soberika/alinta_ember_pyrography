@@ -3,10 +3,22 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { WORK_CATEGORIES } from '../lib/categories';
+
+// Sortierung: 'order' wirkt als optionaler Pin (kleiner = weiter vorne);
+// innerhalb derselben order-Stufe chronologisch, neueste zuerst.
+function byPinThenDate(a, b) {
+  const oa = a.data.order ?? 999;
+  const ob = b.data.order ?? 999;
+  if (oa !== ob) return oa - ob;
+  const da = a.data.date ? a.data.date.getTime() : 0;
+  const db = b.data.date ? b.data.date.getTime() : 0;
+  return db - da;
+}
 
 const works = (await getCollection('works'))
   .filter((w) => (w.data.status ?? 'public') === 'public')
-  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+  .sort(byPinThenDate);
 
 // Maße aus dem strukturierten dimensions-Objekt zu einem lesbaren Text formen
 function formatDimensions(d) {
@@ -27,6 +39,7 @@ const items = works.map((w) => ({
   img: w.data.image,
   eyebrow: w.data.eyebrow ?? '',
   desc: w.data.description ?? '',
+  year: w.data.date ? String(w.data.date.getFullYear()) : '',
   dims: formatDimensions(w.data.dimensions),
   wood: w.data.woodType ?? '',
   gallery: (w.data.gallery ?? []).map((g) => ({ img: g.image, caption: g.caption ?? '' })),
@@ -46,7 +59,7 @@ const items = works.map((w) => ({
           <p class="eyebrow">Galerie</p>
           <h1 class="mt-3 font-display font-extrabold text-char-900 leading-[1] text-[44px] sm:text-[64px] md:text-[80px]">Alle Werke</h1>
           <p class="mt-5 text-[18px] md:text-[20px] text-char-800/90 leading-relaxed">
-            Eine Sammlung gebrannter Stücke aus den letzten Jahren — sortiert nach Kategorie. Klicke ein Werk an, um Details zu sehen.
+            Eine Sammlung gebrannter Stücke aus den letzten Jahren — die neuesten zuerst, filterbar nach Art des Stücks. Klicke ein Werk an, um Details zu sehen.
           </p>
         </div>
       </div>
@@ -58,10 +71,9 @@ const items = works.map((w) => ({
     <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-12 md:pb-16">
       <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-8 md:mb-10" id="filters">
         <button data-cat="all" class="filter-chip active">Alle</button>
-        <button data-cat="tiere" class="filter-chip">Tiere & Mythos</button>
-        <button data-cat="natur" class="filter-chip">Natur</button>
-        <button data-cat="steampunk" class="filter-chip">Steampunk</button>
-        <button data-cat="portrait" class="filter-chip">Portrait</button>
+        {WORK_CATEGORIES.map((c) => (
+          <button data-cat={c.value} class="filter-chip">{c.label}</button>
+        ))}
       </div>
 
       <div id="works-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6"></div>
@@ -196,10 +208,11 @@ const items = works.map((w) => ({
           <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>
           <span class="block mt-0.5 font-medium">${v}</span>
         </li>`;
+      const yearTile = w.year ? tile('Jahr', w.year) : '';
       const dimsTile = w.dims ? tile('Maße', w.dims) : '';
       const woodTile = w.wood ? tile('Holzart', w.wood) : '';
       document.getElementById('modal-meta').innerHTML =
-        dimsTile + woodTile + w.meta.map(([k,v]) => tile(k, v)).join('');
+        yearTile + dimsTile + woodTile + w.meta.map(([k,v]) => tile(k, v)).join('');
 
       // Work-in-Progress-Galerie: Hauptbild + Zusatzbilder als Thumbnails.
       // Klick auf ein Thumbnail vergrößert es im Hauptbild-Bereich.

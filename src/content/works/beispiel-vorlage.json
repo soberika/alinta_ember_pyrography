@@ -1,0 +1,21 @@
+{
+  "title": "Beispiel-Werk (Vorlage)",
+  "category": "wandbild",
+  "image": "/images/work-phoenix.png",
+  "eyebrow": "Holzscheibe · Ø 28 cm",
+  "description": "Ausgeblendete Vorlage mit dem neuen Schema (Produkt-Kategorie + Datum). Dupliziere sie für ein echtes Werk oder lösche sie im CMS.",
+  "date": "2026-01-15",
+  "available": true,
+  "type": "Unikat",
+  "order": 1,
+  "status": "unlisted",
+  "dimensions": {
+    "diameter": 28,
+    "unit": "cm"
+  },
+  "woodType": "Birke",
+  "tags": ["vorlage"],
+  "meta": [
+    { "label": "Auflage", "value": "Unikat" }
+  ]
+}

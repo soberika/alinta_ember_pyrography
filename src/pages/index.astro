@@ -6,10 +6,18 @@ import { getCollection } from 'astro:content';
 
 const home = (await getCollection('home'))[0].data;
 
-// Featured-Werke = die ersten 4 aus der Werke-Collection (nach Reihenfolge)
+// Featured-Werke = die ersten 4 aus der Werke-Collection.
+// 'order' wirkt als Pin (kleiner = weiter vorne), sonst chronologisch (neueste zuerst).
 const works = (await getCollection('works'))
   .filter((w) => (w.data.status ?? 'public') === 'public')
-  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
+  .sort((a, b) => {
+    const oa = a.data.order ?? 999;
+    const ob = b.data.order ?? 999;
+    if (oa !== ob) return oa - ob;
+    const da = a.data.date ? a.data.date.getTime() : 0;
+    const db = b.data.date ? b.data.date.getTime() : 0;
+    return db - da;
+  })
   .slice(0, 4);
 
 const WORKS = works.map((w) => ({
