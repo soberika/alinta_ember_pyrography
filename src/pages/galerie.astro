@@ -35,6 +35,11 @@ const items = works.map((w) => ({
   gallery: (w.data.gallery ?? []).map((g) => ({ img: g.image, caption: g.caption ?? '' })),
   meta: (w.data.meta ?? []).map((m) => [m.label, m.value]),
 }));
+
+// Alle vorkommenden Tags (alphabetisch) → Tag-Filter-Buttons unter den Kategorien
+const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))].sort((a, b) =>
+  a.localeCompare(b, 'de')
+);
 ---
 
 <Base title="Galerie — Alita Ember">
@@ -66,8 +71,15 @@ const items = works.map((w) => ({
         ))}
       </div>
 
-      <!-- Aktiver Tag-Filter (per Klick auf einen Tag im Werk-Modal gesetzt) -->
-      <div id="tagbar" class="hidden flex-wrap items-center gap-2 -mt-3 mb-8"></div>
+      <!-- Tag-Filter: alle vorkommenden Tags als Buttons, klickbar (Toggle) -->
+      {allTags.length > 0 && (
+        <div class="flex flex-wrap items-center gap-2 md:gap-3 -mt-3 mb-8 md:mb-10" id="tagfilter">
+          <span class="text-[12px] uppercase tracking-[.18em] text-char-800/55 font-semibold mr-1">Tags</span>
+          {allTags.map((t) => (
+            <button type="button" class="tag-btn" data-tag={t}>#{t}</button>
+          ))}
+        </div>
+      )}
 
       <div id="works-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6"></div>
 
@@ -153,7 +165,7 @@ const items = works.map((w) => ({
     const grid = document.getElementById('works-grid');
     const filters = document.getElementById('filters');
     const empty = document.getElementById('empty-state');
-    const tagbar = document.getElementById('tagbar');
+    const tagfilter = document.getElementById('tagfilter');
     let active = 'all';
     let activeTag = null;
 
@@ -189,20 +201,28 @@ const items = works.map((w) => ({
       if (activeTag) url.searchParams.set('tag', activeTag);
       else url.searchParams.delete('tag');
       history.replaceState(null, '', url);
-      updateTagbar();
+      syncTagButtons();
       render();
     }
-    function updateTagbar(){
-      if (activeTag){
-        tagbar.innerHTML =
-          `<span class="text-[13px] text-char-800/70">Gefiltert nach Tag:</span>` +
-          `<button type="button" id="tag-clear" class="work-tag work-tag--active">#${activeTag} ✕</button>`;
-        tagbar.classList.remove('hidden'); tagbar.classList.add('flex');
-        tagbar.querySelector('#tag-clear').addEventListener('click', () => setTag(null));
-      } else {
-        tagbar.innerHTML = '';
-        tagbar.classList.add('hidden'); tagbar.classList.remove('flex');
-      }
+    // Aktiven Zustand der Tag-Buttons spiegeln
+    function syncTagButtons(){
+      if (!tagfilter) return;
+      tagfilter.querySelectorAll('.tag-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset.tag === activeTag)
+      );
+    }
+
+    // Klick auf einen Tag-Button: Toggle; Kategorie dabei auf „Alle" zurück
+    if (tagfilter) {
+      tagfilter.addEventListener('click', (e) => {
+        const b = e.target.closest('.tag-btn'); if (!b) return;
+        const next = b.dataset.tag === activeTag ? null : b.dataset.tag;
+        if (next) {
+          active = 'all';
+          filters.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.cat === 'all'));
+        }
+        setTag(next);
+      });
     }
 
     filters.addEventListener('click', (e) => {
@@ -216,7 +236,7 @@ const items = works.map((w) => ({
     // Tag aus der URL übernehmen (?tag=…), z. B. wenn von der Startseite verlinkt
     const initialTag = new URLSearchParams(location.search).get('tag');
     if (initialTag) activeTag = initialTag;
-    updateTagbar();
+    syncTagButtons();
     render();
 
     // modal
@@ -245,7 +265,7 @@ const items = works.map((w) => ({
 
       const tagsEl = document.getElementById('modal-tags');
       tagsEl.innerHTML = (w.tags || [])
-        .map(t => `<button type="button" class="work-tag" data-tag="${t}" title="Nur Werke mit #${t} zeigen">#${t}</button>`)
+        .map(t => `<button type="button" class="tag-btn" data-tag="${t}" title="Nur Werke mit #${t} zeigen">#${t}</button>`)
         .join('');
       tagsEl.classList.toggle('hidden', !(w.tags && w.tags.length));
       tagsEl.querySelectorAll('[data-tag]').forEach(b => b.addEventListener('click', () => {
