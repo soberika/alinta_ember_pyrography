@@ -1,6 +1,6 @@
-# Alita Ember — Pyrography
+# Alinta Ember — Pyrography
 
-Website der Pyrografie-Künstlerin **Alita Ember** — gebaut mit **Astro** und
+Website der Pyrografie-Künstlerin **Alinta Ember** — gebaut mit **Astro** und
 redaktionell pflegbar über **TinaCMS**. Gehostet auf **Vercel**, alle Inhalte
 liegen versioniert im GitHub-Repo.
 
@@ -88,7 +88,7 @@ Blog, Startseiten-/Über-/Kontakt-Inhalte).
 
 **Bewusst im Code (Struktur, kein Inhalt):**
 - Navigation & Footer-Links, URLs/Routen
-- Marken-Name „Alita Ember" im Hero
+- Marken-Name „Alinta Ember" im Hero
 - Formular-Struktur der Kontaktseite (Felder, Anliegen, Budget-Optionen)
 - Design (Farben, Schriften, Layout) und dekorative Bilder (Logo, Charakter)
 

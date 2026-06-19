@@ -34,39 +34,37 @@ const WORKS = works.map((w) => ({
 }));
 ---
 
-<Base title="Alita Ember — Pyrography Kunst mit Feuer und Seele">
+<Base title="Alinta Ember — Pyrography Kunst mit Feuer und Seele">
   <Header active="home" />
 
   <!-- ============== HERO ============== -->
   <section id="home" class="relative">
     <div class="max-w-6xl mx-auto px-5 md:px-8 pt-6 md:pt-8">
-      <div class="wood-bg relative rounded-[28px] overflow-hidden ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.45)]">
+      <div class="relative rounded-[28px] overflow-hidden ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.45)]">
+        <img src="/assets/alita-banner.png"
+             alt="Alinta Ember — Pyrography Künstlerin mit feurigen Goggles und brennendem Brenneisen"
+             class="absolute inset-0 w-full h-full object-cover object-left select-none pointer-events-none"
+             draggable="false" />
+        <div class="absolute inset-0 pointer-events-none"
+             style="background: linear-gradient(90deg, rgba(26,17,8,.04) 0%, rgba(26,17,8,.22) 40%, rgba(26,17,8,.70) 72%, rgba(26,17,8,.90) 100%);"></div>
+        <div class="absolute inset-0 pointer-events-none"
+             style="background: linear-gradient(0deg, rgba(26,17,8,.55) 0%, transparent 42%);"></div>
         <div id="embers" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
-        <div class="hero-vignette"></div>
 
-        <div class="relative grid md:grid-cols-12 gap-6 md:gap-4 items-center px-6 md:px-12 lg:px-16 pt-14 md:pt-20 pb-10 md:pb-16 min-h-[560px] md:min-h-[640px]">
-          <div class="md:col-span-7 lg:col-span-7 relative z-10">
-            <h1 class="font-display font-extrabold tracking-tight text-char-900 leading-[.95]
-                       text-[64px] sm:text-[84px] md:text-[92px] lg:text-[108px]">
-              Alita<br class="hidden sm:block" /><span class="sm:hidden"> </span>Ember
+        <div class="relative grid md:grid-cols-12 gap-6 items-center px-6 md:px-12 lg:px-16 pt-14 md:pt-20 pb-10 md:pb-16 min-h-[560px] md:min-h-[640px]">
+          <div class="md:col-span-6 md:col-start-7 relative z-10 text-right md:text-left">
+            <h1 class="font-display font-extrabold tracking-tight text-wood-50 leading-[.95]
+                       text-[64px] sm:text-[84px] md:text-[92px] lg:text-[108px]"
+                style="text-shadow: 0 6px 32px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.65);">
+              Alinta<br class="hidden sm:block" /><span class="sm:hidden"> </span>Ember
             </h1>
-            <p class="mt-5 md:mt-7 text-[22px] md:text-[26px] lg:text-[28px] leading-snug text-char-800 max-w-[18ch]">
+            <p class="mt-5 md:mt-7 text-[22px] md:text-[26px] lg:text-[28px] leading-snug text-wood-100 max-w-[18ch] ml-auto md:ml-0"
+               style="text-shadow: 0 2px 16px rgba(0,0,0,.7);">
               {home.heroSubtitle}
             </p>
-
-            <div class="mt-8 md:mt-10 flex flex-wrap gap-4">
+            <div class="mt-8 md:mt-10 flex flex-wrap gap-4 justify-end md:justify-start">
               <a href="/galerie" class="btn btn-orange">{home.heroCta1 ?? 'Zur Galerie'}</a>
               <a href="/shop" class="btn btn-yellow">{home.heroCta2 ?? 'Shop entdecken'}</a>
-            </div>
-          </div>
-
-          <div class="md:col-span-5 lg:col-span-5 relative z-10 hero-character-wrap">
-            <div class="relative">
-              <div class="absolute -inset-6 md:-inset-10 rounded-full blur-3xl opacity-90 pointer-events-none"
-                   style="background: radial-gradient(closest-side, rgba(255,150,40,.55), rgba(232,93,4,.20) 55%, transparent 75%);"></div>
-              <img src="/assets/alita-character.png" alt="Alita Ember — Pyrography Künstlerin mit feurigen Goggles und brennendem Brenneisen"
-                   class="relative hero-character float-slow w-full max-w-[420px] md:max-w-none mx-auto select-none"
-                   draggable="false" />
             </div>
           </div>
         </div>

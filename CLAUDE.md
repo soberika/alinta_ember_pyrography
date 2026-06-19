@@ -5,7 +5,7 @@ Pflege-Doku steht in `README.md`, Tina-Cloud-Setup in `TINACMS.md`.)
 
 ## Projekt in einem Satz
 
-Statische **Astro 6**-Website (Pyrografie-Künstlerin Alita Ember), Inhalte über
+Statische **Astro 6**-Website (Pyrografie-Künstlerin Alinta Ember), Inhalte über
 **TinaCMS** (Tina Cloud + GitHub) pflegbar, Hosting auf **Vercel**,
 Production-Branch `main`. Ursprünglich eine statische HTML-Seite (liegt als
 Archiv in `_legacy/`), migriert nach Astro.

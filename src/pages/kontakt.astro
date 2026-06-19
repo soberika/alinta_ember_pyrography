@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 const contact = (await getCollection('contact'))[0].data;
 ---
 
-<Base title="Kontakt — Alita Ember">
+<Base title="Kontakt — Alinta Ember">
   <Header active="kontakt" />
 
   <!-- INTRO -->
@@ -140,7 +140,7 @@ const contact = (await getCollection('contact'))[0].data;
       const msg = document.getElementById('contact-message');
       if (msg && !msg.value) {
         msg.value =
-          'Hallo Alita,\n\nich interessiere mich für eine Neuauflage von „' + werk +
+          'Hallo Alinta,\n\nich interessiere mich für eine Neuauflage von „' + werk +
           '“. Ist das als Auftragsarbeit möglich? Über Größe, Holzart und gewünschten Zeitrahmen würde ich gern sprechen.';
       }
       const bezug = document.getElementById('werk-bezug');
