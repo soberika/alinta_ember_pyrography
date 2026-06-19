@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { WORK_CATEGORY_VALUES } from './lib/categories';
 
 /**
  * Astro Content Collections (Content Layer API, Astro 6).
@@ -14,11 +15,12 @@ const works = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/works' }),
   schema: z.object({
     title: z.string(),
-    category: z.enum(['tiere', 'natur', 'steampunk', 'portrait']),
+    category: z.enum(WORK_CATEGORY_VALUES),
     image: z.string(),
     eyebrow: z.string().optional(),
     description: z.string().optional(),
-    year: z.number().optional(),
+    // Entstehungs-/Veröffentlichungsdatum — Basis für die chronologische Sortierung
+    date: z.coerce.date().optional(),
     available: z.boolean().optional(),
     type: z.string().optional(),
     order: z.number().optional(),
@@ -65,6 +67,23 @@ const products = defineCollection({
     available: z.boolean().optional(),
     type: z.string().optional(),
     order: z.number().optional(),
+    // Ausführliche Produktbeschreibung
+    description: z.string().optional(),
+    // Strukturierte Maße (gleiches Objekt wie bei Works)
+    dimensions: z
+      .object({
+        width: z.number().optional(),
+        height: z.number().optional(),
+        diameter: z.number().optional(),
+        unit: z.string().optional(), // z. B. "cm"
+      })
+      .optional()
+      .default({}),
+    // Gewicht in Gramm (für Versandinfos)
+    weight: z.number().optional(),
+    // Auflage: Gesamtanzahl und laufende Nummer (z. B. 3 von 5)
+    editionSize: z.number().optional(),
+    editionNumber: z.number().optional(),
   }),
 });
 
