@@ -16,7 +16,8 @@
   ],
   "meta": [
     {
-      "label": "Sperrholz"
+      "label": "Material",
+      "value": "Sperrholz"
     }
   ]
 }
