@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import { WORK_CATEGORIES } from '../lib/categories';
+import { formatDimensions } from '../lib/works';
 
 // Sortierung: 'order' wirkt als optionaler Pin (kleiner = weiter vorne);
 // innerhalb derselben order-Stufe chronologisch, neueste zuerst.
@@ -20,17 +21,6 @@ const works = (await getCollection('works'))
   .filter((w) => (w.data.status ?? 'public') === 'public')
   .sort(byPinThenDate);
 
-// Maße aus dem strukturierten dimensions-Objekt zu einem lesbaren Text formen
-function formatDimensions(d) {
-  if (!d) return '';
-  const u = d.unit ? ` ${d.unit}` : '';
-  if (d.diameter != null) return `Ø ${d.diameter}${u}`;
-  if (d.width != null && d.height != null) return `${d.width} × ${d.height}${u}`;
-  if (d.width != null) return `${d.width}${u}`;
-  if (d.height != null) return `${d.height}${u}`;
-  return '';
-}
-
 // In das Format bringen, das das Client-Skript erwartet
 const items = works.map((w) => ({
   id: w.id,
@@ -41,7 +31,7 @@ const items = works.map((w) => ({
   desc: w.data.description ?? '',
   year: w.data.date ? String(w.data.date.getFullYear()) : '',
   dims: formatDimensions(w.data.dimensions),
-  wood: w.data.woodType ?? '',
+  tags: w.data.tags ?? [],
   gallery: (w.data.gallery ?? []).map((g) => ({ img: g.image, caption: g.caption ?? '' })),
   meta: (w.data.meta ?? []).map((m) => [m.label, m.value]),
 }));
@@ -117,8 +107,9 @@ const items = works.map((w) => ({
           <h3 id="modal-title" class="mt-2 font-display font-extrabold text-char-900 text-3xl md:text-4xl leading-tight">Titel</h3>
           <p id="modal-desc" class="mt-4 text-char-800/90 text-[16px] leading-relaxed"></p>
           <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
+          <div id="modal-tags" class="mt-5 flex flex-wrap gap-2"></div>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a id="modal-shop-link" href="/shop" class="btn btn-orange">In den Shop</a>
+            <a id="modal-commission-link" href="/kontakt#auftrag" class="btn btn-orange">Neuauflage anfragen</a>
             <button id="modal-close-2" class="btn btn-yellow">Schließen</button>
           </div>
         </div>
@@ -202,7 +193,6 @@ const items = works.map((w) => ({
       document.getElementById('modal-eyebrow').textContent = w.eyebrow;
       document.getElementById('modal-title').textContent = w.title;
       document.getElementById('modal-desc').textContent  = w.desc;
-      document.getElementById('modal-shop-link').href = '/shop#' + w.id;
       const tile = (k, v) => `
         <li class="rounded-xl bg-white/55 border border-wood-400/40 px-3 py-2">
           <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>
@@ -210,9 +200,12 @@ const items = works.map((w) => ({
         </li>`;
       const yearTile = w.year ? tile('Jahr', w.year) : '';
       const dimsTile = w.dims ? tile('Maße', w.dims) : '';
-      const woodTile = w.wood ? tile('Holzart', w.wood) : '';
       document.getElementById('modal-meta').innerHTML =
-        yearTile + dimsTile + woodTile + w.meta.map(([k,v]) => tile(k, v)).join('');
+        yearTile + dimsTile + w.meta.map(([k,v]) => tile(k, v)).join('');
+
+      const tagsEl = document.getElementById('modal-tags');
+      tagsEl.innerHTML = (w.tags || []).map(t => `<span class="work-tag">#${t}</span>`).join('');
+      tagsEl.classList.toggle('hidden', !(w.tags && w.tags.length));
 
       // Work-in-Progress-Galerie: Hauptbild + Zusatzbilder als Thumbnails.
       // Klick auf ein Thumbnail vergrößert es im Hauptbild-Bereich.

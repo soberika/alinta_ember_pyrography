@@ -146,7 +146,6 @@ export default defineConfig({
               { type: 'string', name: 'unit', label: 'Einheit (z. B. cm)' },
             ],
           },
-          { type: 'string', name: 'woodType', label: 'Holzart (z. B. Birke, Eiche)' },
           {
             type: 'string',
             name: 'tags',

@@ -13,8 +13,7 @@
     "diameter": 28,
     "unit": "cm"
   },
-  "woodType": "Birke",
-  "tags": ["vorlage"],
+  "tags": ["vorlage", "unikat", "birke"],
   "meta": [
     { "label": "Auflage", "value": "Unikat" }
   ]

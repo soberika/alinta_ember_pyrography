@@ -36,8 +36,6 @@ const works = defineCollection({
       })
       .optional()
       .default({}),
-    // Verwendete Holzart (z. B. Birke, Eiche)
-    woodType: z.string().optional(),
     // Schlagworte für Filterung / Suche
     tags: z.array(z.string()).optional().default([]),
     // Work-in-Progress-Galerie: zusätzliche Bilder neben dem Hauptbild
