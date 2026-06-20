@@ -6,9 +6,37 @@
   "excerpt": "Neue Ablage, sortierte Spitzen, ein Regal nur für Hölzer. Vorher-Nachher und warum Ordnung beim Brennen Stunden spart.",
   "thumbnail": "illus:studio",
   "order": 5,
-  "body": [
-    "Drei Tage Pause vom Brennen, dafür: neue Regale, sortierte Spitzen, ein eigener Platz für Hölzer nach Maserung.",
-    "Wichtigste Erkenntnis: Spitzen-Suche kostet im Schnitt 12 Minuten pro Werk. Auf das Jahr gerechnet ist das eine ganze Auftragsarbeit.",
-    "Wer mich besuchen möchte: Tür ist offen, einfach kurz vorher melden."
-  ]
+  "body": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Drei Tage Pause vom Brennen, dafür: neue Regale, sortierte Spitzen, ein eigener Platz für Hölzer nach Maserung."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Wichtigste Erkenntnis: Spitzen-Suche kostet im Schnitt 12 Minuten pro Werk. Auf das Jahr gerechnet ist das eine ganze Auftragsarbeit."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Wer mich besuchen möchte: Tür ist offen, einfach kurz vorher melden."
+          }
+        ]
+      }
+    ]
+  },
+  "publishDate": "2026-04-11T12:00:00.000Z"
 }

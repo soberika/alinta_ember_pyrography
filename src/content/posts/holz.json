@@ -6,9 +6,37 @@
   "excerpt": "Birke, Eiche, Linde, Pappel. Ein praktischer Vergleich an drei Motiven — und zwei Lektionen, die ich teuer gelernt habe.",
   "thumbnail": "illus:holz",
   "order": 4,
-  "body": [
-    "Birke ist der Allrounder: feinporig, gleichmäßig, verzeiht viel. Für Konturarbeit und Portraits meine Erste Wahl.",
-    "Eiche bringt eigene Maserung mit — die musst du ins Motiv einplanen, sonst kämpfst du dagegen. Bei mythologischen Motiven wirkt sie magisch.",
-    "Linde ist weich und freundlich, aber wie oben beschrieben: bei mittleren Temperaturen unzuverlässig. Ideal für sehr feine, ruhige Arbeiten mit konstant niedriger Hitze."
-  ]
+  "body": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Birke ist der Allrounder: feinporig, gleichmäßig, verzeiht viel. Für Konturarbeit und Portraits meine Erste Wahl."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Eiche bringt eigene Maserung mit — die musst du ins Motiv einplanen, sonst kämpfst du dagegen. Bei mythologischen Motiven wirkt sie magisch."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Linde ist weich und freundlich, aber wie oben beschrieben: bei mittleren Temperaturen unzuverlässig. Ideal für sehr feine, ruhige Arbeiten mit konstant niedriger Hitze."
+          }
+        ]
+      }
+    ]
+  },
+  "publishDate": "2026-04-19T12:00:00.000Z"
 }

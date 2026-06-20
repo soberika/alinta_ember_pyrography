@@ -13,19 +13,40 @@ const LABELS: Record<string, string> = {
 
 const posts = (await getCollection('posts'))
   .filter((p) => (p.data.status ?? 'public') === 'public')
-  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+  .sort((a, b) => {
+    // Primär: order-Feld; Fallback: publishDate absteigend (neueste zuerst)
+    if ((a.data.order ?? 999) !== (b.data.order ?? 999))
+      return (a.data.order ?? 999) - (b.data.order ?? 999);
+    return (b.data.publishDate?.getTime() ?? 0) - (a.data.publishDate?.getTime() ?? 0);
+  });
 
-// In das Format bringen, das das Client-Skript erwartet
+function formatDate(p: (typeof posts)[0]): string {
+  if (p.data.publishDate)
+    return p.data.publishDate.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+  return p.data.date ?? '';
+}
+
+function estimateReadTime(body: any): string {
+  if (!body || typeof body !== 'object') return '';
+  function extractText(node: any): string {
+    if (node.type === 'text') return node.text ?? '';
+    return (node.children ?? []).map(extractText).join(' ');
+  }
+  const words = extractText(body).split(/\s+/).filter(Boolean).length;
+  return words > 0 ? `${Math.max(1, Math.round(words / 200))} Min` : '';
+}
+
 const POSTS = posts.map((p) => ({
   slug: p.id,
+  url: `/blog/${p.id}`,
   cat: p.data.category,
   catLabel: LABELS[p.data.category] ?? p.data.category,
-  date: p.data.date,
-  read: p.data.readTime ?? '',
+  date: formatDate(p),
+  read: p.data.readTime || estimateReadTime(p.data.body),
   title: p.data.title,
   excerpt: p.data.excerpt ?? '',
-  thumb: p.data.thumbnail ?? 'illus:funke',
-  body: p.data.body ?? [],
+  thumb: p.data.coverImage || p.data.thumbnail || 'illus:funke',
+  tags: p.data.tags ?? [],
 }));
 
 // Hervorgehobener Beitrag für den Hero (Schalter „featured", sonst der erste)
@@ -36,8 +57,8 @@ const featured = featuredEntry
       heading: featuredEntry.data.featuredHeading || featuredEntry.data.title,
       excerpt: featuredEntry.data.featuredExcerpt || featuredEntry.data.excerpt || '',
       image: featuredEntry.data.featuredImage || '/assets/work-forest.png',
-      date: featuredEntry.data.date,
-      read: featuredEntry.data.readTime ?? '',
+      date: formatDate(featuredEntry),
+      read: featuredEntry.data.readTime || estimateReadTime(featuredEntry.data.body),
       highlights: featuredEntry.data.highlights ?? [],
     }
   : null;
@@ -93,7 +114,7 @@ const featured = featuredEntry
                 {featured.excerpt}
               </p>
               <div class="mt-7 flex flex-wrap gap-3">
-                <a href={`#post-${featured.slug}`} data-post={featured.slug} class="btn btn-orange open-post">Weiterlesen</a>
+                <a href={`/blog/${featured.slug}`} class="btn btn-orange">Weiterlesen</a>
                 <a href="/galerie" class="btn btn-yellow">Werk in der Galerie</a>
               </div>
             </div>
@@ -161,28 +182,6 @@ const featured = featuredEntry
     </div>
   </section>
 
-  <!-- POST MODAL -->
-  <div id="post-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-    <div class="absolute inset-0 bg-char-900/70 backdrop-blur-sm" data-close></div>
-    <article class="relative bg-wood-50 max-w-3xl w-full max-h-[88vh] overflow-y-auto rounded-[24px] ring-1 ring-wood-400/40 shadow-2xl">
-      <button class="absolute top-4 right-4 z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-wood-100 border border-wood-400/50 text-char-800 hover:bg-ember-600 hover:text-white transition" aria-label="Schließen" data-close>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-      <div id="modal-thumb" class="w-full aspect-[16/9] bg-wood-200"></div>
-      <div class="px-6 md:px-10 py-8 md:py-10">
-        <div class="flex items-center gap-3 mb-4 pmeta">
-          <span id="modal-cat"></span><span>·</span><span id="modal-date"></span><span>·</span><span id="modal-read"></span>
-        </div>
-        <h2 id="modal-title" class="font-display font-extrabold text-char-900 text-[28px] md:text-[40px] leading-tight"></h2>
-        <div id="modal-body" class="mt-5 space-y-4 text-[16px] md:text-[17px] text-char-800/90 leading-relaxed"></div>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/galerie" class="btn btn-orange">Werke ansehen</a>
-          <a href="/kontakt" class="btn btn-yellow">Auftrag anfragen</a>
-        </div>
-      </div>
-    </article>
-  </div>
-
   <Footer />
 
   <style is:global>
@@ -218,7 +217,7 @@ const featured = featuredEntry
     html.dark .sub-input{ background:rgba(20,12,6,.55); color:#f5e8c7; border-color:rgba(120,82,44,.5); }
   </style>
 
-  <script define:vars={{ POSTS }}>
+  <script define:vars={{ POSTS, LABELS: {prozess:'Prozess',technik:'Technik',news:'News',werkstatt:'Werkstatt'} }}>
     // SVG thumbnail factory — different motifs per post
     function svgThumb(kind){
       const base = (inner, bg='#1a0f06', accent='#ff7a1a') => `
@@ -324,10 +323,10 @@ const featured = featuredEntry
       const list = POSTS.filter(p => filter === 'all' || p.cat === filter);
       const slice = list.slice(0, shown);
       grid.innerHTML = slice.map(p => `
-        <a href="#" class="post-card open-post" data-post="${p.slug}">
+        <a href="${p.url}" class="post-card">
           <div class="thumb"><span class="pcat">${p.catLabel}</span>${thumbHtml(p.thumb)}</div>
           <div class="p-6 flex-1 flex flex-col">
-            <div class="pmeta">${p.date} · ${p.read}</div>
+            <div class="pmeta">${p.date}${p.read ? ' · ' + p.read : ''}</div>
             <h3 class="mt-3 font-display font-bold text-char-900 text-[20px] leading-snug">${p.title}</h3>
             <p class="mt-2 text-[15px] text-char-800/80 leading-relaxed">${p.excerpt}</p>
             <span class="mt-5 inline-flex items-center gap-2 text-ember-700 font-bold text-sm">Weiterlesen
@@ -349,37 +348,6 @@ const featured = featuredEntry
       render();
     });
     loadBtn.addEventListener('click', () => { shown += PAGE; render(); });
-
-    // Modal
-    const modal = document.getElementById('post-modal');
-    const mThumb = document.getElementById('modal-thumb');
-    const mCat = document.getElementById('modal-cat');
-    const mDate = document.getElementById('modal-date');
-    const mRead = document.getElementById('modal-read');
-    const mTitle = document.getElementById('modal-title');
-    const mBody = document.getElementById('modal-body');
-
-    function openPost(slug){
-      const p = POSTS.find(x => x.slug === slug); if (!p) return;
-      mThumb.innerHTML = thumbHtml(p.thumb);
-      mCat.textContent = p.catLabel;
-      mDate.textContent = p.date;
-      mRead.textContent = p.read + ' Lesezeit';
-      mTitle.textContent = p.title;
-      mBody.innerHTML = p.body.map(par => `<p>${par}</p>`).join('');
-      modal.classList.remove('hidden'); modal.classList.add('flex');
-      document.body.style.overflow = 'hidden';
-    }
-    function closePost(){
-      modal.classList.add('hidden'); modal.classList.remove('flex');
-      document.body.style.overflow = '';
-    }
-    document.addEventListener('click', e => {
-      const opener = e.target.closest('.open-post');
-      if (opener){ e.preventDefault(); openPost(opener.dataset.post); return; }
-      if (e.target.closest('[data-close]')) closePost();
-    });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePost(); });
 
     render();
     document.getElementById('yr').textContent = new Date().getFullYear();

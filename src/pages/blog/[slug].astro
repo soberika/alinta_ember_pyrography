@@ -1,0 +1,192 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import RichTextRenderer from '../../components/RichTextRenderer.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts
+    .filter((p) => (p.data.status ?? 'public') === 'public')
+    .map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+const d = post.data;
+
+const LABELS: Record<string, string> = {
+  prozess: 'Prozess', technik: 'Technik', news: 'News', werkstatt: 'Werkstatt',
+};
+const catLabel = LABELS[d.category] ?? d.category;
+
+const displayDate = d.publishDate
+  ? d.publishDate.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+  : (d.date ?? '');
+
+const metaDescription = d.seoDescription || d.excerpt || '';
+const heroImage = d.coverImage || (d.thumbnail && !d.thumbnail.startsWith('illus:') ? d.thumbnail : null);
+const tags = d.tags ?? [];
+
+// Ähnliche Beiträge: gleiche Kategorie oder gemeinsame Tags
+const allPosts = (await getCollection('posts'))
+  .filter((p) => (p.data.status ?? 'public') === 'public' && p.id !== post.id);
+const postTags = new Set(tags);
+const related = allPosts
+  .map((p) => ({
+    post: p,
+    score: (p.data.tags ?? []).filter((t) => postTags.has(t)).length + (p.data.category === d.category ? 2 : 0),
+  }))
+  .filter((x) => x.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map((x) => x.post);
+---
+
+<Base title={`${d.title} — Alinta Ember`} description={metaDescription} ogImage={heroImage ?? undefined}>
+  <Header active="blog" />
+
+  <article>
+    <!-- Breadcrumb -->
+    <div class="max-w-3xl mx-auto px-5 md:px-8 pt-8">
+      <nav class="flex items-center gap-2 text-[13px] text-char-800/60 mb-8">
+        <a href="/" class="hover:text-ember-700 transition">Startseite</a>
+        <span>›</span>
+        <a href="/blog" class="hover:text-ember-700 transition">Blog</a>
+        <span>›</span>
+        <span class="text-char-800/90 font-medium truncate max-w-[200px]">{d.title}</span>
+      </nav>
+    </div>
+
+    <!-- Hero-Bild -->
+    {heroImage && (
+      <div class="max-w-4xl mx-auto px-5 md:px-8 mb-10">
+        <div class="w-full aspect-[16/7] rounded-[20px] overflow-hidden ring-1 ring-wood-400/20 shadow-[0_20px_50px_-20px_rgba(61,43,31,.35)]">
+          <img src={heroImage} alt={d.title} class="w-full h-full object-cover" />
+        </div>
+      </div>
+    )}
+
+    <div class="max-w-3xl mx-auto px-5 md:px-8 pb-24 md:pb-32">
+
+      <!-- Kategorie + Meta -->
+      <div class="flex flex-wrap items-center gap-3 mb-5">
+        <span class="inline-block bg-ember-600 text-wood-50 text-[11px] font-black tracking-[.18em] uppercase px-3 py-1.5 rounded-full">
+          {catLabel}
+        </span>
+        <span class="text-[13px] text-char-800/60 tracking-wider uppercase font-bold">
+          {displayDate}{d.readTime && <> · {d.readTime} Lesezeit</>}
+        </span>
+      </div>
+
+      <!-- Titel -->
+      <h1 class="font-display font-extrabold text-char-900 text-[32px] sm:text-[44px] md:text-[52px] leading-[1.05] mb-6">
+        {d.title}
+      </h1>
+
+      <!-- Teaser als Lead-Absatz -->
+      {d.excerpt && (
+        <p class="text-[18px] md:text-[20px] text-char-800/80 leading-relaxed mb-10 border-l-4 border-ember-500 pl-5">
+          {d.excerpt}
+        </p>
+      )}
+
+      <!-- Rich-Text Body -->
+      {d.body && <RichTextRenderer content={d.body} class="text-[16px] md:text-[17px]" />}
+
+      <!-- Tags -->
+      {tags.length > 0 && (
+        <div class="mt-12 pt-6 border-t border-wood-400/25 flex flex-wrap items-center gap-2">
+          <span class="text-[12px] text-char-800/50 uppercase tracking-wider font-bold mr-1">Tags:</span>
+          {tags.map((tag) => (
+            <span class="inline-block bg-wood-100 border border-wood-400/30 text-char-800/80 text-[13px] font-semibold px-3 py-1 rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <!-- Share -->
+      <div class="mt-8 flex items-center gap-3">
+        <span class="text-[13px] text-char-800/60 font-bold">Teilen:</span>
+        <button
+          id="share-btn"
+          class="btn btn-yellow text-sm"
+          data-title={d.title}
+          data-url={Astro.url.toString()}
+        >
+          ↗ Link teilen
+        </button>
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-10 pt-8 border-t border-wood-400/25 flex flex-wrap gap-4 justify-between items-center">
+        <a href="/blog" class="btn btn-yellow">← Alle Beiträge</a>
+        <div class="flex gap-3">
+          <a href="/galerie" class="btn btn-orange">Werke ansehen</a>
+          <a href="/kontakt" class="btn btn-yellow">Auftrag anfragen</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Ähnliche Beiträge -->
+  {related.length > 0 && (
+    <section class="max-w-6xl mx-auto px-5 md:px-8 pb-20">
+      <h2 class="font-display font-extrabold text-char-900 text-[22px] md:text-[28px] mb-6">Das könnte dich auch interessieren</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {related.map((p) => {
+          const pDate = p.data.publishDate
+            ? p.data.publishDate.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+            : (p.data.date ?? '');
+          return (
+            <a href={`/blog/${p.id}`} class="related-card">
+              <span class="related-cat">{LABELS[p.data.category] ?? p.data.category}</span>
+              <h3 class="font-display font-bold text-char-900 text-[17px] mt-2 leading-snug">{p.data.title}</h3>
+              <p class="mt-1 text-[14px] text-char-800/70 leading-relaxed line-clamp-2">{p.data.excerpt}</p>
+              <span class="mt-3 text-[12px] text-char-800/50 uppercase tracking-wider font-bold">{pDate}</span>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  <Footer />
+
+  <style>
+    .related-card {
+      display: flex; flex-direction: column;
+      background: rgba(255,250,242,.6); border: 1px solid rgba(120,82,44,.18);
+      border-radius: 18px; padding: 1.25rem;
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    .related-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(232,93,4,.45);
+      box-shadow: 0 16px 40px -20px rgba(232,93,4,.4);
+    }
+    .related-cat {
+      font-size: 11px; font-weight: 800; letter-spacing: .18em;
+      text-transform: uppercase; color: #e85d04;
+    }
+    html.dark .related-card { background: rgba(40,28,18,.55); border-color: rgba(120,82,44,.4); }
+    html.dark .related-card h3 { color: #fff8e7; }
+  </style>
+
+  <script>
+    const btn = document.getElementById('share-btn') as HTMLButtonElement | null;
+    btn?.addEventListener('click', async () => {
+      const title = btn.dataset.title ?? '';
+      const url = btn.dataset.url ?? location.href;
+      if (navigator.share) {
+        await navigator.share({ title, url }).catch(() => {});
+      } else {
+        await navigator.clipboard.writeText(url);
+        const orig = btn.textContent;
+        btn.textContent = 'Link kopiert ✓';
+        setTimeout(() => { if (btn) btn.textContent = orig; }, 2000);
+      }
+    });
+  </script>
+</Base>
