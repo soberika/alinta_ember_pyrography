@@ -16,10 +16,46 @@
     "Funken-Akzente in Glut",
     "Versiegelung & Geduld"
   ],
-  "body": [
-    "Der Nebelwald war eine Idee aus dem Winter — geboren in einer feuchten Februar-Frühe, in der die Birken hinter dem Atelier wie Tinte aus dem Nebel traten. Drei Skizzen, vierzehn Tassen Kaffee.",
-    "Die größte Schwierigkeit: das Licht am Boden. Ich wollte echtes Glühen, nicht nur Helligkeit. Lösung war eine zweite Hitzestufe (~620 °C) für die Funkenpunkte, ausschließlich mit der feinsten Spitze.",
-    "Lindenholz war hier eine Diskussion. Es nimmt Hitze gut an, kann aber bei mittleren Temperaturen \"weichlügen\" — die Linie sieht im Moment des Brennens schöner aus, als sie nach dem Abkühlen tatsächlich ist. Ich habe deshalb komplett auf gut gelagerte Birke gewechselt.",
-    "Am Ende standen 48 Stunden Brennzeit, eine Versiegelung mit Walnussöl und ein langer Abend auf der Werkstattstufe."
-  ]
+  "body": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Der Nebelwald war eine Idee aus dem Winter — geboren in einer feuchten Februar-Frühe, in der die Birken hinter dem Atelier wie Tinte aus dem Nebel traten. Drei Skizzen, vierzehn Tassen Kaffee."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Die größte Schwierigkeit: das Licht am Boden. Ich wollte echtes Glühen, nicht nur Helligkeit. Lösung war eine zweite Hitzestufe (~620 °C) für die Funkenpunkte, ausschließlich mit der feinsten Spitze."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Lindenholz war hier eine Diskussion. Es nimmt Hitze gut an, kann aber bei mittleren Temperaturen \"weichlügen\" — die Linie sieht im Moment des Brennens schöner aus, als sie nach dem Abkühlen tatsächlich ist. Ich habe deshalb komplett auf gut gelagerte Birke gewechselt."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Am Ende standen 48 Stunden Brennzeit, eine Versiegelung mit Walnussöl und ein langer Abend auf der Werkstattstufe."
+          }
+        ]
+      }
+    ]
+  },
+  "publishDate": "2026-05-10T12:00:00.000Z"
 }

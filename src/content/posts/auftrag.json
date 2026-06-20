@@ -6,9 +6,37 @@
   "excerpt": "Slots für Juni und Juli sind ab heute buchbar. August ist bereits halb voll.",
   "thumbnail": "illus:klang",
   "order": 7,
-  "body": [
-    "Auftragsarbeiten für Juni und Juli sind ab heute über die Kontaktseite buchbar.",
-    "Bitte plant ca. 4–8 Wochen Vorlauf für mittlere Größen, 8–12 Wochen für Großformate.",
-    "August ist bereits halb voll — Hochzeitsgeschenke bitte früh anfragen."
-  ]
+  "body": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Auftragsarbeiten für Juni und Juli sind ab heute über die Kontaktseite buchbar."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Bitte plant ca. 4–8 Wochen Vorlauf für mittlere Größen, 8–12 Wochen für Großformate."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "August ist bereits halb voll — Hochzeitsgeschenke bitte früh anfragen."
+          }
+        ]
+      }
+    ]
+  },
+  "publishDate": "2026-03-21T12:00:00.000Z"
 }
