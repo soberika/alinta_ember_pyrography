@@ -290,8 +290,20 @@ export default defineConfig({
               { value: 'werkstatt', label: 'Werkstatt' },
             ],
           },
-          { type: 'string', name: 'date', label: 'Datum (Anzeigetext, z. B. „10. Mai 2026“)' },
-          { type: 'string', name: 'readTime', label: 'Lesezeit (z. B. „4 Min“)' },
+          {
+            type: 'datetime',
+            name: 'publishDate',
+            label: 'Veröffentlichungsdatum',
+            description: 'Steuert Sortierung und wird auf der Seite angezeigt.',
+            ui: { dateFormat: 'DD.MM.YYYY' },
+          },
+          {
+            type: 'string',
+            name: 'date',
+            label: 'Datum (Anzeigetext, Legacy — lieber publishDate nutzen)',
+            description: 'Nur für bestehende Posts. Neue Posts: publishDate verwenden.',
+          },
+          { type: 'string', name: 'readTime', label: 'Lesezeit (z. B. „4 Min”)' },
           {
             type: 'string',
             name: 'excerpt',
@@ -299,17 +311,36 @@ export default defineConfig({
             ui: { component: 'textarea' },
           },
           {
-            type: 'string',
-            name: 'thumbnail',
-            label: 'Vorschaubild',
-            description:
-              'Eingebautes Motiv: illus:funke, illus:spitzen, illus:edition, illus:studio, illus:skizze, illus:holz, illus:klang, illus:zahn — oder ein Bildpfad wie /images/foto.jpg',
+            type: 'image',
+            name: 'coverImage',
+            label: 'Titelbild (Foto)',
+            description: 'Hauptbild des Beitrags — erscheint oben auf der Post-Seite und als Vorschau in der Liste.',
           },
           {
             type: 'string',
+            name: 'thumbnail',
+            label: 'Vorschau-Illustration (falls kein Foto)',
+            description:
+              'Eingebautes Motiv: illus:funke, illus:spitzen, illus:edition, illus:studio, illus:skizze, illus:holz, illus:klang, illus:zahn — oder ein Bildpfad wie /images/foto.jpg. Wird ignoriert wenn coverImage gesetzt.',
+          },
+          {
+            type: 'rich-text',
             name: 'body',
-            label: 'Absätze',
+            label: 'Beitragstext',
+            description: 'Vollständiger Beitragstext mit Formatierung, Überschriften und Bildern.',
+          },
+          {
+            type: 'string',
+            name: 'tags',
+            label: 'Tags (Schlagworte)',
             list: true,
+            description: 'z. B. Technik, Holz, Werkzeug, Portrait. Für Filterung und Suche.',
+          },
+          {
+            type: 'string',
+            name: 'seoDescription',
+            label: 'SEO-Beschreibung (Meta-Description)',
+            description: '150–160 Zeichen. Erscheint in Suchmaschinen-Ergebnissen. Leer lassen = Teaser wird verwendet.',
             ui: { component: 'textarea' },
           },
           {
@@ -332,7 +363,7 @@ export default defineConfig({
             type: 'boolean',
             name: 'featured',
             label: 'Hervorgehoben? (großer Hero oben auf der Blog-Seite)',
-            description: 'Nur ein Beitrag sollte „featured" sein. Die folgenden Felder gelten nur für den Hero.',
+            description: 'Nur ein Beitrag sollte „featured” sein. Die folgenden Felder gelten nur für den Hero.',
           },
           {
             type: 'string',
@@ -353,7 +384,7 @@ export default defineConfig({
           {
             type: 'string',
             name: 'highlights',
-            label: 'Hero-Stichpunkte „Im Beitrag" (optional)',
+            label: 'Hero-Stichpunkte „Im Beitrag” (optional)',
             list: true,
           },
         ],

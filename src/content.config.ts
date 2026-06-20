@@ -91,12 +91,20 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string(),
     category: z.enum(['prozess', 'technik', 'news', 'werkstatt']),
-    date: z.string(),
+    // Neues ISO-Datum für Sortierung und Darstellung
+    publishDate: z.coerce.date().optional(),
+    // Altes String-Datum bleibt für Rückwärtskompatibilität
+    date: z.string().optional(),
     readTime: z.string().optional(),
     excerpt: z.string().optional(),
+    // Foto-Titelbild (hat Vorrang vor thumbnail)
+    coverImage: z.string().optional(),
     // "illus:funke" … (eingebautes SVG-Motiv) oder ein Bildpfad wie /images/foto.jpg
     thumbnail: z.string().optional(),
-    body: z.array(z.string()).optional().default([]),
+    // Rich-Text body: TinaCMS speichert als JSON-AST (Plate.js-Format)
+    body: z.any().optional(),
+    tags: z.array(z.string()).optional().default([]),
+    seoDescription: z.string().optional(),
     order: z.number().optional(),
     // Sichtbarkeit: 'public' (gelistet) oder 'unlisted' (ausgeblendet / Entwurf)
     status: z.enum(['public', 'unlisted']).optional().default('public'),
