@@ -1,0 +1,106 @@
+---
+interface Props {
+  content: any;
+  class?: string;
+}
+const { content, class: className } = Astro.props;
+
+function renderNode(node: any): string {
+  if (!node) return '';
+  if (node.type === 'text') {
+    let text = (node.text ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    if (node.bold)      text = `<strong>${text}</strong>`;
+    if (node.italic)    text = `<em>${text}</em>`;
+    if (node.underline) text = `<u>${text}</u>`;
+    if (node.code)      text = `<code>${text}</code>`;
+    return text;
+  }
+  const children = (node.children ?? []).map(renderNode).join('');
+  switch (node.type) {
+    case 'root':       return children;
+    case 'p':          return children.trim() ? `<p>${children}</p>` : '';
+    case 'h1':         return `<h1>${children}</h1>`;
+    case 'h2':         return `<h2>${children}</h2>`;
+    case 'h3':         return `<h3>${children}</h3>`;
+    case 'h4':         return `<h4>${children}</h4>`;
+    case 'h5':         return `<h5>${children}</h5>`;
+    case 'h6':         return `<h6>${children}</h6>`;
+    case 'ul':         return `<ul>${children}</ul>`;
+    case 'ol':         return `<ol>${children}</ol>`;
+    case 'li':         return `<li>${children}</li>`;
+    case 'lic':        return children;
+    case 'blockquote': return `<blockquote>${children}</blockquote>`;
+    case 'hr':         return '<hr />';
+    case 'break':      return '<br />';
+    case 'code_block': return `<pre><code>${children}</code></pre>`;
+    case 'a': {
+      const href = (node.url ?? '#').replace(/"/g, '&quot;');
+      const ext = node.url?.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+      return `<a href="${href}"${ext}>${children}</a>`;
+    }
+    case 'img': {
+      const src = (node.url ?? '').replace(/"/g, '&quot;');
+      const alt = (node.alt ?? '').replace(/"/g, '&quot;');
+      const cap = node.caption ? `<figcaption>${node.caption}</figcaption>` : '';
+      return `<figure><img src="${src}" alt="${alt}" loading="lazy" />${cap}</figure>`;
+    }
+    default: return children;
+  }
+}
+
+const html = content ? renderNode(content) : '';
+---
+
+<div class:list={['prose-content', className]} set:html={html} />
+
+<style is:global>
+  .prose-content { color: #3d2b1f; line-height: 1.75; }
+  .prose-content h1, .prose-content h2, .prose-content h3,
+  .prose-content h4, .prose-content h5, .prose-content h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 800;
+    color: #1a0f06;
+    line-height: 1.2;
+    margin-top: 2em;
+    margin-bottom: .5em;
+  }
+  .prose-content h2 { font-size: 1.65rem; }
+  .prose-content h3 { font-size: 1.3rem; }
+  .prose-content p  { margin-bottom: 1.25em; }
+  .prose-content ul, .prose-content ol { padding-left: 1.5em; margin-bottom: 1.25em; }
+  .prose-content li { margin-bottom: .4em; }
+  .prose-content a  { color: #e85d04; text-decoration: underline; text-underline-offset: 3px; }
+  .prose-content a:hover { color: #ff7a1a; }
+  .prose-content strong { font-weight: 700; color: #1a0f06; }
+  .prose-content blockquote {
+    border-left: 4px solid #e85d04;
+    padding: .75em 1.25em;
+    margin: 1.5em 0;
+    background: rgba(232,93,4,.06);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: rgba(61,43,31,.8);
+  }
+  .prose-content pre {
+    background: #1a0f06;
+    color: #ffb070;
+    border-radius: 12px;
+    padding: 1.25em;
+    overflow-x: auto;
+    font-size: .9rem;
+    margin-bottom: 1.25em;
+  }
+  .prose-content code { background: rgba(232,93,4,.12); padding: .15em .4em; border-radius: 5px; font-size: .9em; }
+  .prose-content pre code { background: none; padding: 0; }
+  .prose-content figure { margin: 2em 0; }
+  .prose-content figure img { width: 100%; border-radius: 16px; display: block; }
+  .prose-content figcaption { text-align: center; font-size: .85rem; color: rgba(61,43,31,.6); margin-top: .5em; }
+  .prose-content hr { border: none; border-top: 1px solid rgba(120,82,44,.25); margin: 2.5em 0; }
+  html.dark .prose-content { color: #f5e8c7; }
+  html.dark .prose-content h1, html.dark .prose-content h2,
+  html.dark .prose-content h3, html.dark .prose-content h4,
+  html.dark .prose-content strong { color: #fff8e7; }
+  html.dark .prose-content a { color: #ff9f1c; }
+  html.dark .prose-content blockquote { background: rgba(232,93,4,.1); color: rgba(245,232,199,.8); }
+  html.dark .prose-content code { background: rgba(255,159,28,.15); color: #ffb070; }
+</style>
