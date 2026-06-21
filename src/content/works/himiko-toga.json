@@ -14,6 +14,10 @@
     {
       "label": "Material",
       "value": "TDF"
+    },
+    {
+      "label": "Größe",
+      "value": "10 x 10 cm"
     }
   ]
 }
