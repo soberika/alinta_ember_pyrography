@@ -250,8 +250,10 @@ export default defineConfig({
           {
             type: 'number',
             name: 'editionNumber',
-            label: 'Auflage Nr. (z. B. 3 bei „3 von 5“)',
+            label: 'Auflage Nr. (z. B. 3 bei „3 von 5”)',
           },
+          { type: 'string', name: 'etsyUrl', label: 'Etsy-Link (URL zum Listing)' },
+          { type: 'string', name: 'ebayUrl', label: 'eBay-Link (URL zum Angebot)' },
         ],
       },
 

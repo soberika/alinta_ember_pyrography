@@ -16,6 +16,8 @@ const items = products.map((p) => ({
   stock: p.data.stock ?? '',
   tag: p.data.tag ?? '',
   date: p.data.date ?? '',
+  etsyUrl: p.data.etsyUrl ?? '',
+  ebayUrl: p.data.ebayUrl ?? '',
 }));
 ---
 
@@ -33,6 +35,28 @@ const items = products.map((p) => ({
           <p class="mt-5 text-[18px] md:text-[20px] text-char-800/90 leading-relaxed max-w-xl">
             Jedes Werk handgebrannt, signiert und in liebevoller Verpackung versendet. Versand innerhalb 5–7 Werktagen aus Deutschland.
           </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTERN-BANNER -->
+  <section class="relative">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-6">
+      <div class="rounded-2xl bg-white/60 ring-1 ring-wood-400/40 px-6 py-4 flex flex-wrap items-center gap-4">
+        <p class="text-sm text-char-800/80 flex-1 min-w-0">
+          <strong class="text-char-900">Auch direkt kaufen</strong> — die Werke sind auf externen Plattformen gelistet:
+        </p>
+        <div class="flex gap-3 flex-wrap">
+          <a href="https://www.etsy.com" target="_blank" rel="noopener noreferrer"
+             class="btn btn-ghost !py-2 !px-4 !text-sm inline-flex items-center gap-2">
+            <img src="/assets/etsy-logo.svg" alt="" width="16" height="16" onerror="this.style.display='none'" />
+            Etsy-Shop
+          </a>
+          <a href="https://www.ebay.de" target="_blank" rel="noopener noreferrer"
+             class="btn btn-ghost !py-2 !px-4 !text-sm inline-flex items-center gap-2">
+            eBay-Angebote
+          </a>
         </div>
       </div>
     </div>
@@ -127,21 +151,15 @@ const items = products.map((p) => ({
                 <div class="text-[11px] text-char-800/60 uppercase tracking-[.18em]">inkl. MwSt.</div>
               </div>
             </div>
-            <div class="mt-4 flex gap-2">
-              <button class="btn btn-orange flex-1 !py-2.5 !text-sm" data-add="${p.id}">In den Warenkorb</button>
+            <div class="mt-4 flex gap-2 flex-wrap">
+              ${p.etsyUrl ? `<a href="${p.etsyUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-orange flex-1 !py-2.5 !text-sm">Auf Etsy kaufen</a>` : ''}
+              ${p.ebayUrl ? `<a href="${p.ebayUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-orange flex-1 !py-2.5 !text-sm">Auf eBay</a>` : ''}
+              ${!p.etsyUrl && !p.ebayUrl ? `<span class="flex-1 text-center text-sm text-char-800/50 py-2.5">Bald verfügbar</span>` : ''}
               <a href="/galerie#${p.id}" class="btn btn-ghost !py-2.5 !text-sm">Details</a>
             </div>
           </div>
         </article>
       `).join('');
-      grid.querySelectorAll('[data-add]').forEach(b => {
-        b.addEventListener('click', () => {
-          const orig = b.textContent;
-          b.textContent = 'Hinzugefügt ✓';
-          b.style.filter = 'saturate(1.1)';
-          setTimeout(() => { b.textContent = orig; b.style.filter = ''; }, 1600);
-        });
-      });
     }
     render();
 

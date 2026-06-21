@@ -82,6 +82,8 @@ const products = defineCollection({
     // Auflage: Gesamtanzahl und laufende Nummer (z. B. 3 von 5)
     editionSize: z.number().optional(),
     editionNumber: z.number().optional(),
+    etsyUrl: z.string().optional(),
+    ebayUrl: z.string().optional(),
   }),
 });
 

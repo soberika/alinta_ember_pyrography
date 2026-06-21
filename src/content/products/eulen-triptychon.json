@@ -1,0 +1,20 @@
+{
+  "title": "Eulen-Triptychon",
+  "image": "/images/placeholder-werk.jpg",
+  "price": 280,
+  "stock": "1 verfügbar",
+  "tag": "Original",
+  "date": "2024-11",
+  "category": "Tiere",
+  "available": true,
+  "type": "Original",
+  "order": 1,
+  "description": "Drei Eulen auf Birkenholz gebrannt, je 20 × 30 cm. Hochwertig gerahmt, signiert.",
+  "dimensions": {
+    "width": 20,
+    "height": 30,
+    "unit": "cm"
+  },
+  "etsyUrl": "",
+  "ebayUrl": ""
+}
