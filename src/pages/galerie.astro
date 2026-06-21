@@ -120,7 +120,7 @@ const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))].sort((a, b
         <div class="p-7 md:p-10 wood-panel">
           <p class="eyebrow" id="modal-eyebrow">Werk</p>
           <h3 id="modal-title" class="mt-2 font-display font-extrabold text-char-900 text-3xl md:text-4xl leading-tight">Titel</h3>
-          <p id="modal-desc" class="mt-4 text-char-800/90 text-[16px] leading-relaxed"></p>
+          <p id="modal-desc" class="mt-4 text-char-800/90 text-[16px] leading-relaxed whitespace-pre-line"></p>
           <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
           <div id="modal-tags" class="mt-5 flex flex-wrap gap-2"></div>
           <div class="mt-8 flex flex-wrap gap-3">
