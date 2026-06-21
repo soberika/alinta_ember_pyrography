@@ -14,5 +14,11 @@
     {
       "image": "/images/gallery/pw31iz.jpg"
     }
+  ],
+  "meta": [
+    {
+      "label": "Material",
+      "value": "TDF"
+    }
   ]
 }
