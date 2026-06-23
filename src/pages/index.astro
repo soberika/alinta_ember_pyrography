@@ -230,18 +230,18 @@ const WORKS = works.map((w) => ({
     (function(){
       const grid = document.getElementById('works-grid');
       grid.innerHTML = WORKS.map(w => `
-        <button class="work-card group relative text-left focus:outline-none focus:ring-2 focus:ring-ember-500/60 rounded-2xl" data-id="${w.id}" aria-label="${w.title} Details öffnen">
+        <button class="work-card group relative text-left focus:outline-none focus:ring-2 focus:ring-ember-500/60 rounded-2xl h-full flex flex-col" data-id="${w.id}" aria-label="${w.title} Details öffnen">
           <span class="work-card-glow"></span>
-          <div class="work-card-frame p-3 md:p-4">
-            <div class="aspect-[3/4] overflow-hidden rounded-xl bg-wood-300">
+          <div class="work-card-frame p-3 md:p-4 h-full flex flex-col">
+            <div class="aspect-[3/4] overflow-hidden rounded-xl bg-wood-300 relative">
               <img src="${w.img}" alt="${w.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" />
-            </div>
-            <div class="mt-3 md:mt-4 flex items-center justify-between">
-              <span class="font-display font-bold text-char-900 text-[18px] md:text-[20px]">${w.title}</span>
-              <span class="text-ember-700 text-sm font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="absolute bottom-2 right-2 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-ember-600/90 text-white text-xs font-semibold opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 backdrop-blur-sm shadow-lg">
                 Ansehen
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </span>
+            </div>
+            <div class="mt-3 md:mt-4 flex-1">
+              <span class="font-display font-bold text-char-900 text-[16px] md:text-[18px] leading-tight">${w.title}</span>
             </div>
           </div>
         </button>
