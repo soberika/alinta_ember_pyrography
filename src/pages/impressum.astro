@@ -107,5 +107,15 @@ import Footer from '../components/Footer.astro';
       border-left: 3px solid rgba(184,138,85,.5); padding-left: .9rem; }
     .legal .legal-box { background: rgba(255,255,255,.55); border: 1px solid rgba(184,138,85,.45);
       border-radius: 16px; padding: 1.1rem 1.25rem; margin-bottom: 1.25rem; }
+
+    /* Dark-Mode — analog zu den text-char-Overrides in site.css */
+    html.dark .legal { color:#ecd9b3; }
+    html.dark .legal h2,
+    html.dark .legal h3,
+    html.dark .legal strong { color:#fbeac7; }
+    html.dark .legal a { color:#ffb84d; }
+    html.dark .legal .legal-note { color: rgba(236,217,179,.7); border-left-color: rgba(120,82,44,.6); }
+    html.dark .legal .legal-box { background: rgba(45,28,16,.65); border-color: rgba(120,82,44,.55); }
+    html.dark .legal hr { border-top-color: rgba(120,82,44,.5) !important; }
   </style>
 </Base>
