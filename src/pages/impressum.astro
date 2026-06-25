@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="Impressum — Alinta Ember">
+  <Header />
+
+  <section class="relative">
+    <div class="max-w-3xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-20 md:pb-28">
+      <p class="eyebrow">Rechtliches</p>
+      <h1 class="mt-2 font-display font-extrabold text-char-900 text-[40px] md:text-[56px] leading-[1.05]">Impressum</h1>
+
+      <div class="legal mt-8">
+        <h2>Angaben gemäß § 5 DDG</h2>
+        <p>
+          Paul Baumgarten<br />
+          Herbert-Böhme-Straße 7<br />
+          01662 Meißen<br />
+          Deutschland
+        </p>
+        <p class="legal-note">
+          Künstlerisch tätig unter dem Namen „Alinta Ember“ (Pyrografie / Brandmalerei).
+          „Alinta Ember“ ist ein Künstler-/Pseudonym und keine eigenständige juristische Person.
+        </p>
+
+        <h2>Kontakt</h2>
+        <p>
+          Telefon: <strong>[PLATZHALTER — Telefonnummer]</strong><br />
+          E-Mail: <strong>[PLATZHALTER — E-Mail-Adresse]</strong>
+        </p>
+
+        <h2>Umsatzsteuer</h2>
+        <p>
+          Als Kleinunternehmer wird gemäß § 19 UStG keine Umsatzsteuer berechnet und folglich
+          auch nicht ausgewiesen. Eine Umsatzsteuer-Identifikationsnummer besteht daher nicht.
+        </p>
+
+        <h2>Steuernummer</h2>
+        <p>
+          Steuernummer: <strong>[PLATZHALTER — Steuernummer]</strong><br />
+          Zuständiges Finanzamt: <strong>[PLATZHALTER — Finanzamt]</strong>
+        </p>
+
+        <h2>Berufsbezeichnung &amp; Tätigkeit</h2>
+        <p>
+          Freiberuflich-künstlerische Tätigkeit (Pyrografin/Brandmalerin) gemäß § 18 Abs. 1 Nr. 1 EStG.
+          Es besteht keine Kammerzugehörigkeit und keine gesetzlich geregelte Berufsbezeichnung.
+        </p>
+
+        <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+        <p>
+          Paul Baumgarten<br />
+          Herbert-Böhme-Straße 7<br />
+          01662 Meißen
+        </p>
+
+        <h2>Verbraucherstreitbeilegung</h2>
+        <p>
+          Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+          Verbraucherschlichtungsstelle (§ 36 VSBG) teilzunehmen.
+        </p>
+        <p class="legal-note">
+          Hinweis: Die EU-Plattform zur Online-Streitbeilegung (OS-Plattform) wurde zum 20. Juli 2025
+          eingestellt; ein entsprechender Link entfällt daher und ist nicht mehr erforderlich.
+        </p>
+
+        <h2>Haftung für Inhalte</h2>
+        <p>
+          Als Diensteanbieter bin ich gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach
+          den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG bin ich als Diensteanbieter
+          jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen
+          oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+        </p>
+
+        <h2>Haftung für Links</h2>
+        <p>
+          Dieses Angebot enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte ich keinen
+          Einfluss habe. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
+          Betreiber verantwortlich.
+        </p>
+
+        <h2>Urheberrecht</h2>
+        <p>
+          Die durch den Seitenbetreiber erstellten Inhalte und Werke — insbesondere die abgebildeten
+          Pyrografie-Arbeiten, Fotografien und Texte — unterliegen dem deutschen Urheberrecht. Die
+          Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen
+          des Urheberrechts bedürfen der schriftlichen Zustimmung des Urhebers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <style is:global>
+    .legal { color: rgba(61,43,31,.9); line-height: 1.65; }
+    .legal h2 { font-family: 'Bricolage Grotesque', serif; font-weight: 800; color: #2a1d14;
+      font-size: 1.4rem; margin-top: 2rem; margin-bottom: .5rem; }
+    .legal h3 { font-weight: 700; color: #2a1d14; font-size: 1.1rem; margin-top: 1.4rem; margin-bottom: .4rem; }
+    .legal p { margin-bottom: 1rem; }
+    .legal a { color: #c2410c; text-decoration: underline; }
+    .legal ul, .legal ol { margin: 0 0 1rem 1.25rem; }
+    .legal li { margin-bottom: .4rem; }
+    .legal .legal-note { font-size: .9rem; color: rgba(61,43,31,.65);
+      border-left: 3px solid rgba(184,138,85,.5); padding-left: .9rem; }
+    .legal .legal-box { background: rgba(255,255,255,.55); border: 1px solid rgba(184,138,85,.45);
+      border-radius: 16px; padding: 1.1rem 1.25rem; margin-bottom: 1.25rem; }
+  </style>
+</Base>

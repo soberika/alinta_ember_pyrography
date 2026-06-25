@@ -102,7 +102,14 @@ const contact = (await getCollection('contact'))[0].data;
 
             <label class="flex items-start gap-3 text-sm text-char-800/85">
               <input type="checkbox" class="mt-1" required />
-              <span>Ich habe die <a href="#" class="underline">Datenschutzhinweise</a> gelesen und stimme zu.</span>
+              <span>Ich habe die <a href="/datenschutz" class="underline">Datenschutzhinweise</a> gelesen und stimme zu.</span>
+            </label>
+
+            <label class="flex items-start gap-3 text-sm text-char-800/85">
+              <input type="checkbox" class="mt-1" />
+              <span>Bei einer <strong>individuellen Auftragsarbeit</strong> ist mir bekannt, dass es sich um eine
+                Maßanfertigung nach meinen Vorgaben handelt und gemäß § 312g Abs. 2 Nr. 1 BGB kein
+                <a href="/widerruf" class="underline">Widerrufsrecht</a> besteht.</span>
             </label>
 
             <div class="flex flex-wrap gap-3 items-center">
