@@ -3,20 +3,29 @@
   "heroCta1": "Zur Galerie",
   "heroCta2": "Shop entdecken",
   "featuredEyebrow": "Galerie · Auswahl",
-  "featuredHeading": "Featured Works",
-  "featuredIntro": "Vier ausgewählte Stücke — von glühendem Phönix bis zur Mechanik der Zeit. Die vollständige Sammlung wartet in der Galerie.",
-  "aboutEyebrow": "Über mich · Kurz",
-  "aboutHeading": "Mit dem Brenneisen erzähle ich Geschichten.",
-  "aboutText": "Ich bin Alinta — Pyrographie-Künstlerin aus Leidenschaft. Jedes Stück entsteht in stundenlanger Handarbeit, Linie für Linie, Funke für Funke. Holz, Hitze, Atem.",
-  "shopEyebrow": "Shop · Überblick",
+  "featuredHeading": "Aktuelle Arbeiten",
+  "featuredIntro": "Meine Aktuellsten Arbeiten zur Einsicht. Der Link führt zur vollständigen Gallerie",
+  "aboutEyebrow": "Über mich ",
+  "aboutHeading": "Wer ist Alinta Ember.",
+  "aboutText": "Ich bin Alinta — Pyrographie-Künstler aus Leidenschaft. Meine Arbeit und Fazination für Holzbrandmalerei möchte ich euch Nah bringen.",
+  "shopEyebrow": "Shop - Überblick",
   "shopHeading": "Originale & limitierte Editionen",
-  "shopIntro": "Jedes Werk ist ein Unikat — signiert, datiert, in liebevoller Verpackung versendet. Im Shop findest du Preise, Versandinfos und verfügbare Stücke.",
+  "shopIntro": "Alle Arbeiten die zum Verkauf bereitstehen sind hier einsehbar - es handelt sich um Unikate welche jedoch gern als weitere Edition beauftragt werden können. ",
   "shopCards": [
-    { "title": "Originale", "text": "Einzelstücke, signiert." },
-    { "title": "Editionen", "text": "Kleinserien, nummeriert." },
-    { "title": "Auftrag", "text": "Dein Motiv, gebrannt." }
+    {
+      "title": "Originale",
+      "text": "Einzelstücke, signiert."
+    },
+    {
+      "title": "Editionen",
+      "text": "Kleinserien, nummeriert."
+    },
+    {
+      "title": "Auftrag",
+      "text": "Dein Motiv, gebrannt."
+    }
   ],
-  "contactEyebrow": "Kontakt · Kurz",
-  "contactHeading": "Sag Hallo. Oder: erzähl mir deine Idee.",
-  "contactText": "Für ausführliche Anfragen, Auftragsarbeiten und Presse findest du alle Details auf der Kontaktseite."
+  "contactEyebrow": "Kontakt ",
+  "contactHeading": "Sag Hallo - :) ",
+  "contactText": "Für ausführliche Anfragen, Auftragsarbeiten bitte das entsprechende Formular. "
 }
