@@ -12,23 +12,41 @@
   "processHeading": "So entsteht ein Werk.",
   "processIntro": "Vier Phasen, viele Stunden — jedes Stück durchläuft sie in dieser Reihenfolge.",
   "processSteps": [
-    { "title": "Skizze", "text": "Konzept, Komposition, Lichtführung. Vorzeichnung in mehreren Iterationen." },
-    { "title": "Holzauswahl", "text": "Birke, Eiche, Linde — Maserung muss zum Motiv passen. Geschliffen, geölt, bereit." },
-    { "title": "Brennen", "text": "Konturen zuerst, dann Schicht für Schicht Tiefe. 15–80 Stunden je nach Größe." },
-    { "title": "Finish", "text": "Akzent-Lasur, Versiegelung mit Naturöl, Signatur. Versand-bereit verpackt." }
+    {
+      "title": "Skizze",
+      "text": "Konzept, Komposition, Lichtführung. Vorzeichnung in mehreren Iterationen."
+    },
+    {
+      "title": "Holzauswahl",
+      "text": "Birke, Eiche, Linde — Maserung muss zum Motiv passen. Geschliffen, geölt, bereit."
+    },
+    {
+      "title": "Brennen",
+      "text": "Konturen zuerst, dann Schicht für Schicht Tiefe. 15–80 Stunden je nach Größe."
+    },
+    {
+      "title": "Finish",
+      "text": "Akzent-Lasur, Versiegelung mit Naturöl, Signatur. Versand-bereit verpackt."
+    }
   ],
   "materialEyebrow": "Material",
-  "materialHeading": "Holz aus regionaler Forstwirtschaft",
-  "materialText": "Birke für Feinheit, Eiche für Tiefe, Linde für weiche Übergänge. Jedes Stück Holz wird vor Bearbeitung mindestens 12 Monate gelagert.",
+  "materialHeading": "Holz ",
+  "materialText": "Jedes Holz hat seine eigenen Eigenschaften die ich entdecken und kennenlernen möchte. ",
   "toolsEyebrow": "Werkzeug",
-  "toolsHeading": "Brennkolben mit auswechselbarer Spitze",
-  "toolsText": "14 Spitzen, von Haarlinie bis Schraffur. Temperaturen zwischen 380 °C und 750 °C — jede Holzart braucht ihre eigene Hitze.",
+  "toolsHeading": "Brennkolben ",
+  "toolsText": "Brennpeter als Grundlage. Ich bin dabei zu lernen welche Spitzen sich eignen, wofür doch am Meisten habe ich mich auf den präzisen Kolben fokussiert. ",
   "timelineHeading": "Stationen",
   "timeline": [
-    { "year": "2019", "title": "Erste Ausstellung", "subtitle": "Kleine Galerie · Freiburg" },
-    { "year": "2021", "title": "Werkstatteröffnung", "subtitle": "Eigene Werkstatt am Waldrand" },
-    { "year": "2023", "title": "Steampunk-Reihe", "subtitle": "Erste Serien-Edition · 24 Stücke" },
-    { "year": "2025", "title": "Selbstporträt-Serie", "subtitle": "Laufend · individuelle Aufträge willkommen" }
+    {
+      "year": "2023",
+      "title": "Der erste Funke",
+      "subtitle": "Durch Zufall im Rahmen einer Reha konnte ich das erste Mal diese Kunstform ausüben. Von Anfang an war ich fasziniert und es hat mich seitdem nicht mehr losgelassen. "
+    },
+    {
+      "year": "2025",
+      "title": "Selbstporträt-Serie",
+      "subtitle": "Laufend · individuelle Aufträge willkommen"
+    }
   ],
   "ctaHeading": "Sehen wir uns in der Werkstatt?",
   "ctaText": "Auftragsarbeiten, Studio-Besuche und Presseanfragen sind herzlich willkommen."
