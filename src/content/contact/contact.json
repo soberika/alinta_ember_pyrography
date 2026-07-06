@@ -1,23 +1,50 @@
 {
   "heroEyebrow": "Kontakt",
   "heroTitle": "Sag Hallo.",
-  "heroIntro": "Auftragsarbeit, Atelier-Besuch oder Presseanfrage — ich antworte innerhalb von 2 Werktagen.",
-  "email": "hallo@alitaember.de",
-  "addressLines": ["Am Waldrand 7", "79100 Freiburg"],
-  "addressNote": "Besuche nur nach Terminvereinbarung.",
+  "heroIntro": "Auftragsarbeiten, Vorschläge, Ideen - ich antworte innerhalb von 2 Werktagen.",
+  "email": "contact@alinta-ember.com",
+  "addressLines": [
+    "Adresse",
+    "PLZ Ort"
+  ],
+  "addressNote": "",
   "socials": [
-    { "label": "Instagram", "url": "#" },
-    { "label": "Etsy", "url": "#" },
-    { "label": "TikTok", "url": "#" }
+    {
+      "label": "Instagram",
+      "url": "#"
+    },
+    {
+      "label": "Etsy",
+      "url": "#"
+    },
+    {
+      "label": "Youtube",
+      "url": "Youtube.com/@AlintaEmber"
+    }
   ],
   "responseTime": "~ 2 Werktage",
   "responseNote": "Mo–Fr · Werkstattzeiten in der Brennphase begrenzt.",
   "formHeading": "Worum geht's?",
   "faq": [
-    { "question": "Wie lange dauert eine Auftragsarbeit?", "answer": "Je nach Größe und Komplexität 4–8 Wochen ab Skizzenfreigabe. Bei Lagerstücken sofortiger Versand." },
-    { "question": "Liefert ihr international?", "answer": "Ja, weltweit per DHL versichert. Versandkosten werden im Checkout berechnet." },
-    { "question": "Kann ich die Werkstatt besuchen?", "answer": "Sehr gerne — nach Terminvereinbarung. Schreib mir kurz und wir finden einen Slot." },
-    { "question": "Welche Holzarten verwendest du?", "answer": "Hauptsächlich Birke, Eiche und Linde aus regionaler Forstwirtschaft. Auf Wunsch auch andere Hölzer." },
-    { "question": "Wie pflege ich ein Werk?", "answer": "Trocken halten, nicht in direktes Sonnenlicht. Bei Bedarf 1× jährlich mit Naturöl nachpflegen — Öl liegt jedem Stück bei." }
+    {
+      "question": "Wie lange dauert eine Auftragsarbeit?",
+      "answer": "Je nach Größe und Komplexität 4–8 Wochen ab Skizzenfreigabe. Bei Lagerstücken sofortiger Versand."
+    },
+    {
+      "question": "Liefert ihr international?",
+      "answer": "Ja, weltweit per DHL versichert. Versandkosten werden im Checkout berechnet."
+    },
+    {
+      "question": "Kann ich die Werkstatt besuchen?",
+      "answer": "Sehr gerne — nach Terminvereinbarung. Schreib mir kurz und wir finden einen Slot."
+    },
+    {
+      "question": "Welche Holzarten verwendest du?",
+      "answer": "Hauptsächlich Birke, Eiche und Linde aus regionaler Forstwirtschaft. Auf Wunsch auch andere Hölzer."
+    },
+    {
+      "question": "Wie pflege ich ein Werk?",
+      "answer": "Trocken halten, nicht in direktes Sonnenlicht. Bei Bedarf 1× jährlich mit Naturöl nachpflegen — Öl liegt jedem Stück bei."
+    }
   ]
 }
