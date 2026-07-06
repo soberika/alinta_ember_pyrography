@@ -10,7 +10,7 @@
   ],
   "processEyebrow": "Prozess",
   "processHeading": "So entsteht ein Werk.",
-  "processIntro": "Vier Phasen, viele Stunden — jedes Stück durchläuft sie in dieser Reihenfolge.",
+  "processIntro": "Vier Phasen, viele Stunden - jedes Stück durchläuft sie in dieser Reihenfolge.",
   "processSteps": [
     {
       "title": "Motiv Auswahl",
@@ -53,6 +53,6 @@
       "subtitle": "Alinta-Ember.com ist live :) "
     }
   ],
-  "ctaHeading": "Sehen wir uns in der Werkstatt?",
-  "ctaText": "Auftragsarbeiten, Studio-Besuche und Presseanfragen sind herzlich willkommen."
+  "ctaHeading": "Kontakt",
+  "ctaText": "Auftragsarbeiten, Anfragen gern im Kontaktformular."
 }
