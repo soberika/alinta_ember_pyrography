@@ -106,31 +106,33 @@ const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))]
   </section>
 
   <!-- MODAL -->
-  <div id="modal" class="fixed inset-0 z-[60] hidden items-center justify-center px-4">
-    <div id="modal-backdrop" class="absolute inset-0 modal-backdrop"></div>
-    <div class="relative modal-pop w-full max-w-3xl rounded-3xl overflow-hidden shadow-ember-glow-lg ring-1 ring-ember-500/40 bg-wood-100">
-      <button id="modal-close" aria-label="Schließen" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/30 hover:bg-black/50 text-white grid place-items-center backdrop-blur">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-      <div class="grid md:grid-cols-2">
-        <div class="bg-wood-200 p-6 md:p-8 flex flex-col items-center justify-center gap-4">
-          <div class="relative w-full aspect-[3/4] max-w-[360px]">
-            <div class="absolute -inset-4 rounded-3xl blur-2xl opacity-80" style="background: radial-gradient(closest-side, rgba(255,140,30,.45), transparent 70%);"></div>
-            <img id="modal-img" alt="" class="relative w-full h-full object-cover rounded-2xl ring-1 ring-wood-400/50" />
+  <div id="modal" class="fixed inset-0 z-[60] hidden overflow-y-auto">
+    <div id="modal-backdrop" class="fixed inset-0 modal-backdrop"></div>
+    <button id="modal-close" aria-label="Schließen" class="fixed top-4 right-4 md:top-6 md:right-6 z-[70] w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white grid place-items-center backdrop-blur">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="relative min-h-full flex items-center justify-center p-4 md:p-8">
+      <div class="relative modal-pop w-full max-w-3xl rounded-3xl overflow-hidden shadow-ember-glow-lg ring-1 ring-ember-500/40 bg-wood-100">
+        <div class="grid md:grid-cols-2">
+          <div class="bg-wood-200 p-6 md:p-8 flex flex-col items-center justify-center gap-4">
+            <div class="relative w-full aspect-[3/4] max-w-[360px]">
+              <div class="absolute -inset-4 rounded-3xl blur-2xl opacity-80" style="background: radial-gradient(closest-side, rgba(255,140,30,.45), transparent 70%);"></div>
+              <img id="modal-img" alt="" class="relative w-full h-full object-cover rounded-2xl ring-1 ring-wood-400/50" />
+            </div>
+            <!-- Work-in-Progress-Thumbnails (nur sichtbar, wenn vorhanden) -->
+            <div id="modal-thumbs" class="hidden w-full max-w-[360px] flex flex-wrap gap-2 justify-center"></div>
           </div>
-          <!-- Work-in-Progress-Thumbnails (nur sichtbar, wenn vorhanden) -->
-          <div id="modal-thumbs" class="hidden w-full max-w-[360px] flex flex-wrap gap-2 justify-center"></div>
-        </div>
-        <div class="p-7 md:p-10 wood-panel">
-          <p class="eyebrow" id="modal-eyebrow">Werk</p>
-          <h3 id="modal-title" class="mt-2 font-display font-extrabold text-char-900 text-3xl md:text-4xl leading-tight">Titel</h3>
-          <p id="modal-desc" class="mt-4 text-char-800/90 text-[16px] leading-relaxed whitespace-pre-line"></p>
-          <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
-          <div id="modal-tags" class="mt-5 flex flex-wrap gap-2"></div>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a id="modal-etsy-link" href="#" target="_blank" rel="noopener" class="btn btn-yellow hidden">Auf Etsy kaufen ↗</a>
-            <a id="modal-commission-link" href="/kontakt#auftrag" class="btn btn-orange">Neuauflage anfragen</a>
-            <button id="modal-close-2" class="btn btn-yellow">Schließen</button>
+          <div class="p-7 md:p-10 wood-panel">
+            <p class="eyebrow" id="modal-eyebrow">Werk</p>
+            <h3 id="modal-title" class="mt-2 font-display font-extrabold text-char-900 text-3xl md:text-4xl leading-tight">Titel</h3>
+            <p id="modal-desc" class="mt-4 text-char-800/90 text-[16px] leading-relaxed whitespace-pre-line"></p>
+            <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
+            <div id="modal-tags" class="mt-5 flex flex-wrap gap-2"></div>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a id="modal-etsy-link" href="#" target="_blank" rel="noopener" class="btn btn-yellow hidden">Auf Etsy kaufen ↗</a>
+              <a id="modal-commission-link" href="/kontakt#auftrag" class="btn btn-orange">Neuauflage anfragen</a>
+              <button id="modal-close-2" class="btn btn-yellow">Schließen</button>
+            </div>
           </div>
         </div>
       </div>
@@ -307,11 +309,12 @@ const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))]
         thumbsEl.classList.remove('flex');
       }
 
-      modal.classList.remove('hidden'); modal.classList.add('flex');
+      modal.classList.remove('hidden');
+      modal.scrollTop = 0;
       document.body.style.overflow = 'hidden';
     }
     function closeModal(){
-      modal.classList.add('hidden'); modal.classList.remove('flex');
+      modal.classList.add('hidden');
       document.body.style.overflow = '';
     }
     document.getElementById('modal-close').addEventListener('click', closeModal);
