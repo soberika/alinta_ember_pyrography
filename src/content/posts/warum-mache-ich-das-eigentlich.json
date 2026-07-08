@@ -2,6 +2,19 @@
   "title": "Warum mache ich das eigentlich...",
   "category": "news",
   "excerpt": "Während ich diese Website hier aufbaue, und meine Gallerie rückblickend hochlade hinterfrage ich mich manchmal was mich dazu getrieben hat in die Pyrografie einzutauchen und es für mehr als nur dem Selbstzweck als Steckenpferd zu nehmen. ",
-  "body": "* . - \n",
+  "body": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "* . -"
+          }
+        ]
+      }
+    ]
+  },
   "status": "unlisted"
 }
