@@ -29,12 +29,16 @@ const WORKS = works.map((w) => ({
   desc: w.data.description ?? '',
   year: w.data.date ? String(w.data.date.getFullYear()) : '',
   dims: formatDimensions(w.data.dimensions),
-  tags: w.data.tags ?? [],
+  tags: (w.data.tags ?? []).filter(Boolean),
+  etsy: w.data.etsyUrl ?? '',
   meta: (w.data.meta ?? []).map((m) => [m.label, m.value]),
 }));
 ---
 
-<Base title="Alinta Ember — Pyrography Kunst mit Feuer und Seele">
+<Base
+  title="Alinta Ember — Brandmalerei & Pyrografie-Kunst"
+  description="Handgebrannte Brandmalerei-Unikate auf Holz und Kork — Galerie, Werkstatt-Blog und Auftragsarbeiten nach deinem Motiv. Verkauf über Etsy."
+>
   <Header active="home" />
 
   <!-- ============== HERO ============== -->
@@ -42,7 +46,7 @@ const WORKS = works.map((w) => ({
     <div class="max-w-6xl mx-auto px-5 md:px-8 pt-6 md:pt-8">
       <div class="relative rounded-[28px] overflow-hidden ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.45)]">
         <img src="/assets/Alinta-Ember-Banner.png"
-             alt="Alinta Ember — Pyrography Künstlerin mit feurigen Goggles und brennendem Brenneisen"
+             alt="Alinta Ember — Pyrography-Künstler mit feurigen Goggles und brennendem Brenneisen"
              class="absolute inset-0 w-full h-full object-cover object-left select-none pointer-events-none"
              draggable="false" />
         <div class="absolute inset-0 pointer-events-none"
@@ -183,11 +187,19 @@ const WORKS = works.map((w) => ({
             <a href="/kontakt#auftrag" class="arrow-link">Auftragsarbeit</a>
           </div>
         </div>
-        <form class="grid gap-3" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Gesendet ✓'; this.reset();">
-          <input required type="text"  placeholder="Dein Name"     class="field" />
-          <input required type="email" placeholder="Deine E-Mail"  class="field" />
-          <textarea required rows="3"  placeholder="Kurze Nachricht" class="field"></textarea>
-          <button class="btn btn-orange justify-self-start">Nachricht senden</button>
+        <form class="grid gap-3" action="https://formsubmit.co/admin@alinta-ember.com" method="POST">
+          <input type="hidden" name="_subject" value="Kurznachricht über alinta-ember.com (Startseite)" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://www.alinta-ember.com/?gesendet=1#kontakt" />
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+          <input required type="text"  name="name"      placeholder="Dein Name"     class="field" />
+          <input required type="email" name="email"     placeholder="Deine E-Mail"  class="field" />
+          <textarea required rows="3"  name="nachricht" placeholder="Kurze Nachricht" class="field"></textarea>
+          <div class="flex flex-wrap gap-3 items-center">
+            <button class="btn btn-orange">Nachricht senden</button>
+            <span id="mini-thanks" class="hidden text-sm text-ember-700 font-semibold">Danke — ich melde mich!</span>
+          </div>
         </form>
       </div>
     </div>
@@ -218,6 +230,7 @@ const WORKS = works.map((w) => ({
           <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
           <div id="modal-tags" class="mt-5 flex flex-wrap gap-2"></div>
           <div class="mt-8 flex flex-wrap gap-3">
+            <a id="modal-etsy-link" href="#" target="_blank" rel="noopener" class="btn btn-yellow hidden">Auf Etsy kaufen ↗</a>
             <a id="modal-commission-link" href="/kontakt#auftrag" class="btn btn-orange">Neuauflage anfragen</a>
             <button id="modal-close-2" class="btn btn-yellow">Schließen</button>
           </div>
@@ -234,7 +247,7 @@ const WORKS = works.map((w) => ({
           <span class="work-card-glow"></span>
           <div class="work-card-frame p-3 md:p-4 h-full flex flex-col">
             <div class="aspect-[3/4] overflow-hidden rounded-xl bg-wood-300 relative">
-              <img src="${w.img}" alt="${w.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" />
+              <img src="${w.img}" alt="${w.title}" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" />
               <span class="absolute bottom-2 right-2 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-ember-600/90 text-white text-xs font-semibold opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 backdrop-blur-sm shadow-lg">
                 Ansehen
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -263,6 +276,9 @@ const WORKS = works.map((w) => ({
       document.getElementById('modal-desc').textContent  = w.desc;
       document.getElementById('modal-commission-link').href =
         '/kontakt?werk=' + encodeURIComponent(w.title) + '#auftrag';
+      const etsyLink = document.getElementById('modal-etsy-link');
+      etsyLink.href = w.etsy || '#';
+      etsyLink.classList.toggle('hidden', !w.etsy);
       const tile = (k, v) => `
         <li class="rounded-xl bg-white/55 border border-wood-400/40 px-3 py-2">
           <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>
@@ -291,5 +307,11 @@ const WORKS = works.map((w) => ({
     document.getElementById('modal-close-2').addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    // Erfolgsmeldung nach Formular-Versand (?gesendet=1, Redirect von FormSubmit)
+    if (new URLSearchParams(location.search).get('gesendet')) {
+      const t = document.getElementById('mini-thanks');
+      if (t) t.classList.remove('hidden');
+    }
   </script>
 </Base>

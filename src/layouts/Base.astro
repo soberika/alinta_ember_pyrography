@@ -5,6 +5,13 @@ interface Props {
   ogImage?: string;
 }
 const { title, description, ogImage } = Astro.props;
+
+// Absolute URLs für Canonical + Open Graph (Astro.site ist in astro.config.mjs gesetzt;
+// im Dev-Server ohne site fällt es auf relative Pfade zurück).
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const ogImageUrl = Astro.site
+  ? new URL(ogImage ?? '/assets/logo.png', Astro.site).toString()
+  : (ogImage ?? '/assets/logo.png');
 ---
 
 <!doctype html>
@@ -14,9 +21,12 @@ const { title, description, ogImage } = Astro.props;
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImageUrl} />
+    {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:type" content="website" />
     <script src="https://cdn.tailwindcss.com" is:inline></script>
     <script src="/assets/tw-config.js" is:inline></script>

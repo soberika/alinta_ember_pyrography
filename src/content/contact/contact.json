@@ -3,31 +3,24 @@
   "heroTitle": "Sag Hallo.",
   "heroIntro": "Auftragsarbeiten, Vorschläge, Ideen - ich antworte innerhalb von 2 Werktagen.",
   "email": "contact@alinta-ember.com",
-  "addressLines": [
-    "Adresse",
-    "PLZ Ort"
-  ],
+  "addressLines": [],
   "addressNote": "",
   "socials": [
     {
-      "label": "Instagram",
-      "url": "#"
-    },
-    {
       "label": "Etsy",
-      "url": "#"
-    },
-    {
-      "label": "Youtube",
-      "url": "Youtube.com/@AlintaEmber"
-    },
-    {
-      "label": "Twitch",
-      "url": "https://www.twitch.tv/alintaember"
+      "url": "https://www.etsy.com/shop/AlintaEmber"
     },
     {
       "label": "Instagram",
       "url": "https://www.instagram.com/alinta.ember/"
+    },
+    {
+      "label": "Youtube",
+      "url": "https://www.youtube.com/@AlintaEmber"
+    },
+    {
+      "label": "Twitch",
+      "url": "https://www.twitch.tv/alintaember"
     }
   ],
   "responseTime": "~ 2 Werktage",
@@ -40,7 +33,7 @@
     },
     {
       "question": "Liefert ihr international?",
-      "answer": "Ja, weltweit per DHL versichert. Versandkosten werden im Checkout berechnet."
+      "answer": "Ja, weltweit versichert per DHL. Die Versandkosten hängen von Größe und Ziel ab — beim Kauf über Etsy werden sie dort angezeigt, bei Auftragsarbeiten kläre ich sie mit dir im Angebot."
     },
     {
       "question": "Welche Holzarten verwendest du?",

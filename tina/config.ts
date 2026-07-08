@@ -118,6 +118,11 @@ export default defineConfig({
           { type: 'boolean', name: 'available', label: 'Verfügbar' },
           { type: 'string', name: 'type', label: 'Typ (Unikat / Edition)' },
           {
+            type: 'string',
+            name: 'etsyUrl',
+            label: 'Etsy-Listing-URL (optional — zeigt „Auf Etsy kaufen“ im Werk-Detail)',
+          },
+          {
             type: 'number',
             name: 'order',
             label: 'Reihenfolge (kleiner = weiter vorne)',
@@ -217,6 +222,11 @@ export default defineConfig({
           { type: 'string', name: 'category', label: 'Kategorie' },
           { type: 'boolean', name: 'available', label: 'Verfügbar' },
           { type: 'string', name: 'type', label: 'Typ (Original / Edition)' },
+          {
+            type: 'string',
+            name: 'etsyUrl',
+            label: 'Etsy-Listing-URL (Kauf-Button führt dorthin)',
+          },
           {
             type: 'number',
             name: 'order',

@@ -7,7 +7,10 @@ import { getCollection } from 'astro:content';
 const about = (await getCollection('about'))[0].data;
 ---
 
-<Base title="Über mich — Alinta Ember">
+<Base
+  title="Über mich — Alinta Ember"
+  description="Wer hinter Alinta Ember steckt: mein Weg zur Pyrografie, mein Prozess vom Motiv bis zur Versiegelung — und warum kein Stück Holz dem anderen gleicht."
+>
   <Header active="ueber" />
 
   <!-- HERO -->

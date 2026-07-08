@@ -24,6 +24,8 @@ const works = defineCollection({
     available: z.boolean().optional(),
     type: z.string().optional(),
     order: z.number().optional(),
+    // Link zum passenden Etsy-Listing (Verkauf läuft über Etsy)
+    etsyUrl: z.string().optional(),
     // Sichtbarkeit: 'public' (gelistet) oder 'unlisted' (ausgeblendet / Entwurf)
     status: z.enum(['public', 'unlisted']).optional().default('public'),
     // Strukturierte Maße (besser filter-/auswertbar als nur im meta-Array)
@@ -65,6 +67,8 @@ const products = defineCollection({
     available: z.boolean().optional(),
     type: z.string().optional(),
     order: z.number().optional(),
+    // Link zum passenden Etsy-Listing (Verkauf läuft über Etsy)
+    etsyUrl: z.string().optional(),
     // Ausführliche Produktbeschreibung
     description: z.string().optional(),
     // Strukturierte Maße (gleiches Objekt wie bei Works)

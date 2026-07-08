@@ -3,7 +3,7 @@
   "category": "news",
   "readTime": "3 min",
   "excerpt": "Was mache ich hier eigentlich, was bedeutet Pyrograpfie für mich und was in Zukunft hier zu erwarten ist - ein kleiner Rundgang durch meinen zentralen Anlaufpunkt. ",
-  "coverImage": "/images/Blog/2026-06-20 Welcome/image.jpg",
+  "coverImage": "/images/Blog/2026-06-20-welcome/image.jpg",
   "body": {
     "type": "root",
     "children": [
@@ -130,8 +130,7 @@
     ]
   },
   "tags": [
-    "Blog",
-    ""
+    "Blog"
   ],
   "seoDescription": "Pyrography Wood Burn",
   "status": "public"

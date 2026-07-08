@@ -5,9 +5,18 @@ import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 const contact = (await getCollection('contact'))[0].data;
+
+// Formular-Backend: FormSubmit leitet POSTs als E-Mail weiter (kein Account nötig).
+// ⚠️ Beim allerersten Absenden schickt FormSubmit eine Aktivierungs-Mail an diese
+// Adresse — den Bestätigungslink einmal anklicken, danach kommen Anfragen direkt an.
+const FORM_ENDPOINT = 'https://formsubmit.co/admin@alinta-ember.com';
+const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag';
 ---
 
-<Base title="Kontakt — Alinta Ember">
+<Base
+  title="Kontakt — Alinta Ember"
+  description="Auftragsarbeit anfragen oder einfach Hallo sagen — Brandmalerei nach deinem Motiv. Kontaktformular, FAQ und Antwort innerhalb von 2 Werktagen."
+>
   <Header active="kontakt" />
 
   <!-- INTRO -->
@@ -35,15 +44,17 @@ const contact = (await getCollection('contact'))[0].data;
           <div class="eyebrow">E-Mail</div>
           <a href={`mailto:${contact.email}`} class="mt-2 block font-display font-bold text-char-900 text-xl break-all hover:text-ember-700">{contact.email}</a>
         </div>
-        <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/40 p-6">
-          <div class="eyebrow">Werkstatt</div>
-          <p class="mt-2 font-medium text-char-900">
-            {contact.addressLines.map((line, i) => (
-              <Fragment>{i > 0 && <br />}{line}</Fragment>
-            ))}
-          </p>
-          <p class="mt-2 text-sm text-char-800/75">{contact.addressNote}</p>
-        </div>
+        {contact.addressLines.length > 0 && (
+          <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/40 p-6">
+            <div class="eyebrow">Werkstatt</div>
+            <p class="mt-2 font-medium text-char-900">
+              {contact.addressLines.map((line, i) => (
+                <Fragment>{i > 0 && <br />}{line}</Fragment>
+              ))}
+            </p>
+            {contact.addressNote && <p class="mt-2 text-sm text-char-800/75">{contact.addressNote}</p>}
+          </div>
+        )}
         <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/40 p-6">
           <div class="eyebrow">Social</div>
           <div class="mt-3 flex flex-wrap gap-2">
@@ -65,12 +76,20 @@ const contact = (await getCollection('contact'))[0].data;
           <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[36px] leading-tight">{contact.formHeading}</h2>
           <p id="werk-bezug" class="hidden mt-3 w-fit items-center gap-2 rounded-full bg-ember-500/10 text-ember-700 border border-ember-500/30 px-4 py-1.5 text-sm font-semibold"></p>
 
-          <form class="mt-6 grid gap-4" onsubmit="event.preventDefault(); document.getElementById('thanks').classList.remove('hidden'); this.reset();">
+          <form class="mt-6 grid gap-4" action={FORM_ENDPOINT} method="POST">
+            <!-- FormSubmit-Steuerfelder: Betreff, Tabellen-Layout der Mail, Spam-Honeypot,
+                 Captcha aus (Honeypot reicht), Weiterleitung zurück auf diese Seite -->
+            <input type="hidden" name="_subject" value="Anfrage über alinta-ember.com" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value={FORM_REDIRECT} />
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
             <div class="grid sm:grid-cols-2 gap-4">
               <label class="block"><span class="text-sm font-semibold text-char-800/85">Dein Name</span>
-                <input required type="text" class="field mt-1" placeholder="z. B. Mara" /></label>
+                <input required type="text" name="name" class="field mt-1" placeholder="z. B. Mara" /></label>
               <label class="block"><span class="text-sm font-semibold text-char-800/85">Deine E-Mail</span>
-                <input required type="email" class="field mt-1" placeholder="mara@example.de" /></label>
+                <input required type="email" name="email" class="field mt-1" placeholder="mara@example.de" /></label>
             </div>
 
             <fieldset>
@@ -86,7 +105,7 @@ const contact = (await getCollection('contact'))[0].data;
 
             <label class="block">
               <span class="text-sm font-semibold text-char-800/85">Budget (optional)</span>
-              <select class="field mt-1">
+              <select name="budget" class="field mt-1">
                 <option>Noch unklar</option>
                 <option>unter 250 €</option>
                 <option>250–500 €</option>
@@ -97,11 +116,11 @@ const contact = (await getCollection('contact'))[0].data;
 
             <label class="block">
               <span class="text-sm font-semibold text-char-800/85">Deine Nachricht</span>
-              <textarea required rows="5" id="contact-message" class="field mt-1" placeholder="Erzähl mir kurz von deiner Idee, Größe, gewünschtem Lieferzeitpunkt …"></textarea>
+              <textarea required rows="5" id="contact-message" name="nachricht" class="field mt-1" placeholder="Erzähl mir kurz von deiner Idee, Größe, gewünschtem Lieferzeitpunkt …"></textarea>
             </label>
 
             <label class="flex items-start gap-3 text-sm text-char-800/85">
-              <input type="checkbox" class="mt-1" required />
+              <input type="checkbox" name="datenschutz" value="zugestimmt" class="mt-1" required />
               <span>Ich habe die <a href="#" class="underline">Datenschutzhinweise</a> gelesen und stimme zu.</span>
             </label>
 
@@ -130,10 +149,16 @@ const contact = (await getCollection('contact'))[0].data;
 
   <Footer />
 
-  <!-- Vorbelegung bei Anfrage zu einem konkreten Werk (?werk=…) aus dem Galerie-/Featured-Modal -->
+  <!-- Vorbelegung bei Anfrage zu einem konkreten Werk (?werk=…) aus dem Galerie-/Featured-Modal
+       + Erfolgsmeldung nach dem Absenden (?gesendet=1, Redirect von FormSubmit) -->
   <script is:inline>
     (function () {
-      const werk = new URLSearchParams(location.search).get('werk');
+      const params = new URLSearchParams(location.search);
+      if (params.get('gesendet')) {
+        const thanks = document.getElementById('thanks');
+        if (thanks) thanks.classList.remove('hidden');
+      }
+      const werk = params.get('werk');
       if (!werk) return;
       const auftrag = document.querySelector('input[name="topic"][value="auftrag"]');
       if (auftrag) auftrag.checked = true;
