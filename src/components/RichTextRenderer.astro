@@ -5,10 +5,26 @@ interface Props {
 }
 const { content, class: className } = Astro.props;
 
+function escapeHtml(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Fallback für Legacy-/Fehldaten: body wurde als roher String statt als
+// Tina-Rich-Text-AST gespeichert (z. B. durch manuelle JSON-Bearbeitung).
+function renderPlainString(text: string): string {
+  return text
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p) => `<p>${escapeHtml(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')}</p>`)
+    .join('');
+}
+
 function renderNode(node: any): string {
   if (!node) return '';
+  if (typeof node === 'string') return renderPlainString(node);
   if (node.type === 'text') {
-    let text = (node.text ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    let text = escapeHtml(node.text ?? '');
     if (node.bold)      text = `<strong>${text}</strong>`;
     if (node.italic)    text = `<em>${text}</em>`;
     if (node.underline) text = `<u>${text}</u>`;
