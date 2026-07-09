@@ -1,0 +1,16 @@
+---
+// EN-Route (/en/blog/<slug>): rendert die deutsche Post-Seite als Komponente.
+// Die Slugs sind in beiden Sprachen identisch (gleiche Datei-id); die Seite
+// erkennt ihre Sprache über die URL und nutzt die *_en-Felder mit DE-Fallback.
+import Page from '../../blog/[slug].astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts
+    .filter((p) => (p.data.status ?? 'public') === 'public')
+    .map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+---
+
+<Page {...Astro.props} />

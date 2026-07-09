@@ -1,0 +1,31 @@
+{
+  "heroSubtitle": "Pyrography — art with fire and soul",
+  "heroCta1": "Explore the gallery",
+  "heroCta2": "Discover the shop",
+  "featuredEyebrow": "Gallery — selection",
+  "featuredHeading": "Recent works",
+  "featuredIntro": "A look at my latest pieces. The link takes you to the full gallery.",
+  "aboutEyebrow": "About me",
+  "aboutHeading": "Who is Alinta Ember?",
+  "aboutText": "I'm Alinta — a pyrography artist by passion. I want to share my work and my fascination for wood-burning art with you.",
+  "shopEyebrow": "Shop — overview",
+  "shopHeading": "Originals & limited editions",
+  "shopIntro": "All pieces available for purchase are listed here — each one is unique, but most motifs can happily be commissioned as a new edition.",
+  "shopCards": [
+    {
+      "title": "Originals",
+      "text": "One-of-a-kind pieces, signed."
+    },
+    {
+      "title": "Editions",
+      "text": "Small series, numbered."
+    },
+    {
+      "title": "Commission",
+      "text": "Your motif, burned in wood."
+    }
+  ],
+  "contactEyebrow": "Contact",
+  "contactHeading": "Say hello :)",
+  "contactText": "For detailed requests and commissions, please use the contact form."
+}

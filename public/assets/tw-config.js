@@ -1,7 +1,7 @@
 // Pre-paint theme init (avoid flash)
 (function(){
   try {
-    var t = localStorage.getItem('alita-theme');
+    var t = localStorage.getItem('alinta-theme');
     if (t === 'dark' || (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)){
       document.documentElement.classList.add('dark');
     }

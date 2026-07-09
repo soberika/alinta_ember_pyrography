@@ -3,13 +3,14 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { langFromUrl, pick, dateLocale, PATHS, UI, POST_CATEGORY_LABELS } from '../lib/i18n';
 
-const LABELS: Record<string, string> = {
-  prozess: 'Prozess',
-  technik: 'Technik',
-  news: 'News',
-  werkstatt: 'Werkstatt',
-};
+// Sprache aus der Route (EN-Wrapper: src/pages/en/blog.astro)
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
+
+const LABELS = POST_CATEGORY_LABELS[lang];
 
 const posts = (await getCollection('posts'))
   .filter((p) => (p.data.status ?? 'public') === 'public')
@@ -22,7 +23,7 @@ const posts = (await getCollection('posts'))
 
 function formatDate(p: (typeof posts)[0]): string {
   if (p.data.publishDate)
-    return p.data.publishDate.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+    return p.data.publishDate.toLocaleDateString(dateLocale(lang), { day: 'numeric', month: 'long', year: 'numeric' });
   return p.data.date ?? '';
 }
 
@@ -38,13 +39,13 @@ function estimateReadTime(body: any): string {
 
 const POSTS = posts.map((p) => ({
   slug: p.id,
-  url: `/blog/${p.id}`,
+  url: `${P.blog}/${p.id}`,
   cat: p.data.category,
   catLabel: LABELS[p.data.category] ?? p.data.category,
   date: formatDate(p),
-  read: p.data.readTime || estimateReadTime(p.data.body),
-  title: p.data.title,
-  excerpt: p.data.excerpt ?? '',
+  read: p.data.readTime || estimateReadTime(lang === 'en' && p.data.body_en ? p.data.body_en : p.data.body),
+  title: pick(lang, p.data.title, p.data.title_en),
+  excerpt: pick(lang, p.data.excerpt, p.data.excerpt_en),
   thumb: p.data.coverImage || p.data.thumbnail || 'illus:funke',
   tags: p.data.tags ?? [],
 }));
@@ -54,20 +55,28 @@ const featuredEntry = posts.find((p) => p.data.featured) ?? posts[0];
 const featured = featuredEntry
   ? {
       slug: featuredEntry.id,
-      heading: featuredEntry.data.featuredHeading || featuredEntry.data.title,
-      excerpt: featuredEntry.data.featuredExcerpt || featuredEntry.data.excerpt || '',
+      heading: pick(
+        lang,
+        featuredEntry.data.featuredHeading || featuredEntry.data.title,
+        featuredEntry.data.featuredHeading_en || featuredEntry.data.title_en,
+      ),
+      excerpt: pick(
+        lang,
+        featuredEntry.data.featuredExcerpt || featuredEntry.data.excerpt || '',
+        featuredEntry.data.featuredExcerpt_en || featuredEntry.data.excerpt_en,
+      ),
       image: featuredEntry.data.featuredImage || '/assets/work-forest.png',
       date: formatDate(featuredEntry),
       read: featuredEntry.data.readTime || estimateReadTime(featuredEntry.data.body),
-      highlights: featuredEntry.data.highlights ?? [],
+      highlights:
+        lang === 'en' && (featuredEntry.data.highlights_en ?? []).length > 0
+          ? featuredEntry.data.highlights_en
+          : featuredEntry.data.highlights ?? [],
     }
   : null;
 ---
 
-<Base
-  title="Blog — Alinta Ember"
-  description="Werkstatt-Tagebuch rund um Brandmalerei: Technik, Prozess-Einblicke und neue Werke — frisch aus dem Rauch."
->
+<Base title={t.meta.blogTitle} description={t.meta.blogDesc}>
   <Header active="blog" />
 
   <!-- HERO -->
@@ -77,11 +86,11 @@ const featured = featuredEntry
         <div id="embers" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
         <div class="hero-vignette"></div>
         <div class="relative px-6 md:px-12 lg:px-16 pt-14 md:pt-20 pb-12 md:pb-16">
-          <p class="eyebrow">Werkstatt-Tagebuch</p>
+          <p class="eyebrow">{t.blog.eyebrow}</p>
           <div class="mt-3">
-            <h1 class="font-display font-extrabold text-char-900 leading-[.95] text-[44px] sm:text-[64px] md:text-[80px]">Blog</h1>
+            <h1 class="font-display font-extrabold text-char-900 leading-[.95] text-[44px] sm:text-[64px] md:text-[80px]">{t.blog.title}</h1>
             <p class="mt-5 text-[18px] md:text-[22px] text-char-800/90 leading-relaxed max-w-2xl">
-              Skizzen, Techniken, Werkstatt-Notizen und News aus dem Atelier — frisch aus dem Rauch.
+              {t.blog.intro}
             </p>
           </div>
         </div>
@@ -98,22 +107,22 @@ const featured = featuredEntry
           <div class="relative grid md:grid-cols-12 gap-6 items-center px-6 md:px-12 py-10 md:py-14 text-wood-50">
             <div class="md:col-span-8">
               <div class="flex items-center gap-3 mb-4">
-                <span class="pcat" style="position:static;">Featured</span>
-                <span class="text-[12px] tracking-[.18em] uppercase font-bold text-wood-200/80">{featured.date} · {featured.read} Lesezeit</span>
+                <span class="pcat" style="position:static;">{t.blog.featured}</span>
+                <span class="text-[12px] tracking-[.18em] uppercase font-bold text-wood-200/80">{featured.date} · {featured.read} {t.blog.readTime}</span>
               </div>
               <h2 class="font-display font-extrabold leading-tight text-[30px] md:text-[44px]">{featured.heading}</h2>
               <p class="mt-4 text-[16px] md:text-[18px] text-wood-100/85 max-w-2xl">
                 {featured.excerpt}
               </p>
               <div class="mt-7 flex flex-wrap gap-3">
-                <a href={`/blog/${featured.slug}`} class="btn btn-orange">Weiterlesen</a>
-                <a href="/galerie" class="btn btn-yellow">Werk in der Galerie</a>
+                <a href={`${P.blog}/${featured.slug}`} class="btn btn-orange">{t.blog.readMore}</a>
+                <a href={P.galerie} class="btn btn-yellow">{t.blog.workInGallery}</a>
               </div>
             </div>
             {featured.highlights.length > 0 && (
               <div class="md:col-span-4 hidden md:block">
                 <div class="bg-black/30 backdrop-blur-sm border border-white/15 rounded-2xl p-5">
-                  <p class="text-[11px] tracking-[.22em] uppercase font-bold text-ember-300">Im Beitrag</p>
+                  <p class="text-[11px] tracking-[.22em] uppercase font-bold text-ember-300">{t.blog.inThisPost}</p>
                   <ul class="mt-3 space-y-2 text-[14px] text-wood-100/90">
                     {featured.highlights.map((h, i) => (
                       <li class="flex gap-2"><span class="text-ember-300">{String(i + 1).padStart(2, '0')}</span><span>{h}</span></li>
@@ -133,23 +142,23 @@ const featured = featuredEntry
     <div class="max-w-6xl mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-10">
       <div class="flex flex-wrap items-end justify-between gap-6 mb-8">
         <div>
-          <p class="eyebrow">Alle Beiträge</p>
-          <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[40px]">Geschichten aus der Werkstatt</h2>
+          <p class="eyebrow">{t.blog.allPosts}</p>
+          <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[40px]">{t.blog.storiesHeading}</h2>
         </div>
-        <div class="flex flex-wrap gap-2" id="filters" role="tablist" aria-label="Nach Kategorien filtern">
-          <button class="filter-chip active" data-filter="all">Alle</button>
-          <button class="filter-chip" data-filter="technik">Technik</button>
-          <button class="filter-chip" data-filter="news">News</button>
-          <button class="filter-chip" data-filter="werkstatt">Werkstatt</button>
-          <button class="filter-chip" data-filter="prozess">Prozess</button>
+        <div class="flex flex-wrap gap-2" id="filters" role="tablist" aria-label={t.blog.filterLabel}>
+          <button class="filter-chip active" data-filter="all">{t.blog.all}</button>
+          <button class="filter-chip" data-filter="technik">{LABELS.technik}</button>
+          <button class="filter-chip" data-filter="news">{LABELS.news}</button>
+          <button class="filter-chip" data-filter="werkstatt">{LABELS.werkstatt}</button>
+          <button class="filter-chip" data-filter="prozess">{LABELS.prozess}</button>
         </div>
       </div>
 
       <div id="posts" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7"></div>
-      <p id="empty-msg" class="hidden text-center text-char-800/70 py-16">Keine Beiträge in dieser Kategorie. Schau bald wieder vorbei.</p>
+      <p id="empty-msg" class="hidden text-center text-char-800/70 py-16">{t.blog.empty}</p>
 
       <div class="mt-12 flex justify-center">
-        <button id="load-more" class="btn btn-yellow">Mehr laden</button>
+        <button id="load-more" class="btn btn-yellow">{t.blog.loadMore}</button>
       </div>
     </div>
   </section>
@@ -159,16 +168,16 @@ const featured = featuredEntry
     <div class="max-w-6xl mx-auto px-5 md:px-8 pb-24 md:pb-32">
       <div class="wood-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 ring-1 ring-wood-400/40 grid md:grid-cols-12 gap-8 items-center">
         <div class="md:col-span-7">
-          <p class="eyebrow">Newsletter</p>
-          <h2 class="mt-3 font-display font-extrabold text-char-900 text-[28px] md:text-[40px] leading-tight">Funken im Posteingang.</h2>
-          <p class="mt-3 text-char-800/85 max-w-xl">Ein Brief pro Monat: neue Werke, Werkstatt-Einblicke, Auftragstermine. Kein Spam, jederzeit abbestellbar.</p>
+          <p class="eyebrow">{t.blog.newsletterEyebrow}</p>
+          <h2 class="mt-3 font-display font-extrabold text-char-900 text-[28px] md:text-[40px] leading-tight">{t.blog.newsletterHeading}</h2>
+          <p class="mt-3 text-char-800/85 max-w-xl">{t.blog.newsletterText}</p>
         </div>
-        <form class="md:col-span-5 flex flex-col gap-3" onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='Abonniert ✓'; b.disabled=true; this.querySelector('input').value='';">
+        <form class="md:col-span-5 flex flex-col gap-3" onsubmit={`event.preventDefault(); const b=this.querySelector('button'); b.textContent='${t.blog.subscribed}'; b.disabled=true; this.querySelector('input').value='';`}>
           <div class="flex gap-2">
-            <input type="email" required placeholder="deine@e-mail.de" class="sub-input" aria-label="E-Mail-Adresse" />
-            <button type="submit" class="btn btn-orange whitespace-nowrap">Abonnieren</button>
+            <input type="email" required placeholder={t.blog.newsletterPlaceholder} class="sub-input" aria-label={t.blog.newsletterAria} />
+            <button type="submit" class="btn btn-orange whitespace-nowrap">{t.blog.subscribe}</button>
           </div>
-          <p class="text-xs text-char-800/60">Mit dem Abonnieren stimmst du der Verarbeitung deiner E-Mail zum Versand des Newsletters zu.</p>
+          <p class="text-xs text-char-800/60">{t.blog.newsletterConsent}</p>
         </form>
       </div>
     </div>
@@ -204,7 +213,7 @@ const featured = featuredEntry
     html.dark .sub-input{ background:rgba(20,12,6,.55); color:#f5e8c7; border-color:rgba(120,82,44,.5); }
   </style>
 
-  <script define:vars={{ POSTS, LABELS: {prozess:'Prozess',technik:'Technik',news:'News',werkstatt:'Werkstatt'} }}>
+  <script define:vars={{ POSTS, LABELS, L: { readMore: t.blog.readMore } }}>
     // SVG thumbnail factory — different motifs per post
     function svgThumb(kind){
       const base = (inner, bg='#1a0f06', accent='#ff7a1a') => `
@@ -316,7 +325,7 @@ const featured = featuredEntry
             <div class="pmeta">${p.date}${p.read ? ' · ' + p.read : ''}</div>
             <h3 class="mt-3 font-display font-bold text-char-900 text-[20px] leading-snug">${p.title}</h3>
             <p class="mt-2 text-[15px] text-char-800/80 leading-relaxed">${p.excerpt}</p>
-            <span class="mt-5 inline-flex items-center gap-2 text-ember-700 font-bold text-sm">Weiterlesen
+            <span class="mt-5 inline-flex items-center gap-2 text-ember-700 font-bold text-sm">${L.readMore}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>
           </div>

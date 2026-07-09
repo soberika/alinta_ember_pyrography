@@ -1,0 +1,47 @@
+{
+  "heroEyebrow": "Contact",
+  "heroTitle": "Say hello.",
+  "heroIntro": "Commissions, suggestions, ideas — I reply within 2 working days.",
+  "email": "contact@alinta-ember.com",
+  "addressLines": [],
+  "addressNote": "",
+  "socials": [
+    {
+      "label": "Etsy",
+      "url": "https://www.etsy.com/shop/AlintaEmber"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/alinta.ember/"
+    },
+    {
+      "label": "Youtube",
+      "url": "https://www.youtube.com/@AlintaEmber"
+    },
+    {
+      "label": "Twitch",
+      "url": "https://www.twitch.tv/alintaember"
+    }
+  ],
+  "responseTime": "~ 2 working days",
+  "responseNote": "Mon–Fri",
+  "formHeading": "What's it about?",
+  "faq": [
+    {
+      "question": "How long does a commission take?",
+      "answer": "Depending on size and complexity, 4–8 weeks from sketch approval. In-stock pieces ship immediately."
+    },
+    {
+      "question": "Do you ship internationally?",
+      "answer": "Yes — worldwide, insured via DHL. Shipping costs depend on size and destination: they're shown on Etsy when you buy there, and for commissions I include them in the quote."
+    },
+    {
+      "question": "Which types of wood do you use?",
+      "answer": "Mainly birch, oak and lime from regional forestry. Other woods on request."
+    },
+    {
+      "question": "How do I care for a piece?",
+      "answer": "Keep it dry and out of direct sunlight. If needed, re-oil once a year with natural oil — a small bottle comes with every piece."
+    }
+  ]
+}

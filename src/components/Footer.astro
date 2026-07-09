@@ -1,18 +1,23 @@
 ---
+import { langFromUrl, PATHS, UI } from '../lib/i18n';
+
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
 ---
 
 <footer class="border-t border-wood-400/40">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-char-800/70">
     <div class="flex items-center gap-3">
       <img src="/assets/logo.png" alt="" class="w-8 h-8 rounded-full object-cover ring-1 ring-wood-400/60" />
-      <span>© <span id="yr"></span> Alinta Ember · Pyrography</span>
+      <span>© <span id="yr"></span> {t.footer.tagline}</span>
     </div>
     <div class="flex items-center gap-5">
-      <a href="/galerie" class="hover:text-ember-700">Galerie</a>
-      <a href="/shop" class="hover:text-ember-700">Shop</a>
-      <a href="/blog" class="hover:text-ember-700">Blog</a>
-      <a href="/ueber" class="hover:text-ember-700">Über mich</a>
-      <a href="/kontakt" class="hover:text-ember-700">Kontakt</a>
+      <a href={P.galerie} class="hover:text-ember-700">{t.nav.galerie}</a>
+      <a href={P.shop} class="hover:text-ember-700">{t.nav.shop}</a>
+      <a href={P.blog} class="hover:text-ember-700">{t.nav.blog}</a>
+      <a href={P.ueber} class="hover:text-ember-700">{t.nav.ueber}</a>
+      <a href={P.kontakt} class="hover:text-ember-700">{t.nav.kontakt}</a>
     </div>
   </div>
 </footer>

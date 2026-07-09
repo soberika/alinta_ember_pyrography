@@ -42,7 +42,40 @@ Archiv in `_legacy/`), migriert nach Astro.
 - Astro liest mit dem **glob loader** (`glob({ pattern, base })`); Entry-`id` =
   Dateiname ohne Endung.
 - Singletons sind in Tina mit `ui: { allowedActions: { create:false, delete:false } }`
-  konfiguriert; im Page-Frontmatter via `(await getCollection('home'))[0].data`.
+  konfiguriert; im Page-Frontmatter via `localizedSingleton(await getCollection('home'), lang).data`
+  (jede Singleton-Collection hat zwei Dokumente: `home.json` = DE, `home-en.json` = EN).
+
+## Zweisprachigkeit (DE / EN)
+
+DE ist Standard unter `/`, EN liegt unter `/en/` (englische Slugs: `/en/gallery`,
+`/en/about`, `/en/contact`). Zentrale Logik in **`src/lib/i18n.ts`**:
+
+- **Sprach-Erkennung:** Jede Seite ruft `langFromUrl(Astro.url)` auf. Die
+  EN-Routen unter `src/pages/en/` sind dünne Wrapper, die die DE-Seite als
+  Komponente rendern (`import Page from '../galerie.astro'; <Page />`) — die
+  Seite erkennt EN dann selbst an der URL. `en/blog/[slug].astro` definiert
+  eine eigene `getStaticPaths` und reicht `{...Astro.props}` durch.
+- **UI-Texte** (Buttons, Labels, Formulare, Meta-Titles/-Descriptions) stehen im
+  `UI`-Wörterbuch in `i18n.ts` (`en` ist per `typeof de` deckungsgleich
+  erzwungen). In `define:vars`-Skripte werden benötigte Strings als `L`-Objekt
+  übergeben, lokalisierte Routen aus `PATHS[lang]`.
+- **Inhalte:**
+  - *Singletons* (home/about/contact): zweite Datei `<name>-en.json` in
+    derselben Collection; Auswahl via `localizedSingleton(entries, lang)`.
+    Kein Schema-Unterschied — im Tina-Admin erscheinen beide Dokumente.
+  - *works/products/posts*: optionale `_en`-Felder (`title_en`,
+    `description_en`, `excerpt_en`, `body_en` als Rich-Text …) mit
+    DE-Fallback über `pick(lang, de, en)`. Blogposts werden im selben
+    Tina-Formular übersetzt; fehlt `body_en`, zeigt die EN-Post-Seite den
+    deutschen Text mit Hinweis.
+- **hreflang/canonical:** `Base.astro` rendert `de`/`en`/`x-default`-Alternates
+  über `altPath()` (liefert immer die Trailing-Slash-Form). Der Sprachumschalter
+  im Header ist ein server-gerenderter Link auf `altPath(Astro.url.pathname)` —
+  der alte DOM-Text-Ersetzungs-Umschalter in `site.js` wurde entfernt und darf
+  nicht wieder eingeführt werden.
+- **Neue Seite hinzufügen:** DE-Seite mit `langFromUrl`/`UI`/`PATHS` bauen,
+  EN-Wrapper unter `src/pages/en/` ergänzen und das Routen-Paar in `PATHS` +
+  den Maps in `altPath()` eintragen.
 
 ## Rendering-Muster
 
@@ -54,8 +87,9 @@ Archiv in `_legacy/`), migriert nach Astro.
   per `<script define:vars={{ ITEMS }}>` an Vanilla-JS übergeben. So bei
   `galerie` (ITEMS), `shop` (PRODUCTS), `blog` (POSTS) und `index` (WORKS).
   `define:vars` impliziert `is:inline` — Astro bündelt das Skript nicht.
-- `site.js` (Burger-Menü, Embers, Dark-/Language-Toggle, Jahr) wird als
-  `is:inline`-Script aus `public/assets` geladen — nicht anfassen, läuft global.
+- `site.js` (Burger-Menü, Embers, Dark-Toggle, Jahr) wird als
+  `is:inline`-Script aus `public/assets` geladen — läuft global. Der frühere
+  Language-Toggle-Block wurde entfernt (siehe „Zweisprachigkeit“).
 
 ## ⚠️ Wichtigste Konvention: `tina/tina-lock.json`
 

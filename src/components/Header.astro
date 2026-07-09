@@ -1,23 +1,33 @@
 ---
+import { langFromUrl, altPath, PATHS, UI } from '../lib/i18n';
+
 interface Props {
   active?: 'home' | 'galerie' | 'shop' | 'blog' | 'ueber' | 'kontakt';
 }
 const { active } = Astro.props;
 
+// Sprache aus der Route; Nav-Links und Umschalter richten sich danach.
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
+
 const links = [
-  { href: '/', label: 'Home', key: 'home' },
-  { href: '/galerie', label: 'Galerie', key: 'galerie' },
-  { href: '/shop', label: 'Shop', key: 'shop' },
-  { href: '/blog', label: 'Blog', key: 'blog' },
-  { href: '/ueber', label: 'Über mich', key: 'ueber' },
-  { href: '/kontakt', label: 'Kontakt', key: 'kontakt' },
+  { href: P.home, label: t.nav.home, key: 'home' },
+  { href: P.galerie, label: t.nav.galerie, key: 'galerie' },
+  { href: P.shop, label: t.nav.shop, key: 'shop' },
+  { href: P.blog, label: t.nav.blog, key: 'blog' },
+  { href: P.ueber, label: t.nav.ueber, key: 'ueber' },
+  { href: P.kontakt, label: t.nav.kontakt, key: 'kontakt' },
 ];
+
+// Link auf dieselbe Seite in der anderen Sprache (ersetzt den alten DOM-Umschalter).
+const switchHref = altPath(Astro.url.pathname);
 ---
 
 <header class="sticky top-0 z-40">
   <div class="wood-panel border-b border-wood-400/40 shadow-[0_10px_30px_-20px_rgba(61,43,31,.55)]">
     <div class="max-w-6xl mx-auto px-5 md:px-8 h-[72px] md:h-[84px] flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3" aria-label="Startseite">
+      <a href={P.home} class="flex items-center gap-3" aria-label={t.header.startseite}>
         <span class="logo-ring inline-flex items-center justify-center rounded-full overflow-hidden w-12 h-12 md:w-14 md:h-14">
           <img src="/assets/logo.png" alt="" class="w-full h-full object-cover" />
         </span>
@@ -27,7 +37,14 @@ const links = [
           <a href={l.href} class:list={['nav-link', { active: active === l.key }]}>{l.label}</a>
         ))}
       </nav>
-      <button id="burger" aria-label="Menü" aria-expanded="false" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-wood-50/60 border border-wood-400/40 text-char-800">
+      <a
+        href={switchHref}
+        class="theme-toggle lang-toggle ml-2"
+        style="width:auto;padding:0 .75rem;font-weight:700;font-size:13px;text-decoration:none;"
+        aria-label={t.header.switchLang}
+        title={t.header.switchLang}
+      >{t.header.switchLabel}</a>
+      <button id="burger" aria-label={t.header.menu} aria-expanded="false" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-wood-50/60 border border-wood-400/40 text-char-800">
         <svg id="burger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>

@@ -4,8 +4,15 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import { formatDimensions } from '../lib/works';
+import { langFromUrl, localizedSingleton, pick, PATHS, UI } from '../lib/i18n';
 
-const home = (await getCollection('home'))[0].data;
+// Sprache aus der Route: diese Seite wird auch von src/pages/en/index.astro
+// als Komponente gerendert und erkennt EN dann an der URL (/en/).
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
+
+const home = localizedSingleton(await getCollection('home'), lang).data;
 
 // Featured-Werke = die ersten 4 aus der Werke-Collection.
 // 'order' wirkt als Pin (kleiner = weiter vorne), sonst chronologisch (neueste zuerst).
@@ -23,22 +30,22 @@ const works = (await getCollection('works'))
 
 const WORKS = works.map((w) => ({
   id: w.id,
-  title: w.data.title,
+  title: pick(lang, w.data.title, w.data.title_en),
   img: w.data.image,
-  eyebrow: w.data.eyebrow ?? '',
-  desc: w.data.description ?? '',
+  eyebrow: pick(lang, w.data.eyebrow, w.data.eyebrow_en),
+  desc: pick(lang, w.data.description, w.data.description_en),
   year: w.data.date ? String(w.data.date.getFullYear()) : '',
   dims: formatDimensions(w.data.dimensions),
   tags: (w.data.tags ?? []).filter(Boolean),
   etsy: w.data.etsyUrl ?? '',
   meta: (w.data.meta ?? []).map((m) => [m.label, m.value]),
 }));
+
+// Redirect-Ziel nach Formular-Versand (zurück auf diese Seite, richtige Sprache)
+const FORM_NEXT = new URL(`${P.home}?gesendet=1#kontakt`, Astro.site ?? 'https://www.alinta-ember.com').toString();
 ---
 
-<Base
-  title="Alinta Ember — Brandmalerei & Pyrografie-Kunst"
-  description="Handgebrannte Brandmalerei-Unikate auf Holz und Kork — Galerie, Werkstatt-Blog und Auftragsarbeiten nach deinem Motiv. Verkauf über Etsy."
->
+<Base title={t.meta.homeTitle} description={t.meta.homeDesc}>
   <Header active="home" />
 
   <!-- ============== HERO ============== -->
@@ -46,7 +53,7 @@ const WORKS = works.map((w) => ({
     <div class="max-w-6xl mx-auto px-5 md:px-8 pt-6 md:pt-8">
       <div class="relative rounded-[28px] overflow-hidden ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.45)]">
         <img src="/assets/Alinta-Ember-Banner.png"
-             alt="Alinta Ember — Pyrography-Künstler mit feurigen Goggles und brennendem Brenneisen"
+             alt={t.home.heroAlt}
              class="absolute inset-0 w-full h-full object-cover object-left select-none pointer-events-none"
              draggable="false" />
         <div class="absolute inset-0 pointer-events-none"
@@ -67,8 +74,8 @@ const WORKS = works.map((w) => ({
               {home.heroSubtitle}
             </p>
             <div class="mt-8 md:mt-10 flex flex-wrap gap-4 justify-end md:justify-start">
-              <a href="/galerie" class="btn btn-orange">{home.heroCta1 ?? 'Zur Galerie'}</a>
-              <a href="/shop" class="btn btn-yellow">{home.heroCta2 ?? 'Shop entdecken'}</a>
+              <a href={P.galerie} class="btn btn-orange">{home.heroCta1 ?? t.home.fullGallery}</a>
+              <a href={P.shop} class="btn btn-yellow">{home.heroCta2 ?? t.home.fullShop}</a>
             </div>
           </div>
         </div>
@@ -94,11 +101,11 @@ const WORKS = works.map((w) => ({
         <div id="works-grid" class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6"></div>
 
         <div class="mt-12 md:mt-14 flex flex-col sm:flex-row gap-4 items-center justify-center">
-          <a href="/galerie" class="btn btn-orange">
-            Zur vollen Galerie
+          <a href={P.galerie} class="btn btn-orange">
+            {t.home.fullGallery}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a href="/galerie#filter" class="arrow-link">Nach Kategorien filtern</a>
+          <a href={`${P.galerie}#filter`} class="arrow-link">{t.home.filterByCategory}</a>
         </div>
       </div>
     </div>
@@ -117,11 +124,11 @@ const WORKS = works.map((w) => ({
             {home.aboutText}
           </p>
           <div class="mt-7 flex flex-wrap gap-4">
-            <a href="/ueber" class="btn btn-orange">
-              Meine Geschichte
+            <a href={P.ueber} class="btn btn-orange">
+              {t.home.myStory}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
-            <a href="/ueber#prozess" class="arrow-link">Mein Prozess im Detail</a>
+            <a href={`${P.ueber}#prozess`} class="arrow-link">{t.home.myProcess}</a>
           </div>
         </div>
         <div class="md:col-span-5">
@@ -157,11 +164,11 @@ const WORKS = works.map((w) => ({
         </div>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/shop" class="btn btn-yellow">
-            Zum vollen Shop
+          <a href={P.shop} class="btn btn-yellow">
+            {t.home.fullShop}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a href="/kontakt#auftrag" class="arrow-link">Auftragsarbeit anfragen</a>
+          <a href={`${P.kontakt}#auftrag`} class="arrow-link">{t.home.requestCommission}</a>
         </div>
       </div>
     </div>
@@ -180,25 +187,25 @@ const WORKS = works.map((w) => ({
             {home.contactText}
           </p>
           <div class="mt-6 flex flex-wrap gap-4">
-            <a href="/kontakt" class="btn btn-orange">
-              Zur Kontaktseite
+            <a href={P.kontakt} class="btn btn-orange">
+              {t.home.toContactPage}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
-            <a href="/kontakt#auftrag" class="arrow-link">Auftragsarbeit</a>
+            <a href={`${P.kontakt}#auftrag`} class="arrow-link">{t.home.commission}</a>
           </div>
         </div>
         <form class="grid gap-3" action="https://formsubmit.co/admin@alinta-ember.com" method="POST">
-          <input type="hidden" name="_subject" value="Kurznachricht über alinta-ember.com (Startseite)" />
+          <input type="hidden" name="_subject" value={t.home.formSubject} />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://www.alinta-ember.com/?gesendet=1#kontakt" />
+          <input type="hidden" name="_next" value={FORM_NEXT} />
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-          <input required type="text"  name="name"      placeholder="Dein Name"     class="field" />
-          <input required type="email" name="email"     placeholder="Deine E-Mail"  class="field" />
-          <textarea required rows="3"  name="nachricht" placeholder="Kurze Nachricht" class="field"></textarea>
+          <input required type="text"  name="name"      placeholder={t.home.formName}    class="field" />
+          <input required type="email" name="email"     placeholder={t.home.formEmail}   class="field" />
+          <textarea required rows="3"  name="nachricht" placeholder={t.home.formMessage} class="field"></textarea>
           <div class="flex flex-wrap gap-3 items-center">
-            <button class="btn btn-orange">Nachricht senden</button>
-            <span id="mini-thanks" class="hidden text-sm text-ember-700 font-semibold">Danke — ich melde mich!</span>
+            <button class="btn btn-orange">{t.home.formSend}</button>
+            <span id="mini-thanks" class="hidden text-sm text-ember-700 font-semibold">{t.home.formThanks}</span>
           </div>
         </form>
       </div>
@@ -210,7 +217,7 @@ const WORKS = works.map((w) => ({
   <!-- ============== MODAL ============== -->
   <div id="modal" class="fixed inset-0 z-[60] hidden overflow-y-auto">
     <div id="modal-backdrop" class="fixed inset-0 modal-backdrop"></div>
-    <button id="modal-close" aria-label="Schließen"
+    <button id="modal-close" aria-label={t.modal.close}
             class="fixed top-4 right-4 md:top-6 md:right-6 z-[70] w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white grid place-items-center backdrop-blur">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -225,15 +232,15 @@ const WORKS = works.map((w) => ({
             </div>
           </div>
           <div class="p-7 md:p-10 wood-panel">
-            <p class="eyebrow" id="modal-eyebrow">Werk</p>
+            <p class="eyebrow" id="modal-eyebrow">{t.modal.work}</p>
             <h3 id="modal-title" class="mt-2 font-display font-extrabold text-char-900 text-3xl md:text-4xl leading-tight">Titel</h3>
             <p id="modal-desc"  class="mt-4 text-char-800/90 text-[16px] leading-relaxed whitespace-pre-line"></p>
             <ul id="modal-meta" class="mt-6 grid grid-cols-2 gap-3 text-[14px] text-char-800/80"></ul>
             <div id="modal-tags" class="mt-5 flex flex-wrap gap-2"></div>
             <div class="mt-8 flex flex-wrap gap-3">
-              <a id="modal-etsy-link" href="#" target="_blank" rel="noopener" class="btn btn-yellow hidden">Auf Etsy kaufen ↗</a>
-              <a id="modal-commission-link" href="/kontakt#auftrag" class="btn btn-orange">Neuauflage anfragen</a>
-              <button id="modal-close-2" class="btn btn-yellow">Schließen</button>
+              <a id="modal-etsy-link" href="#" target="_blank" rel="noopener" class="btn btn-yellow hidden">{t.modal.buyOnEtsy}</a>
+              <a id="modal-commission-link" href={`${P.kontakt}#auftrag`} class="btn btn-orange">{t.modal.requestEdition}</a>
+              <button id="modal-close-2" class="btn btn-yellow">{t.modal.close}</button>
             </div>
           </div>
         </div>
@@ -241,17 +248,17 @@ const WORKS = works.map((w) => ({
     </div>
   </div>
 
-  <script define:vars={{ WORKS }}>
+  <script define:vars={{ WORKS, L: { openDetails: t.modal.openDetails, view: t.modal.view, year: t.modal.year, dims: t.modal.dims, tagTitle: t.modal.tagLinkTitle }, PK: P.kontakt, PG: P.galerie }}>
     (function(){
       const grid = document.getElementById('works-grid');
       grid.innerHTML = WORKS.map(w => `
-        <button class="work-card group relative text-left focus:outline-none focus:ring-2 focus:ring-ember-500/60 rounded-2xl h-full flex flex-col" data-id="${w.id}" aria-label="${w.title} Details öffnen">
+        <button class="work-card group relative text-left focus:outline-none focus:ring-2 focus:ring-ember-500/60 rounded-2xl h-full flex flex-col" data-id="${w.id}" aria-label="${w.title} — ${L.openDetails}">
           <span class="work-card-glow"></span>
           <div class="work-card-frame p-3 md:p-4 h-full flex flex-col">
             <div class="aspect-[3/4] overflow-hidden rounded-xl bg-wood-300 relative">
               <img src="${w.img}" alt="${w.title}" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" />
               <span class="absolute bottom-2 right-2 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-ember-600/90 text-white text-xs font-semibold opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 backdrop-blur-sm shadow-lg">
-                Ansehen
+                ${L.view}
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </span>
             </div>
@@ -277,7 +284,7 @@ const WORKS = works.map((w) => ({
       document.getElementById('modal-title').textContent = w.title;
       document.getElementById('modal-desc').textContent  = w.desc;
       document.getElementById('modal-commission-link').href =
-        '/kontakt?werk=' + encodeURIComponent(w.title) + '#auftrag';
+        PK + '?werk=' + encodeURIComponent(w.title) + '#auftrag';
       const etsyLink = document.getElementById('modal-etsy-link');
       etsyLink.href = w.etsy || '#';
       etsyLink.classList.toggle('hidden', !w.etsy);
@@ -286,14 +293,14 @@ const WORKS = works.map((w) => ({
           <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>
           <span class="block mt-0.5 font-medium">${v}</span>
         </li>`;
-      const yearTile = w.year ? tile('Jahr', w.year) : '';
-      const dimsTile = w.dims ? tile('Maße', w.dims) : '';
+      const yearTile = w.year ? tile(L.year, w.year) : '';
+      const dimsTile = w.dims ? tile(L.dims, w.dims) : '';
       document.getElementById('modal-meta').innerHTML =
         yearTile + dimsTile + w.meta.map(([k,v]) => tile(k, v)).join('');
 
       const tagsEl = document.getElementById('modal-tags');
       tagsEl.innerHTML = (w.tags || [])
-        .map(t => `<a class="tag-btn" href="/galerie?tag=${encodeURIComponent(t)}" title="Alle Werke mit #${t} in der Galerie">#${t}</a>`)
+        .map(t => `<a class="tag-btn" href="${PG}?tag=${encodeURIComponent(t)}" title="${L.tagTitle.replace('{tag}', t)}">#${t}</a>`)
         .join('');
       tagsEl.classList.toggle('hidden', !(w.tags && w.tags.length));
       modal.classList.remove('hidden');

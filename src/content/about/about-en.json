@@ -1,0 +1,58 @@
+{
+  "heroEyebrow": "About me",
+  "heroTitle": "Hi, I'm Alinta.",
+  "heroIntro": "Pyrography artist from Germany. I burn stories into wood — line by line, spark by spark.",
+  "storyHeading": "From the first spark to the final stroke.",
+  "storyParagraphs": [
+    "I held my first burning iron at twelve — borrowed from my grandfather, originally meant for model making. “Just a quick try” turned into many hours. And the hours turned into a craft.",
+    "Today I work in a small workshop at the edge of the woods. Birch, oak, sometimes lime. A sketch on tracing paper, then contours, then shadow layer by layer. Nothing is painted — everything is burned.",
+    "I'm fascinated by transitions: the moment embers turn to ash, an animal becomes a myth, a line becomes a story. That's what every piece is about."
+  ],
+  "processEyebrow": "Process",
+  "processHeading": "How a piece is made.",
+  "processIntro": "Four phases, many hours — every piece goes through them in this order.",
+  "processSteps": [
+    {
+      "title": "Choosing the motif",
+      "text": "It always starts with the motif — working out how it will translate onto the wood and how to realise it."
+    },
+    {
+      "title": "Tracing onto the wood",
+      "text": "The wood is selected and sanded, and the motif is traced onto it."
+    },
+    {
+      "title": "Burning",
+      "text": "Contours first, then deeper and deeper.\nSeveral layers are needed to bring out depth through the line work."
+    },
+    {
+      "title": "Finish",
+      "text": "Cleaning up the burn marks, sealing with natural oil."
+    }
+  ],
+  "materialEyebrow": "Material",
+  "materialHeading": "Wood",
+  "materialText": "Every type of wood has its own character that I want to discover and get to know.",
+  "toolsEyebrow": "Tools",
+  "toolsHeading": "Burning iron",
+  "toolsText": "A Brennpeter as my base tool. I'm still learning which tips work best for what — so far I've focused mostly on the precision iron.",
+  "timelineHeading": "Milestones",
+  "timeline": [
+    {
+      "year": "2023",
+      "title": "The first spark",
+      "subtitle": "I discovered this art form by chance during a rehab stay. I was fascinated from the very beginning — and it hasn't let go of me since."
+    },
+    {
+      "year": "2025",
+      "title": "Self-portrait series",
+      "subtitle": "Ongoing · individual commissions welcome"
+    },
+    {
+      "year": "2026 - 07",
+      "title": "Website launch",
+      "subtitle": "Alinta-Ember.com is live :)"
+    }
+  ],
+  "ctaHeading": "Contact",
+  "ctaText": "Commissions and questions — feel free to use the contact form."
+}

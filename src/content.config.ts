@@ -19,6 +19,10 @@ const works = defineCollection({
     image: z.string(),
     eyebrow: z.string().optional(),
     description: z.string().optional(),
+    // Englische Fassungen (leer = deutscher Fallback, siehe src/lib/i18n.ts)
+    title_en: z.string().optional(),
+    eyebrow_en: z.string().optional(),
+    description_en: z.string().optional(),
     // Entstehungs-/Veröffentlichungsdatum — Basis für die chronologische Sortierung
     date: z.coerce.date().optional(),
     available: z.boolean().optional(),
@@ -62,6 +66,10 @@ const products = defineCollection({
     price: z.number(),
     stock: z.string().optional(),
     tag: z.string().optional(),
+    // Englische Fassungen (leer = deutscher Fallback)
+    title_en: z.string().optional(),
+    stock_en: z.string().optional(),
+    tag_en: z.string().optional(),
     date: z.string().optional(),
     category: z.string().optional(),
     available: z.boolean().optional(),
@@ -69,8 +77,9 @@ const products = defineCollection({
     order: z.number().optional(),
     // Link zum passenden Etsy-Listing (Verkauf läuft über Etsy)
     etsyUrl: z.string().optional(),
-    // Ausführliche Produktbeschreibung
+    // Ausführliche Produktbeschreibung (+ EN-Fassung)
     description: z.string().optional(),
+    description_en: z.string().optional(),
     // Strukturierte Maße (gleiches Objekt wie bei Works)
     dimensions: z
       .object({
@@ -94,6 +103,15 @@ const posts = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
+    // Englische Fassungen (leer = deutscher Fallback; body_en leer = deutscher
+    // Beitragstext mit Hinweis auf der EN-Seite)
+    title_en: z.string().optional(),
+    excerpt_en: z.string().optional(),
+    seoDescription_en: z.string().optional(),
+    body_en: z.any().optional(),
+    featuredHeading_en: z.string().optional(),
+    featuredExcerpt_en: z.string().optional(),
+    highlights_en: z.array(z.string()).optional().default([]),
     category: z.enum(['prozess', 'technik', 'news', 'werkstatt']),
     // Neues ISO-Datum für Sortierung und Darstellung
     publishDate: z.coerce.date().optional(),

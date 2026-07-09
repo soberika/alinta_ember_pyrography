@@ -80,6 +80,7 @@ export default defineConfig({
         },
         fields: [
           { type: 'string', name: 'title', label: 'Titel', isTitle: true, required: true },
+          { type: 'string', name: 'title_en', label: 'Titel (EN — leer = deutscher Titel)' },
           {
             type: 'string',
             name: 'category',
@@ -105,8 +106,19 @@ export default defineConfig({
           },
           {
             type: 'string',
+            name: 'eyebrow_en',
+            label: 'Eyebrow (EN — leer = deutscher Text)',
+          },
+          {
+            type: 'string',
             name: 'description',
             label: 'Beschreibung',
+            ui: { component: 'textarea' },
+          },
+          {
+            type: 'string',
+            name: 'description_en',
+            label: 'Beschreibung (EN — leer = deutscher Text)',
             ui: { component: 'textarea' },
           },
           {
@@ -206,6 +218,7 @@ export default defineConfig({
         },
         fields: [
           { type: 'string', name: 'title', label: 'Titel', isTitle: true, required: true },
+          { type: 'string', name: 'title_en', label: 'Titel (EN — leer = deutscher Titel)' },
           { type: 'image', name: 'image', label: 'Bild', required: true },
           { type: 'number', name: 'price', label: 'Preis (€)', required: true },
           {
@@ -215,8 +228,18 @@ export default defineConfig({
           },
           {
             type: 'string',
+            name: 'stock_en',
+            label: 'Verfügbarkeit (EN — leer = deutscher Text)',
+          },
+          {
+            type: 'string',
             name: 'tag',
             label: 'Tag (z. B. „Original“ / „Edition · 3/5“)',
+          },
+          {
+            type: 'string',
+            name: 'tag_en',
+            label: 'Tag (EN — leer = deutscher Text)',
           },
           { type: 'string', name: 'date', label: 'Datum (YYYY-MM, für Sortierung)' },
           { type: 'string', name: 'category', label: 'Kategorie' },
@@ -236,6 +259,12 @@ export default defineConfig({
             type: 'string',
             name: 'description',
             label: 'Beschreibung',
+            ui: { component: 'textarea' },
+          },
+          {
+            type: 'string',
+            name: 'description_en',
+            label: 'Beschreibung (EN — leer = deutscher Text)',
             ui: { component: 'textarea' },
           },
           {
@@ -288,6 +317,7 @@ export default defineConfig({
         },
         fields: [
           { type: 'string', name: 'title', label: 'Titel', isTitle: true, required: true },
+          { type: 'string', name: 'title_en', label: 'Titel (EN — leer = deutscher Titel)' },
           {
             type: 'string',
             name: 'category',
@@ -321,6 +351,12 @@ export default defineConfig({
             ui: { component: 'textarea' },
           },
           {
+            type: 'string',
+            name: 'excerpt_en',
+            label: 'Teaser (EN — leer = deutscher Teaser)',
+            ui: { component: 'textarea' },
+          },
+          {
             type: 'image',
             name: 'coverImage',
             label: 'Titelbild (Foto)',
@@ -340,6 +376,13 @@ export default defineConfig({
             description: 'Vollständiger Beitragstext mit Formatierung, Überschriften und Bildern.',
           },
           {
+            type: 'rich-text',
+            name: 'body_en',
+            label: 'Beitragstext (EN)',
+            description:
+              'Englische Fassung des Beitrags. Leer lassen = die EN-Seite zeigt den deutschen Text mit Hinweis.',
+          },
+          {
             type: 'string',
             name: 'tags',
             label: 'Tags (Schlagworte)',
@@ -351,6 +394,12 @@ export default defineConfig({
             name: 'seoDescription',
             label: 'SEO-Beschreibung (Meta-Description)',
             description: '150–160 Zeichen. Erscheint in Suchmaschinen-Ergebnissen. Leer lassen = Teaser wird verwendet.',
+            ui: { component: 'textarea' },
+          },
+          {
+            type: 'string',
+            name: 'seoDescription_en',
+            label: 'SEO-Beschreibung (EN — leer = EN-Teaser)',
             ui: { component: 'textarea' },
           },
           {
@@ -382,8 +431,19 @@ export default defineConfig({
           },
           {
             type: 'string',
+            name: 'featuredHeading_en',
+            label: 'Hero-Überschrift (EN — leer = deutscher Text)',
+          },
+          {
+            type: 'string',
             name: 'featuredExcerpt',
             label: 'Hero-Text (optional, sonst der Teaser)',
+            ui: { component: 'textarea' },
+          },
+          {
+            type: 'string',
+            name: 'featuredExcerpt_en',
+            label: 'Hero-Text (EN — leer = deutscher Text)',
             ui: { component: 'textarea' },
           },
           {
@@ -395,6 +455,12 @@ export default defineConfig({
             type: 'string',
             name: 'highlights',
             label: 'Hero-Stichpunkte „Im Beitrag” (optional)',
+            list: true,
+          },
+          {
+            type: 'string',
+            name: 'highlights_en',
+            label: 'Hero-Stichpunkte (EN — leer = deutsche Liste)',
             list: true,
           },
         ],

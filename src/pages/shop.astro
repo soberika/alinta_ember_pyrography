@@ -3,6 +3,12 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { langFromUrl, pick, PATHS, UI } from '../lib/i18n';
+
+// Sprache aus der Route (EN-Wrapper: src/pages/en/shop.astro)
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
 
 const products = (await getCollection('products')).sort(
   (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999),
@@ -13,20 +19,17 @@ const ETSY_SHOP_URL = 'https://www.etsy.com/shop/AlintaEmber';
 
 const items = products.map((p) => ({
   id: p.id,
-  title: p.data.title,
+  title: pick(lang, p.data.title, p.data.title_en),
   img: p.data.image,
   price: p.data.price,
-  stock: p.data.stock ?? '',
-  tag: p.data.tag ?? '',
+  stock: pick(lang, p.data.stock, p.data.stock_en),
+  tag: pick(lang, p.data.tag, p.data.tag_en),
   date: p.data.date ?? '',
   etsy: p.data.etsyUrl ?? '',
 }));
 ---
 
-<Base
-  title="Shop — Alinta Ember"
-  description="Originale und Editionen von Alinta Ember — handgebrannte Brandmalerei-Unikate. Verkauf über Etsy, Auftragsarbeiten auf Anfrage."
->
+<Base title={t.meta.shopTitle} description={t.meta.shopDesc}>
   <Header active="shop" />
 
   <!-- INTRO -->
@@ -35,10 +38,10 @@ const items = products.map((p) => ({
       <div class="wood-bg relative rounded-[28px] overflow-hidden ring-1 ring-wood-400/40 shadow-[0_30px_60px_-30px_rgba(61,43,31,.45)] px-6 md:px-12 lg:px-16 py-14 md:py-20">
         <div id="embers" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
         <div class="relative max-w-3xl">
-          <p class="eyebrow">Shop</p>
-          <h1 class="mt-3 font-display font-extrabold text-char-900 leading-[1] text-[44px] sm:text-[64px] md:text-[80px]">Originale<br/>& Editionen</h1>
+          <p class="eyebrow">{t.shop.eyebrow}</p>
+          <h1 class="mt-3 font-display font-extrabold text-char-900 leading-[1] text-[44px] sm:text-[64px] md:text-[80px]" set:html={t.shop.titleHtml} />
           <p class="mt-5 text-[18px] md:text-[20px] text-char-800/90 leading-relaxed max-w-xl">
-            Jedes Werk handgebrannt, signiert und in liebevoller Verpackung versendet. Der Verkauf läuft über meinen Etsy-Shop.
+            {t.shop.intro}
           </p>
         </div>
       </div>
@@ -51,16 +54,16 @@ const items = products.map((p) => ({
       <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-12">
         <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
-            <p class="eyebrow">Verfügbar</p>
-            <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[36px]">Aktuelle Stücke</h2>
+            <p class="eyebrow">{t.shop.available}</p>
+            <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[36px]">{t.shop.currentPieces}</h2>
           </div>
           <div class="flex items-center gap-2 text-sm text-char-800/70">
-            <span>Sortierung:</span>
+            <span>{t.shop.sort}</span>
             <select id="sort" class="field !py-2 !w-auto">
-              <option value="featured">Empfohlen</option>
-              <option value="price-asc">Preis aufsteigend</option>
-              <option value="price-desc">Preis absteigend</option>
-              <option value="new">Neueste zuerst</option>
+              <option value="featured">{t.shop.sortFeatured}</option>
+              <option value="price-asc">{t.shop.sortPriceAsc}</option>
+              <option value="price-desc">{t.shop.sortPriceDesc}</option>
+              <option value="new">{t.shop.sortNew}</option>
             </select>
           </div>
         </div>
@@ -72,15 +75,14 @@ const items = products.map((p) => ({
     <section class="relative">
       <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-12">
         <div class="cream-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 ring-1 ring-wood-300/60 text-center">
-          <p class="eyebrow">Etsy</p>
-          <h2 class="mt-3 font-display font-extrabold text-char-900 text-[28px] md:text-[36px] leading-tight">Der Shop zieht gerade ein.</h2>
+          <p class="eyebrow">{t.shop.teaserEyebrow}</p>
+          <h2 class="mt-3 font-display font-extrabold text-char-900 text-[28px] md:text-[36px] leading-tight">{t.shop.teaserHeading}</h2>
           <p class="mt-4 text-char-800/80 max-w-xl mx-auto">
-            Die ersten verkaufsfertigen Stücke landen nach und nach in meinem Etsy-Shop.
-            Schau gern vorbei — oder frag direkt eine Auftragsarbeit mit deinem Wunschmotiv an.
+            {t.shop.teaserText}
           </p>
           <div class="mt-8 flex flex-wrap gap-4 justify-center">
-            <a href={ETSY_SHOP_URL} target="_blank" rel="noopener" class="btn btn-orange">Zum Etsy-Shop ↗</a>
-            <a href="/kontakt#auftrag" class="btn btn-yellow">Auftrag anfragen</a>
+            <a href={ETSY_SHOP_URL} target="_blank" rel="noopener" class="btn btn-orange">{t.shop.toEtsy}</a>
+            <a href={`${P.kontakt}#auftrag`} class="btn btn-yellow">{t.shop.requestCommission}</a>
           </div>
         </div>
       </div>
@@ -92,18 +94,18 @@ const items = products.map((p) => ({
     <div class="max-w-6xl mx-auto px-5 md:px-8 pb-16">
       <div class="cream-panel rounded-[28px] px-6 md:px-12 lg:px-16 py-12 md:py-16 ring-1 ring-wood-300/60 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <p class="eyebrow">Auftragsarbeit</p>
-          <h2 class="mt-3 font-display font-extrabold text-char-900 text-[32px] md:text-[44px] leading-tight">Dein Motiv. In Holz gebrannt.</h2>
+          <p class="eyebrow">{t.shop.commissionEyebrow}</p>
+          <h2 class="mt-3 font-display font-extrabold text-char-900 text-[32px] md:text-[44px] leading-tight">{t.shop.commissionHeading}</h2>
           <p class="mt-4 text-char-800/85 leading-relaxed">
-            Erzähl mir, was du dir vorstellst — Tier, Portrait, Hochzeitsbild, Erinnerungsstück. Ich melde mich mit Skizze und Angebot innerhalb von 3 Werktagen.
+            {t.shop.commissionText}
           </p>
-          <a href="/kontakt#auftrag" class="btn btn-orange mt-7">Anfrage starten</a>
+          <a href={`${P.kontakt}#auftrag`} class="btn btn-orange mt-7">{t.shop.startRequest}</a>
         </div>
         <ul class="grid sm:grid-cols-2 gap-3 text-[15px]">
-          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Lieferzeit</div><div class="mt-1 font-semibold">4–8 Wochen</div></li>
-          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Ab</div><div class="mt-1 font-semibold">180&nbsp;€</div></li>
-          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Größen</div><div class="mt-1 font-semibold">15–60 cm</div></li>
-          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">Versand</div><div class="mt-1 font-semibold">Weltweit</div></li>
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">{t.shop.leadTime}</div><div class="mt-1 font-semibold">{t.shop.leadTimeValue}</div></li>
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">{t.shop.from}</div><div class="mt-1 font-semibold">180&nbsp;€</div></li>
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">{t.shop.sizes}</div><div class="mt-1 font-semibold">15–60 cm</div></li>
+          <li class="rounded-2xl bg-white/55 border border-wood-400/40 px-4 py-3"><div class="eyebrow !text-[11px]">{t.shop.shipping}</div><div class="mt-1 font-semibold">{t.shop.worldwide}</div></li>
         </ul>
       </div>
     </div>
@@ -114,25 +116,25 @@ const items = products.map((p) => ({
     <div class="max-w-6xl mx-auto px-5 md:px-8 pb-24 md:pb-32 grid md:grid-cols-3 gap-5">
       <div class="rounded-3xl bg-white/55 ring-1 ring-wood-400/40 p-6">
         <div class="text-ember-700"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></div>
-        <h3 class="mt-3 font-display font-bold text-xl text-char-900">Versand & Verpackung</h3>
-        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">DHL versichert, plastikfrei verpackt in handbeschriftetem Karton. Versand innerhalb von 5–7 Werktagen nach Bestellung.</p>
+        <h3 class="mt-3 font-display font-bold text-xl text-char-900">{t.shop.cardShippingTitle}</h3>
+        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">{t.shop.cardShippingText}</p>
       </div>
       <div class="rounded-3xl bg-white/55 ring-1 ring-wood-400/40 p-6">
         <div class="text-ember-700"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8 4-8-4"/><rect x="4" y="5" width="16" height="14" rx="2"/></svg></div>
-        <h3 class="mt-3 font-display font-bold text-xl text-char-900">Kauf über Etsy</h3>
-        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">Bezahlung und Käuferschutz laufen über Etsy. Preise inkl. MwSt. — Kleinunternehmerregelung §19 UStG.</p>
+        <h3 class="mt-3 font-display font-bold text-xl text-char-900">{t.shop.cardEtsyTitle}</h3>
+        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">{t.shop.cardEtsyText}</p>
       </div>
       <div class="rounded-3xl bg-white/55 ring-1 ring-wood-400/40 p-6">
         <div class="text-ember-700"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3.5-7.1"/><path d="M21 5v6h-6"/></svg></div>
-        <h3 class="mt-3 font-display font-bold text-xl text-char-900">Auftragsarbeiten</h3>
-        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">Eigenes Motiv gewünscht? Anfrage über das Kontaktformular — ich melde mich mit Skizze und Angebot.</p>
+        <h3 class="mt-3 font-display font-bold text-xl text-char-900">{t.shop.cardCommissionTitle}</h3>
+        <p class="mt-2 text-sm text-char-800/85 leading-relaxed">{t.shop.cardCommissionText}</p>
       </div>
     </div>
   </section>
 
   <Footer />
 
-  <script define:vars={{ PRODUCTS: items, ETSY_SHOP_URL }}>
+  <script define:vars={{ PRODUCTS: items, ETSY_SHOP_URL, L: { buy: t.shop.buyOnEtsy, vat: t.shop.inclVat } }}>
     const grid = document.getElementById('products');
     function render(){
       if (!grid) return; // keine Produkte gepflegt → Etsy-Hinweis wird server-seitig gerendert
@@ -151,11 +153,11 @@ const items = products.map((p) => ({
               </div>
               <div class="text-right shrink-0">
                 <div class="font-display font-bold text-char-900 text-[22px]">${p.price}&nbsp;€</div>
-                <div class="text-[11px] text-char-800/60 uppercase tracking-[.18em]">inkl. MwSt.</div>
+                <div class="text-[11px] text-char-800/60 uppercase tracking-[.18em]">${L.vat}</div>
               </div>
             </div>
             <div class="mt-4 flex gap-2">
-              <a href="${p.etsy || ETSY_SHOP_URL}" target="_blank" rel="noopener" class="btn btn-orange flex-1 !py-2.5 !text-sm">Auf Etsy kaufen ↗</a>
+              <a href="${p.etsy || ETSY_SHOP_URL}" target="_blank" rel="noopener" class="btn btn-orange flex-1 !py-2.5 !text-sm">${L.buy}</a>
             </div>
           </div>
         </article>

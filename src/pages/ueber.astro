@@ -3,14 +3,17 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { langFromUrl, localizedSingleton, PATHS, UI } from '../lib/i18n';
 
-const about = (await getCollection('about'))[0].data;
+// Sprache aus der Route (EN-Wrapper: src/pages/en/about.astro)
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
+
+const about = localizedSingleton(await getCollection('about'), lang).data;
 ---
 
-<Base
-  title="Über mich — Alinta Ember"
-  description="Wer hinter Alinta Ember steckt: mein Weg zur Pyrografie, mein Prozess vom Motiv bis zur Versiegelung — und warum kein Stück Holz dem anderen gleicht."
->
+<Base title={t.meta.ueberTitle} description={t.meta.ueberDesc}>
   <Header active="ueber" />
 
   <!-- HERO -->
@@ -41,7 +44,7 @@ const about = (await getCollection('about'))[0].data;
   <!-- STORY -->
   <section class="relative">
     <div class="max-w-3xl mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-8">
-      <p class="eyebrow text-center">Meine Geschichte</p>
+      <p class="eyebrow text-center">{t.about.storyEyebrow}</p>
       <h2 class="mt-3 font-display font-extrabold text-char-900 text-center text-[32px] md:text-[44px] leading-tight">{about.storyHeading}</h2>
       <div class="prose-like mt-8 space-y-5 text-[17px] md:text-[18px] text-char-800/90 leading-relaxed">
         {about.storyParagraphs.map((p) => <p>{p}</p>)}
@@ -90,7 +93,7 @@ const about = (await getCollection('about'))[0].data;
   <!-- TIMELINE -->
   <section class="relative">
     <div class="max-w-3xl mx-auto px-5 md:px-8 pb-16 md:pb-24">
-      <p class="eyebrow text-center">Bisher</p>
+      <p class="eyebrow text-center">{t.about.timelineEyebrow}</p>
       <h2 class="mt-2 text-center font-display font-extrabold text-char-900 text-[28px] md:text-[36px]">{about.timelineHeading}</h2>
       <ul class="mt-8 space-y-4">
         {about.timeline.map((t) => (
@@ -110,8 +113,8 @@ const about = (await getCollection('about'))[0].data;
         <h2 class="font-display font-extrabold text-char-900 text-[28px] md:text-[40px]">{about.ctaHeading}</h2>
         <p class="mt-3 text-char-800/85 max-w-xl mx-auto">{about.ctaText}</p>
         <div class="mt-7 flex flex-wrap gap-4 justify-center">
-          <a href="/kontakt" class="btn btn-orange">Kontakt aufnehmen</a>
-          <a href="/galerie" class="btn btn-yellow">Werke ansehen</a>
+          <a href={P.kontakt} class="btn btn-orange">{t.about.getInTouch}</a>
+          <a href={P.galerie} class="btn btn-yellow">{t.about.viewWorks}</a>
         </div>
       </div>
     </div>

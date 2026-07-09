@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import RichTextRenderer from '../../components/RichTextRenderer.astro';
 import { getCollection } from 'astro:content';
+import { langFromUrl, pick, dateLocale, PATHS, UI, POST_CATEGORY_LABELS } from '../../lib/i18n';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -15,16 +16,27 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const d = post.data;
 
-const LABELS: Record<string, string> = {
-  prozess: 'Prozess', technik: 'Technik', news: 'News', werkstatt: 'Werkstatt',
-};
+// Sprache aus der Route (EN-Wrapper: src/pages/en/blog/[slug].astro)
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
+
+const LABELS = POST_CATEGORY_LABELS[lang];
 const catLabel = LABELS[d.category] ?? d.category;
 
 const displayDate = d.publishDate
-  ? d.publishDate.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+  ? d.publishDate.toLocaleDateString(dateLocale(lang), { day: 'numeric', month: 'long', year: 'numeric' })
   : (d.date ?? '');
 
-const metaDescription = d.seoDescription || d.excerpt || '';
+const title = pick(lang, d.title, d.title_en);
+const excerpt = pick(lang, d.excerpt, d.excerpt_en);
+const metaDescription =
+  pick(lang, d.seoDescription, d.seoDescription_en) || excerpt || '';
+
+// EN-Seite: übersetzter Body wenn vorhanden, sonst deutscher Text mit Hinweis
+const body = lang === 'en' && d.body_en ? d.body_en : d.body;
+const showGermanNote = lang === 'en' && !d.body_en && !!d.body;
+
 const heroImage = d.coverImage || (d.thumbnail && !d.thumbnail.startsWith('illus:') ? d.thumbnail : null);
 const tags = d.tags ?? [];
 
@@ -43,18 +55,18 @@ const related = allPosts
   .map((x) => x.post);
 ---
 
-<Base title={`${d.title} — Alinta Ember`} description={metaDescription} ogImage={heroImage ?? undefined}>
+<Base title={`${title} — Alinta Ember`} description={metaDescription} ogImage={heroImage ?? undefined}>
   <Header active="blog" />
 
   <article>
     <!-- Breadcrumb -->
     <div class="max-w-3xl mx-auto px-5 md:px-8 pt-8">
       <nav class="flex items-center gap-2 text-[13px] text-char-800/60 mb-8">
-        <a href="/" class="hover:text-ember-700 transition">Startseite</a>
+        <a href={P.home} class="hover:text-ember-700 transition">{t.post.breadcrumbHome}</a>
         <span>›</span>
-        <a href="/blog" class="hover:text-ember-700 transition">Blog</a>
+        <a href={P.blog} class="hover:text-ember-700 transition">{t.post.breadcrumbBlog}</a>
         <span>›</span>
-        <span class="text-char-800/90 font-medium truncate max-w-[200px]">{d.title}</span>
+        <span class="text-char-800/90 font-medium truncate max-w-[200px]">{title}</span>
       </nav>
     </div>
 
@@ -62,7 +74,7 @@ const related = allPosts
     {heroImage && (
       <div class="max-w-4xl mx-auto px-5 md:px-8 mb-10">
         <div class="w-full aspect-[16/7] rounded-[20px] overflow-hidden ring-1 ring-wood-400/20 shadow-[0_20px_50px_-20px_rgba(61,43,31,.35)]">
-          <img src={heroImage} alt={d.title} class="w-full h-full object-cover" />
+          <img src={heroImage} alt={title} class="w-full h-full object-cover" />
         </div>
       </div>
     )}
@@ -75,29 +87,36 @@ const related = allPosts
           {catLabel}
         </span>
         <span class="text-[13px] text-char-800/60 tracking-wider uppercase font-bold">
-          {displayDate}{d.readTime && <> · {d.readTime} Lesezeit</>}
+          {displayDate}{d.readTime && <> · {d.readTime} {t.post.readTime}</>}
         </span>
       </div>
 
       <!-- Titel -->
       <h1 class="font-display font-extrabold text-char-900 text-[32px] sm:text-[44px] md:text-[52px] leading-[1.05] mb-6">
-        {d.title}
+        {title}
       </h1>
 
       <!-- Teaser als Lead-Absatz -->
-      {d.excerpt && (
+      {excerpt && (
         <p class="text-[18px] md:text-[20px] text-char-800/80 leading-relaxed mb-10 border-l-4 border-ember-500 pl-5">
-          {d.excerpt}
+          {excerpt}
+        </p>
+      )}
+
+      <!-- Hinweis auf der EN-Seite, wenn der Beitrag (noch) nicht übersetzt ist -->
+      {showGermanNote && (
+        <p class="mb-8 rounded-xl bg-wood-100 border border-wood-400/30 px-4 py-3 text-[14px] text-char-800/75">
+          {t.post.onlyGerman}
         </p>
       )}
 
       <!-- Rich-Text Body -->
-      {d.body && <RichTextRenderer content={d.body} class="text-[16px] md:text-[17px]" />}
+      {body && <RichTextRenderer content={body} class="text-[16px] md:text-[17px]" />}
 
       <!-- Tags -->
       {tags.length > 0 && (
         <div class="mt-12 pt-6 border-t border-wood-400/25 flex flex-wrap items-center gap-2">
-          <span class="text-[12px] text-char-800/50 uppercase tracking-wider font-bold mr-1">Tags:</span>
+          <span class="text-[12px] text-char-800/50 uppercase tracking-wider font-bold mr-1">{t.post.tags}</span>
           {tags.map((tag) => (
             <span class="inline-block bg-wood-100 border border-wood-400/30 text-char-800/80 text-[13px] font-semibold px-3 py-1 rounded-full">
               {tag}
@@ -108,23 +127,24 @@ const related = allPosts
 
       <!-- Share -->
       <div class="mt-8 flex items-center gap-3">
-        <span class="text-[13px] text-char-800/60 font-bold">Teilen:</span>
+        <span class="text-[13px] text-char-800/60 font-bold">{t.post.share}</span>
         <button
           id="share-btn"
           class="btn btn-yellow text-sm"
-          data-title={d.title}
+          data-title={title}
           data-url={Astro.url.toString()}
+          data-copied={t.post.linkCopied}
         >
-          ↗ Link teilen
+          {t.post.shareBtn}
         </button>
       </div>
 
       <!-- Navigation -->
       <div class="mt-10 pt-8 border-t border-wood-400/25 flex flex-wrap gap-4 justify-between items-center">
-        <a href="/blog" class="btn btn-yellow">← Alle Beiträge</a>
+        <a href={P.blog} class="btn btn-yellow">{t.post.backToBlog}</a>
         <div class="flex gap-3">
-          <a href="/galerie" class="btn btn-orange">Werke ansehen</a>
-          <a href="/kontakt" class="btn btn-yellow">Auftrag anfragen</a>
+          <a href={P.galerie} class="btn btn-orange">{t.post.viewWorks}</a>
+          <a href={P.kontakt} class="btn btn-yellow">{t.post.requestCommission}</a>
         </div>
       </div>
     </div>
@@ -133,17 +153,17 @@ const related = allPosts
   <!-- Ähnliche Beiträge -->
   {related.length > 0 && (
     <section class="max-w-6xl mx-auto px-5 md:px-8 pb-20">
-      <h2 class="font-display font-extrabold text-char-900 text-[22px] md:text-[28px] mb-6">Das könnte dich auch interessieren</h2>
+      <h2 class="font-display font-extrabold text-char-900 text-[22px] md:text-[28px] mb-6">{t.post.related}</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {related.map((p) => {
           const pDate = p.data.publishDate
-            ? p.data.publishDate.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+            ? p.data.publishDate.toLocaleDateString(dateLocale(lang), { day: 'numeric', month: 'long', year: 'numeric' })
             : (p.data.date ?? '');
           return (
-            <a href={`/blog/${p.id}`} class="related-card">
+            <a href={`${P.blog}/${p.id}`} class="related-card">
               <span class="related-cat">{LABELS[p.data.category] ?? p.data.category}</span>
-              <h3 class="font-display font-bold text-char-900 text-[17px] mt-2 leading-snug">{p.data.title}</h3>
-              <p class="mt-1 text-[14px] text-char-800/70 leading-relaxed line-clamp-2">{p.data.excerpt}</p>
+              <h3 class="font-display font-bold text-char-900 text-[17px] mt-2 leading-snug">{pick(lang, p.data.title, p.data.title_en)}</h3>
+              <p class="mt-1 text-[14px] text-char-800/70 leading-relaxed line-clamp-2">{pick(lang, p.data.excerpt, p.data.excerpt_en)}</p>
               <span class="mt-3 text-[12px] text-char-800/50 uppercase tracking-wider font-bold">{pDate}</span>
             </a>
           );
@@ -184,7 +204,7 @@ const related = allPosts
       } else {
         await navigator.clipboard.writeText(url);
         const orig = btn.textContent;
-        btn.textContent = 'Link kopiert ✓';
+        btn.textContent = btn.dataset.copied ?? 'Link kopiert ✓';
         setTimeout(() => { if (btn) btn.textContent = orig; }, 2000);
       }
     });

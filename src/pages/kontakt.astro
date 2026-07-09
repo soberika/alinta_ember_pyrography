@@ -3,20 +3,23 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { langFromUrl, localizedSingleton, PATHS, UI } from '../lib/i18n';
 
-const contact = (await getCollection('contact'))[0].data;
+// Sprache aus der Route (EN-Wrapper: src/pages/en/contact.astro)
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+const P = PATHS[lang];
+
+const contact = localizedSingleton(await getCollection('contact'), lang).data;
 
 // Formular-Backend: FormSubmit leitet POSTs als E-Mail weiter (kein Account nötig).
 // ⚠️ Beim allerersten Absenden schickt FormSubmit eine Aktivierungs-Mail an diese
 // Adresse — den Bestätigungslink einmal anklicken, danach kommen Anfragen direkt an.
 const FORM_ENDPOINT = 'https://formsubmit.co/admin@alinta-ember.com';
-const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag';
+const FORM_REDIRECT = new URL(`${P.kontakt}/?gesendet=1#auftrag`, Astro.site ?? 'https://www.alinta-ember.com').toString();
 ---
 
-<Base
-  title="Kontakt — Alinta Ember"
-  description="Auftragsarbeit anfragen oder einfach Hallo sagen — Brandmalerei nach deinem Motiv. Kontaktformular, FAQ und Antwort innerhalb von 2 Werktagen."
->
+<Base title={t.meta.kontaktTitle} description={t.meta.kontaktDesc}>
   <Header active="kontakt" />
 
   <!-- INTRO -->
@@ -41,12 +44,12 @@ const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag'
 
       <aside class="md:col-span-5 space-y-4">
         <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/40 p-6">
-          <div class="eyebrow">E-Mail</div>
+          <div class="eyebrow">{t.contact.email}</div>
           <a href={`mailto:${contact.email}`} class="mt-2 block font-display font-bold text-char-900 text-xl break-all hover:text-ember-700">{contact.email}</a>
         </div>
         {contact.addressLines.length > 0 && (
           <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/40 p-6">
-            <div class="eyebrow">Werkstatt</div>
+            <div class="eyebrow">{t.contact.workshop}</div>
             <p class="mt-2 font-medium text-char-900">
               {contact.addressLines.map((line, i) => (
                 <Fragment>{i > 0 && <br />}{line}</Fragment>
@@ -56,7 +59,7 @@ const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag'
           </div>
         )}
         <div class="rounded-2xl bg-white/55 ring-1 ring-wood-400/40 p-6">
-          <div class="eyebrow">Social</div>
+          <div class="eyebrow">{t.contact.social}</div>
           <div class="mt-3 flex flex-wrap gap-2">
             {contact.socials.map((s) => (
               <a href={s.url} class="btn btn-ghost !py-2 !px-4 !text-sm">{s.label}</a>
@@ -64,7 +67,7 @@ const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag'
           </div>
         </div>
         <div class="rounded-2xl wood-panel ring-1 ring-wood-400/40 p-6">
-          <div class="eyebrow">Antwortzeit</div>
+          <div class="eyebrow">{t.contact.responseTime}</div>
           <p class="mt-2 font-display font-bold text-char-900 text-2xl">{contact.responseTime}</p>
           <p class="mt-1 text-sm text-char-800/75">{contact.responseNote}</p>
         </div>
@@ -72,61 +75,61 @@ const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag'
 
       <div class="md:col-span-7">
         <div id="auftrag" class="cream-panel rounded-[28px] ring-1 ring-wood-300/60 p-7 md:p-10">
-          <p class="eyebrow">Nachricht senden</p>
+          <p class="eyebrow">{t.contact.sendMessage}</p>
           <h2 class="mt-2 font-display font-extrabold text-char-900 text-[28px] md:text-[36px] leading-tight">{contact.formHeading}</h2>
           <p id="werk-bezug" class="hidden mt-3 w-fit items-center gap-2 rounded-full bg-ember-500/10 text-ember-700 border border-ember-500/30 px-4 py-1.5 text-sm font-semibold"></p>
 
           <form class="mt-6 grid gap-4" action={FORM_ENDPOINT} method="POST">
             <!-- FormSubmit-Steuerfelder: Betreff, Tabellen-Layout der Mail, Spam-Honeypot,
                  Captcha aus (Honeypot reicht), Weiterleitung zurück auf diese Seite -->
-            <input type="hidden" name="_subject" value="Anfrage über alinta-ember.com" />
+            <input type="hidden" name="_subject" value={t.contact.formSubject} />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_next" value={FORM_REDIRECT} />
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
             <div class="grid sm:grid-cols-2 gap-4">
-              <label class="block"><span class="text-sm font-semibold text-char-800/85">Dein Name</span>
-                <input required type="text" name="name" class="field mt-1" placeholder="z. B. Mara" /></label>
-              <label class="block"><span class="text-sm font-semibold text-char-800/85">Deine E-Mail</span>
-                <input required type="email" name="email" class="field mt-1" placeholder="mara@example.de" /></label>
+              <label class="block"><span class="text-sm font-semibold text-char-800/85">{t.contact.formName}</span>
+                <input required type="text" name="name" class="field mt-1" placeholder={t.contact.formNamePlaceholder} /></label>
+              <label class="block"><span class="text-sm font-semibold text-char-800/85">{t.contact.formEmail}</span>
+                <input required type="email" name="email" class="field mt-1" placeholder={t.contact.formEmailPlaceholder} /></label>
             </div>
 
             <fieldset>
-              <legend class="text-sm font-semibold text-char-800/85 mb-2">Anliegen</legend>
+              <legend class="text-sm font-semibold text-char-800/85 mb-2">{t.contact.topic}</legend>
               <div class="flex flex-wrap gap-2">
-                <label class="topic"><input type="radio" name="topic" value="auftrag" checked /> <span>Auftragsarbeit</span></label>
-                <label class="topic"><input type="radio" name="topic" value="shop" /> <span>Shop-Frage</span></label>
-                <label class="topic"><input type="radio" name="topic" value="atelier" /> <span>Atelier-Besuch</span></label>
-                <label class="topic"><input type="radio" name="topic" value="presse" /> <span>Presse</span></label>
-                <label class="topic"><input type="radio" name="topic" value="sonstiges" /> <span>Sonstiges</span></label>
+                <label class="topic"><input type="radio" name="topic" value="auftrag" checked /> <span>{t.contact.topicCommission}</span></label>
+                <label class="topic"><input type="radio" name="topic" value="shop" /> <span>{t.contact.topicShop}</span></label>
+                <label class="topic"><input type="radio" name="topic" value="atelier" /> <span>{t.contact.topicStudio}</span></label>
+                <label class="topic"><input type="radio" name="topic" value="presse" /> <span>{t.contact.topicPress}</span></label>
+                <label class="topic"><input type="radio" name="topic" value="sonstiges" /> <span>{t.contact.topicOther}</span></label>
               </div>
             </fieldset>
 
             <label class="block">
-              <span class="text-sm font-semibold text-char-800/85">Budget (optional)</span>
+              <span class="text-sm font-semibold text-char-800/85">{t.contact.budget}</span>
               <select name="budget" class="field mt-1">
-                <option>Noch unklar</option>
-                <option>unter 250 €</option>
-                <option>250–500 €</option>
-                <option>500–1.000 €</option>
-                <option>über 1.000 €</option>
+                <option>{t.contact.budgetUnclear}</option>
+                <option>{t.contact.budgetUnder250}</option>
+                <option>{t.contact.budget250to500}</option>
+                <option>{t.contact.budget500to1000}</option>
+                <option>{t.contact.budgetOver1000}</option>
               </select>
             </label>
 
             <label class="block">
-              <span class="text-sm font-semibold text-char-800/85">Deine Nachricht</span>
-              <textarea required rows="5" id="contact-message" name="nachricht" class="field mt-1" placeholder="Erzähl mir kurz von deiner Idee, Größe, gewünschtem Lieferzeitpunkt …"></textarea>
+              <span class="text-sm font-semibold text-char-800/85">{t.contact.message}</span>
+              <textarea required rows="5" id="contact-message" name="nachricht" class="field mt-1" placeholder={t.contact.messagePlaceholder}></textarea>
             </label>
 
             <label class="flex items-start gap-3 text-sm text-char-800/85">
               <input type="checkbox" name="datenschutz" value="zugestimmt" class="mt-1" required />
-              <span>Ich habe die <a href="#" class="underline">Datenschutzhinweise</a> gelesen und stimme zu.</span>
+              <span>{t.contact.privacyPre} <a href="#" class="underline">{t.contact.privacyLink}</a> {t.contact.privacyPost}</span>
             </label>
 
             <div class="flex flex-wrap gap-3 items-center">
-              <button class="btn btn-orange">Nachricht senden</button>
-              <span id="thanks" class="hidden text-sm text-ember-700 font-semibold">Danke — ich melde mich!</span>
+              <button class="btn btn-orange">{t.contact.send}</button>
+              <span id="thanks" class="hidden text-sm text-ember-700 font-semibold">{t.contact.thanks}</span>
             </div>
           </form>
         </div>
@@ -137,8 +140,8 @@ const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag'
   <!-- FAQ -->
   <section class="relative">
     <div class="max-w-3xl mx-auto px-5 md:px-8 pb-24 md:pb-32">
-      <p class="eyebrow text-center">FAQ</p>
-      <h2 class="mt-2 text-center font-display font-extrabold text-char-900 text-[28px] md:text-[36px]">Häufige Fragen</h2>
+      <p class="eyebrow text-center">{t.contact.faq}</p>
+      <h2 class="mt-2 text-center font-display font-extrabold text-char-900 text-[28px] md:text-[36px]">{t.contact.faqHeading}</h2>
       <div class="mt-8 space-y-3">
         {contact.faq.map((item) => (
           <details class="faq"><summary>{item.question}</summary><p>{item.answer}</p></details>
@@ -151,7 +154,7 @@ const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag'
 
   <!-- Vorbelegung bei Anfrage zu einem konkreten Werk (?werk=…) aus dem Galerie-/Featured-Modal
        + Erfolgsmeldung nach dem Absenden (?gesendet=1, Redirect von FormSubmit) -->
-  <script is:inline>
+  <script define:vars={{ MSG: { werkMessage: t.contact.werkMessage, werkRef: t.contact.werkRef } }}>
     (function () {
       const params = new URLSearchParams(location.search);
       if (params.get('gesendet')) {
@@ -164,13 +167,11 @@ const FORM_REDIRECT = 'https://www.alinta-ember.com/kontakt/?gesendet=1#auftrag'
       if (auftrag) auftrag.checked = true;
       const msg = document.getElementById('contact-message');
       if (msg && !msg.value) {
-        msg.value =
-          'Hallo Alinta,\n\nich interessiere mich für eine Neuauflage von „' + werk +
-          '“. Ist das als Auftragsarbeit möglich? Über Größe, Holzart und gewünschten Zeitrahmen würde ich gern sprechen.';
+        msg.value = MSG.werkMessage.replace('{werk}', werk);
       }
       const bezug = document.getElementById('werk-bezug');
       if (bezug) {
-        bezug.textContent = 'Bezug: Neuauflage von „' + werk + '“';
+        bezug.textContent = MSG.werkRef.replace('{werk}', werk);
         bezug.classList.remove('hidden');
         bezug.classList.add('inline-flex');
       }

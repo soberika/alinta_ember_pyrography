@@ -1,8 +1,11 @@
 {
   "title": "Willkommen",
+  "title_en": "Welcome",
   "category": "news",
   "readTime": "3 min",
   "excerpt": "Was mache ich hier eigentlich, was bedeutet Pyrograpfie für mich und was in Zukunft hier zu erwarten ist - ein kleiner Rundgang durch meinen zentralen Anlaufpunkt. ",
+  "excerpt_en": "What am I actually doing here, what pyrography means to me and what to expect in the future — a short tour of my new home base.",
+  "seoDescription_en": "What pyrography means to me and what to expect here — a short tour of the new home base for my wood-burning art.",
   "coverImage": "/images/Blog/2026-06-20-welcome/image.jpg",
   "body": {
     "type": "root",
@@ -124,6 +127,131 @@
           {
             "type": "text",
             "text": "Willkommen bei Alinta Ember."
+          }
+        ]
+      }
+    ]
+  },
+  "body_en": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "So glad you're here :) …"
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "This site is meant to be the home for my work and everything around it."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "A place where I can show what's possible with pyrography. Alinta Ember stands for handcrafted art in the traditional sense."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "What is pyrography?",
+            "bold": true
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Pyrography — wood-burning — is one of the oldest techniques there is for permanently burning images into wood, and yet it feels new every single time. Every grain reacts differently to heat, every piece of wood has its own character, and that's exactly where the appeal lies for me: no two works are alike, because no two pieces of wood are alike."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Why this website?",
+            "bold": true
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "I spent a long time wondering where and on which platform to present my work. But none of the usual social media or artist platforms let me show my history and development in an authentic way. Every post gets lost in the scroll, and even now I have my doubts about keeping social media properly maintained. It matters to me that my own development and my thoughts on the craft stay visible — no platform can offer that."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "At the same time, I want to show you as a reader what these works mean to me and the value they hold."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "This website now brings everything together in one place: a gallery of my works, information about commissions, and a blog where I share insights into my process, new projects and thoughts about the craft."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "The blog",
+            "bold": true
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "The blog is there to document how the project moves forward, what I learn along the way and how I can build on it — concrete plans, and anything worth knowing about pyrography."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "I'm excited to start this chapter with you. Feel free to browse the gallery — I'm working on uploading my past and earliest works too, to document my own progress."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Welcome to Alinta Ember."
           }
         ]
       }

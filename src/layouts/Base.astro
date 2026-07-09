@@ -1,4 +1,6 @@
 ---
+import { langFromUrl, altPath } from '../lib/i18n';
+
 interface Props {
   title: string;
   description?: string;
@@ -6,22 +8,33 @@ interface Props {
 }
 const { title, description, ogImage } = Astro.props;
 
+// Sprache aus der Route (DE unter /, EN unter /en/) — siehe src/lib/i18n.ts.
+const lang = langFromUrl(Astro.url);
+
 // Absolute URLs für Canonical + Open Graph (Astro.site ist in astro.config.mjs gesetzt;
 // im Dev-Server ohne site fällt es auf relative Pfade zurück).
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 const ogImageUrl = Astro.site
   ? new URL(ogImage ?? '/assets/logo.png', Astro.site).toString()
   : (ogImage ?? '/assets/logo.png');
+
+// hreflang-Alternativen: jede Seite existiert in DE und EN; x-default = DE.
+const other = altPath(Astro.url.pathname);
+const hrefDe = Astro.site ? new URL(lang === 'de' ? Astro.url.pathname : other, Astro.site).toString() : undefined;
+const hrefEn = Astro.site ? new URL(lang === 'en' ? Astro.url.pathname : other, Astro.site).toString() : undefined;
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {canonical && <link rel="canonical" href={canonical} />}
+    {hrefDe && <link rel="alternate" hreflang="de" href={hrefDe} />}
+    {hrefEn && <link rel="alternate" hreflang="en" href={hrefEn} />}
+    {hrefDe && <link rel="alternate" hreflang="x-default" href={hrefDe} />}
     <link rel="icon" type="image/png" href="/assets/logo.png" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
