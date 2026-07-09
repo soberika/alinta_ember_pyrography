@@ -114,7 +114,7 @@ const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))]
     <button id="modal-close" aria-label={t.modal.close} class="fixed top-4 right-4 md:top-6 md:right-6 z-[70] w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white grid place-items-center backdrop-blur">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <div class="relative min-h-full flex items-center justify-center p-4 md:p-8">
+    <div id="modal-scroll" class="relative min-h-full flex items-center justify-center p-4 md:p-8">
       <div class="relative modal-pop w-full max-w-3xl rounded-3xl overflow-hidden shadow-ember-glow-lg ring-1 ring-ember-500/40 bg-wood-100">
         <div class="grid md:grid-cols-2">
           <div class="bg-wood-200 p-6 md:p-8 flex flex-col items-center justify-center gap-4">
@@ -323,6 +323,10 @@ const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))]
     document.getElementById('modal-close').addEventListener('click', closeModal);
     document.getElementById('modal-close-2').addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
+    // Der Scroll-Wrapper liegt über dem Backdrop — Klick auf die freie Fläche
+    // neben der Karte muss das Modal ebenfalls schließen.
+    const scrollWrap = document.getElementById('modal-scroll');
+    scrollWrap.addEventListener('click', (e) => { if (e.target === scrollWrap) closeModal(); });
     window.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
   </script>
 </Base>
