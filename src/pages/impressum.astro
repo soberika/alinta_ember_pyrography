@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { langFromUrl, UI } from '../lib/i18n';
+
+// Sprache aus der Route (EN-Wrapper: src/pages/en/imprint.astro).
+// Der Rechtstext selbst bleibt bewusst deutsch (siehe README/Task).
+const lang = langFromUrl(Astro.url);
+const t = UI[lang];
+---
+
+<Base title={t.meta.impressumTitle} description={t.meta.impressumDesc} noindex>
+  <Header />
+
+  <section class="relative">
+    <div class="max-w-3xl mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-24 md:pb-32">
+      <p class="eyebrow">Impressum</p>
+      <h1 class="mt-3 font-display font-extrabold text-char-900 leading-tight text-[36px] md:text-[52px]">Impressum</h1>
+
+      <div class="mt-8 space-y-8 text-[17px] md:text-[18px] text-char-800/90 leading-relaxed">
+        <div>
+          <h2 class="font-display font-bold text-char-900 text-[22px] md:text-[26px]">Angaben gemäß § 5 DDG</h2>
+          <p class="mt-3">
+            Paul Baumgarten<br />
+            Alinta Ember<br />
+            Herbert-Böhme-Straße 7<br />
+            01662 Meißen
+          </p>
+          <p class="mt-4">
+            E-Mail: <a href="mailto:contact@alinta-ember.com" class="underline hover:text-ember-700">contact@alinta-ember.com</a>
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display font-bold text-char-900 text-[22px] md:text-[26px]">Inhaltlich verantwortlich gemäß § 18 Abs. 2 MStV:</h2>
+          <p class="mt-3">
+            Paul Baumgarten<br />
+            Alinta Ember<br />
+            Anschrift wie oben
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Base>

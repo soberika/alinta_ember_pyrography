@@ -5,8 +5,9 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, noindex } = Astro.props;
 
 // Sprache aus der Route (DE unter /, EN unter /en/) — siehe src/lib/i18n.ts.
 const lang = langFromUrl(Astro.url);
@@ -31,6 +32,7 @@ const hrefEn = Astro.site ? new URL(lang === 'en' ? Astro.url.pathname : other, 
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex" />}
     {canonical && <link rel="canonical" href={canonical} />}
     {hrefDe && <link rel="alternate" hreflang="de" href={hrefDe} />}
     {hrefEn && <link rel="alternate" hreflang="en" href={hrefEn} />}
