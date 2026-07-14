@@ -43,7 +43,7 @@ const hrefEn = Astro.site ? new URL(lang === 'en' ? Astro.url.pathname : other, 
     <meta property="og:image" content={ogImageUrl} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:type" content="website" />
-    <script src="https://cdn.tailwindcss.com" is:inline></script>
+    <script src="/assets/tailwind.js" is:inline></script>
     <script src="/assets/tw-config.js" is:inline></script>
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
