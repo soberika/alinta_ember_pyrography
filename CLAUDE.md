@@ -14,9 +14,15 @@ Archiv in `_legacy/`), migriert nach Astro.
 
 - `astro` ^6 — statische Ausgabe (`output` default static), `build.format: 'directory'`
 - `tinacms` ^3, `@tinacms/cli` ^2.5 (Dev-Abhängigkeit)
-- Styling: **Tailwind via CDN** (`https://cdn.tailwindcss.com`) + `public/assets/tw-config.js`
-  + handgeschriebenes `public/assets/site.css`. **Kein** Tailwind-Build, keine
-  Astro-Tailwind-Integration. Bewusst so, um das Original-Design 1:1 zu erhalten.
+- Styling: **Tailwind Play-CDN-Script, self-hosted** unter `public/assets/tailwind.js`
+  (byte-identische Kopie des ehemals von `cdn.tailwindcss.com` geladenen Scripts —
+  kein Wechsel auf die Astro-Tailwind-Integration, kein Build-Step) + `public/assets/tw-config.js`
+  (muss **nach** `tailwind.js` laden, setzt `window.tailwind.config`) + handgeschriebenes
+  `public/assets/site.css`. Bewusst so, um das Original-Design 1:1 zu erhalten.
+- Fonts (Plus Jakarta Sans, Bricolage Grotesque) **self-hosted** unter
+  `public/assets/fonts/*.woff2` (`@font-face` in `site.css`) statt Google Fonts CDN —
+  beides Variable Fonts, `latin`-Subset genügt (Projekt ist rein DE/EN, deckt
+  deutsche Umlaute/ß ab). Kein externer Request mehr beim Seitenaufruf.
 - Node ≥ 20.
 
 ## Architektur — zwei getrennte Ebenen
@@ -44,6 +50,28 @@ Archiv in `_legacy/`), migriert nach Astro.
 - Singletons sind in Tina mit `ui: { allowedActions: { create:false, delete:false } }`
   konfiguriert; im Page-Frontmatter via `localizedSingleton(await getCollection('home'), lang).data`
   (jede Singleton-Collection hat zwei Dokumente: `home.json` = DE, `home-en.json` = EN).
+
+## Statische Rechtsseiten (Impressum / Datenschutz)
+
+`src/pages/impressum.astro` und `src/pages/datenschutz.astro` sind **bewusst
+keine Content-Collection** — Rechtstexte werden **nicht** ins CMS aufgenommen,
+damit sie nicht versehentlich im Admin verändert werden können. Abweichend vom
+sonstigen Muster:
+
+- Text steht **direkt im Markup** (server-seitig gerendert, wie `ueber`/`kontakt`),
+  nicht in `src/content/**`. Kein Eintrag in `tina/config.ts` oder
+  `src/content.config.ts` — und soll auch keiner werden.
+- Beide Seiten geben `noindex` an `Base` weiter (`<Base ... noindex>` →
+  `<meta name="robots" content="noindex">`); die optionale `noindex`-Prop auf
+  `Base.astro` ist rein additiv und für alle anderen Seiten `undefined`.
+- EN-Wrapper existieren (`src/pages/en/imprint.astro`, `src/pages/en/privacy.astro`,
+  Slugs `/en/imprint` + `/en/privacy` in `PATHS`/`altPath`), der **Rechtstext
+  bleibt aber deutsch** — nur Meta-Title/-Description und hreflang sind EN-korrekt.
+- Footer (`Footer.astro`) verlinkt beide Seiten über `t.footer.impressum`/
+  `t.footer.datenschutz` (Labels im `UI`-Wörterbuch); die Datenschutz-Checkbox
+  im Kontaktformular (`kontakt.astro`) verlinkt ebenfalls auf `P.datenschutz`.
+- Ändert sich der Rechtstext künftig, direkt im jeweiligen `.astro`-Markup
+  editieren — **kein** `tina-lock.json`-Rebuild nötig, da kein Schema betroffen.
 
 ## Zweisprachigkeit (DE / EN)
 
@@ -150,6 +178,10 @@ Schema-Update, kein Reindex nötig.
 ### Neue Seite hinzufügen
 `src/pages/<name>.astro` mit `Base` + `Header`/`Footer`. Route = Dateiname.
 Header-Links sind in `src/components/Header.astro` gepflegt (statisch).
+Soll die Seite nicht in Suchmaschinen ranken (z. B. Rechtsseiten), `noindex`
+als Prop an `Base` übergeben. Für eine rein statische Seite ohne CMS-Anbindung
+siehe `impressum.astro`/`datenschutz.astro` als Vorlage (Abschnitt „Statische
+Rechtsseiten" oben).
 
 ## Konventionen & Gotchas
 
@@ -158,12 +190,16 @@ Header-Links sind in `src/components/Header.astro` gepflegt (statisch).
 - **Bilder:** Werk-/Produkt-/Upload-Bilder unter `public/images` (Tina media
   root), als `/images/...` referenziert. Dekorative Assets (Logo, Charakter,
   `site.*`) unter `public/assets`, als `/assets/...`.
+- **`public/assets/`** enthält außerdem `tailwind.js` (self-hosted Play-CDN-Script)
+  und `fonts/*.woff2` (self-hosted Google Fonts) — beide sind Binär-/generierte
+  Artefakte, **nicht** von Hand editieren, sondern bei Bedarf neu herunterladen
+  (siehe Stack-Abschnitt oben für Details/Hintergrund).
 - **Tina-Schema braucht pro Collection ein `isTitle: true, required: true`**
   String-Feld.
 - `_legacy/` und `_git_snapshot/` sind Archive — nicht Teil des Builds, von
   `tsconfig` exkludiert.
 - Statisch (nicht im CMS): Navigation/Footer-Links, Routen, Marken-Name,
-  Kontakt-Formular-Struktur.
+  Kontakt-Formular-Struktur, Rechtstexte Impressum/Datenschutz (siehe oben).
 
 ## Git-Workflow
 

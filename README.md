@@ -28,8 +28,10 @@ liegen versioniert im GitHub-Repo.
   Formulare bearbeitet werden. Jede Änderung wird als **Git-Commit** gespeichert.
 - **Vercel** baut die Seite bei jedem Commit auf `main` automatisch neu und
   veröffentlicht sie.
-- Das Design läuft über **Tailwind (CDN)** + `public/assets/site.css` — es gibt
-  keinen separaten CSS-Build.
+- Das Design läuft über **Tailwind** (lokal eingebunden als `public/assets/tailwind.js`,
+  keine externe CDN-Abhängigkeit mehr) + `public/assets/site.css` — es gibt
+  keinen separaten CSS-Build. Auch die Schriften (Plus Jakarta Sans, Bricolage
+  Grotesque) sind lokal eingebunden, nicht über Google Fonts.
 
 Der Ablauf einer Änderung:
 
@@ -91,6 +93,9 @@ Blog, Startseiten-/Über-/Kontakt-Inhalte).
 - Marken-Name „Alinta Ember" im Hero
 - Formular-Struktur der Kontaktseite (Felder, Anliegen, Budget-Optionen)
 - Design (Farben, Schriften, Layout) und dekorative Bilder (Logo, Charakter)
+- **Impressum & Datenschutzerklärung** (`/impressum`, `/datenschutz`) — bewusst
+  **nicht** im Admin editierbar, damit Rechtstexte nicht versehentlich verändert
+  werden. Änderungen daran bitte über den Code (bzw. mit Entwickler:in) vornehmen.
 
 > Eine **Designänderung macht die CMS-Pflege nicht hinfällig** — Inhalt und
 > Darstellung sind getrennt. Solche Änderungen passieren im Code (CSS/Markup).
@@ -155,11 +160,13 @@ verbinden, `TINA_PUBLIC_CLIENT_ID` und `TINA_TOKEN` bei Vercel hinterlegen.
 │   ├── content/            # ← die Inhalte (JSON), via /admin bearbeitet
 │   │   ├── works/  products/  posts/
 │   │   └── home/  about/  contact/
-│   ├── layouts/Base.astro  # HTML-Grundgerüst (Head, Fonts, Tailwind-CDN)
+│   ├── layouts/Base.astro  # HTML-Grundgerüst (Head, Fonts, Tailwind — beide lokal)
 │   ├── components/         # Header.astro, Footer.astro
-│   └── pages/              # index, galerie, shop, blog, ueber, kontakt
+│   └── pages/              # index, galerie, shop, blog, ueber, kontakt,
+│                                 # impressum, datenschutz (Rechtstexte, nicht im CMS)
 ├── public/
-│   ├── assets/             # site.css, site.js, tw-config.js, Logo etc.
+│   ├── assets/             # site.css, site.js, tw-config.js, tailwind.js,
+│   │                           # fonts/*.woff2, Logo etc.
 │   └── images/             # via CMS hochgeladene Bilder
 └── _legacy/                # ursprüngliche statische HTML-Seite (Archiv)
 ```
