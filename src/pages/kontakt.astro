@@ -124,7 +124,7 @@ const FORM_REDIRECT = new URL(`${P.kontakt}/?gesendet=1#auftrag`, Astro.site ?? 
 
             <label class="flex items-start gap-3 text-sm text-char-800/85">
               <input type="checkbox" name="datenschutz" value="zugestimmt" class="mt-1" required />
-              <span>{t.contact.privacyPre} <a href="#" class="underline">{t.contact.privacyLink}</a> {t.contact.privacyPost}</span>
+              <span>{t.contact.privacyPre} <a href={P.datenschutz} target="_blank" rel="noopener" class="underline">{t.contact.privacyLink}</a> {t.contact.privacyPost}</span>
             </label>
 
             <div class="flex flex-wrap gap-3 items-center">

@@ -12,12 +12,14 @@ const P = PATHS[lang];
       <img src="/assets/logo.png" alt="" class="w-8 h-8 rounded-full object-cover ring-1 ring-wood-400/60" />
       <span>© <span id="yr"></span> {t.footer.tagline}</span>
     </div>
-    <div class="flex items-center gap-5">
+    <div class="flex items-center gap-5 flex-wrap justify-center">
       <a href={P.galerie} class="hover:text-ember-700">{t.nav.galerie}</a>
       <a href={P.shop} class="hover:text-ember-700">{t.nav.shop}</a>
       <a href={P.blog} class="hover:text-ember-700">{t.nav.blog}</a>
       <a href={P.ueber} class="hover:text-ember-700">{t.nav.ueber}</a>
       <a href={P.kontakt} class="hover:text-ember-700">{t.nav.kontakt}</a>
+      <a href={P.impressum} class="hover:text-ember-700">{t.footer.impressum}</a>
+      <a href={P.datenschutz} class="hover:text-ember-700">{t.footer.datenschutz}</a>
     </div>
   </div>
 </footer>

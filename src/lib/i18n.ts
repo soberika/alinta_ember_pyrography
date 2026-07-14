@@ -256,7 +256,7 @@ const de = {
     werkMessage: 'Hallo Alinta,\n\nich interessiere mich für eine Neuauflage von „{werk}“. Ist das als Auftragsarbeit möglich? Über Größe, Holzart und gewünschten Zeitrahmen würde ich gern sprechen.',
   },
 
-  footer: { tagline: 'Alinta Ember · Pyrography' },
+  footer: { tagline: 'Alinta Ember · Pyrography', impressum: 'Impressum', datenschutz: 'Datenschutz' },
 };
 
 const en: typeof de = {
@@ -445,7 +445,7 @@ const en: typeof de = {
     werkMessage: 'Hi Alinta,\n\nI\'m interested in a new edition of “{werk}”. Would that be possible as a commission? I\'d love to talk about size, wood type and timeframe.',
   },
 
-  footer: { tagline: 'Alinta Ember · Pyrography' },
+  footer: { tagline: 'Alinta Ember · Pyrography', impressum: 'Imprint', datenschutz: 'Privacy' },
 };
 
 export const UI: Record<Lang, typeof de> = { de, en };
