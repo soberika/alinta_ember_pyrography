@@ -24,9 +24,9 @@ export function langFromUrl(url: URL): Lang {
   return p === '/en' || p.startsWith('/en/') ? 'en' : 'de';
 }
 
-export const PATHS: Record<Lang, Record<'home' | 'galerie' | 'shop' | 'blog' | 'ueber' | 'kontakt' | 'impressum', string>> = {
-  de: { home: '/', galerie: '/galerie', shop: '/shop', blog: '/blog', ueber: '/ueber', kontakt: '/kontakt', impressum: '/impressum' },
-  en: { home: '/en/', galerie: '/en/gallery', shop: '/en/shop', blog: '/en/blog', ueber: '/en/about', kontakt: '/en/contact', impressum: '/en/imprint' },
+export const PATHS: Record<Lang, Record<'home' | 'galerie' | 'shop' | 'blog' | 'ueber' | 'kontakt' | 'impressum' | 'datenschutz', string>> = {
+  de: { home: '/', galerie: '/galerie', shop: '/shop', blog: '/blog', ueber: '/ueber', kontakt: '/kontakt', impressum: '/impressum', datenschutz: '/datenschutz' },
+  en: { home: '/en/', galerie: '/en/gallery', shop: '/en/shop', blog: '/en/blog', ueber: '/en/about', kontakt: '/en/contact', impressum: '/en/imprint', datenschutz: '/en/privacy' },
 };
 
 /**
@@ -39,10 +39,10 @@ export function altPath(pathname: string): string {
   const p = pathname.replace(/\/+$/, '') || '/';
   if (p === '/en' || p.startsWith('/en/')) {
     const rest = p === '/en' ? '/' : p.slice('/en'.length);
-    const rev: Record<string, string> = { '/': '/', '/gallery': '/galerie', '/about': '/ueber', '/contact': '/kontakt', '/imprint': '/impressum' };
+    const rev: Record<string, string> = { '/': '/', '/gallery': '/galerie', '/about': '/ueber', '/contact': '/kontakt', '/imprint': '/impressum', '/privacy': '/datenschutz' };
     return withSlash(rev[rest] ?? rest);
   }
-  const fwd: Record<string, string> = { '/': '/en/', '/galerie': '/en/gallery', '/ueber': '/en/about', '/kontakt': '/en/contact', '/impressum': '/en/imprint' };
+  const fwd: Record<string, string> = { '/': '/en/', '/galerie': '/en/gallery', '/ueber': '/en/about', '/kontakt': '/en/contact', '/impressum': '/en/imprint', '/datenschutz': '/en/privacy' };
   return withSlash(fwd[p] ?? '/en' + p);
 }
 
@@ -89,6 +89,8 @@ const de = {
     kontaktDesc: 'Auftragsarbeit anfragen oder einfach Hallo sagen — Brandmalerei nach deinem Motiv. Kontaktformular, FAQ und Antwort innerhalb von 2 Werktagen.',
     impressumTitle: 'Impressum — Alinta Ember',
     impressumDesc: 'Impressum und Anbieterkennzeichnung gemäß § 5 DDG für alinta-ember.com.',
+    datenschutzTitle: 'Datenschutzerklärung — Alinta Ember',
+    datenschutzDesc: 'Informationen zur Verarbeitung personenbezogener Daten auf alinta-ember.com nach DSGVO.',
   },
 
   home: {
@@ -276,6 +278,8 @@ const en: typeof de = {
     kontaktDesc: 'Request a commission or just say hello — pyrography with your own motif. Contact form, FAQ, replies within 2 working days.',
     impressumTitle: 'Imprint — Alinta Ember',
     impressumDesc: 'Legal notice and provider identification pursuant to § 5 DDG for alinta-ember.com.',
+    datenschutzTitle: 'Privacy Policy — Alinta Ember',
+    datenschutzDesc: 'Information on the processing of personal data on alinta-ember.com under the GDPR.',
   },
 
   home: {
