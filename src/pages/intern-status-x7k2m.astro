@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const tracker = (await getCollection('tracker'))[0].data;
+const phases = tracker.phases;
+
+const isDone = (item: (typeof phases)[number]['items'][number]) => item.status === 'erledigt';
+
+const blockerPhases = phases.filter((p) => p.blocker);
+const otherPhases = phases.filter((p) => !p.blocker && p.titel !== 'Design-Experimente');
+
+const blockersOpen = blockerPhases.some((p) => p.items.some((i) => !isDone(i)));
+const otherOpen = otherPhases.some((p) => p.items.some((i) => !isDone(i)));
+
+const ampel: 'rot' | 'gelb' | 'gruen' = blockersOpen ? 'rot' : otherOpen ? 'gelb' : 'gruen';
+
+const ampelMeta = {
+  rot: { label: 'Rot — Blocker offen', dot: 'bg-red-600' },
+  gelb: { label: 'Gelb — Blocker erledigt, Rest offen', dot: 'bg-yellow-500' },
+  gruen: { label: 'Grün — startklar', dot: 'bg-green-600' },
+}[ampel];
+
+const allItems = phases.flatMap((p) => p.items);
+const totalCount = allItems.length;
+const doneCount = allItems.filter(isDone).length;
+const progressPct = totalCount ? Math.round((doneCount / totalCount) * 100) : 0;
+
+const aufwandLabel = { niedrig: 'Niedrig', mittel: 'Mittel', hoch: 'Hoch' };
+const statusLabel = { offen: 'Offen', 'in-arbeit': 'In Arbeit', erledigt: 'Erledigt' };
+---
+
+<Base title={`${tracker.title} — intern`} description="Interner Launch-Fortschritt, nicht öffentlich." noindex>
+  <Header />
+
+  <section class="relative">
+    <div class="max-w-4xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-6">
+      <p class="eyebrow">Intern · nicht öffentlich</p>
+      <h1 class="mt-3 font-display font-extrabold text-char-900 text-[32px] md:text-[44px]">{tracker.title}</h1>
+
+      <div class="mt-6 flex flex-wrap items-center gap-4">
+        <span class={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold text-white ${ampelMeta.dot}`}>
+          <span class="w-2.5 h-2.5 rounded-full bg-white/90"></span>
+          {ampelMeta.label}
+        </span>
+        <span class="text-sm text-char-800/70">{doneCount} von {totalCount} Punkten erledigt</span>
+      </div>
+
+      <div class="mt-4 h-3 w-full rounded-full bg-wood-100 ring-1 ring-wood-400/40 overflow-hidden">
+        <div class="h-full rounded-full bg-ember-600" style={`width:${progressPct}%`}></div>
+      </div>
+      <p class="mt-1 text-xs text-char-800/60">{progressPct}% Gesamtfortschritt</p>
+    </div>
+  </section>
+
+  {phases.map((phase) => {
+    const total = phase.items.length;
+    const done = phase.items.filter(isDone).length;
+    return (
+      <section class="relative">
+        <div class="max-w-4xl mx-auto px-5 md:px-8 pb-8">
+          <div class="wood-panel rounded-[24px] ring-1 ring-wood-400/40 p-6 md:p-8">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p class="eyebrow">{phase.label}{phase.blocker && ' · Blocker'}</p>
+                <h2 class="mt-1 font-display font-bold text-char-900 text-2xl">{phase.titel}</h2>
+                {phase.untertitel && <p class="mt-1 text-sm text-char-800/70">{phase.untertitel}</p>}
+              </div>
+              <span class="text-sm font-semibold text-char-800/80 whitespace-nowrap">{done} / {total}</span>
+            </div>
+            <ul class="mt-5 space-y-2">
+              {phase.items.map((item) => (
+                <li class="flex items-start gap-3 rounded-xl bg-white/50 ring-1 ring-wood-300/50 px-4 py-3">
+                  <span
+                    class:list={[
+                      'mt-1 w-2.5 h-2.5 rounded-full shrink-0',
+                      {
+                        'bg-green-600': item.status === 'erledigt',
+                        'bg-ember-600': item.status === 'in-arbeit',
+                        'bg-wood-400': item.status === 'offen',
+                      },
+                    ]}
+                  ></span>
+                  <div class="flex-1">
+                    <p
+                      class:list={[
+                        'text-[15px]',
+                        {
+                          'line-through text-char-800/50': item.status === 'erledigt',
+                          'font-semibold text-ember-700': item.status === 'in-arbeit',
+                          'text-char-800/90': item.status === 'offen',
+                        },
+                      ]}
+                    >{item.text}</p>
+                    <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-char-800/60">
+                      <span>Aufwand: {aufwandLabel[item.aufwand]}</span>
+                      <span>·</span>
+                      <span>{statusLabel[item.status]}</span>
+                    </div>
+                    {item.notiz && <p class="mt-1 text-xs text-char-800/70 italic">{item.notiz}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <Footer />
+</Base>
