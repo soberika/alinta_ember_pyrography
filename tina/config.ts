@@ -135,6 +135,13 @@ export default defineConfig({
             label: 'Etsy-Listing-URL (optional — zeigt „Auf Etsy kaufen“ im Werk-Detail)',
           },
           {
+            type: 'string',
+            name: 'videoUrl',
+            label: 'Making-Of / Timelapse (YouTube-Link)',
+            description:
+              'Optionaler YouTube-Link zum Prozessvideo — leer lassen = kein Button.',
+          },
+          {
             type: 'number',
             name: 'order',
             label: 'Reihenfolge (kleiner = weiter vorne)',

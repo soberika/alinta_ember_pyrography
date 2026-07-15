@@ -30,6 +30,8 @@ const works = defineCollection({
     order: z.number().optional(),
     // Link zum passenden Etsy-Listing (Verkauf läuft über Etsy)
     etsyUrl: z.string().optional(),
+    // Optionaler YouTube-Link zum Making-Of/Timelapse-Video (Modal-Button, siehe galerie.astro)
+    videoUrl: z.string().optional(),
     // Sichtbarkeit: 'public' (gelistet) oder 'unlisted' (ausgeblendet / Entwurf)
     status: z.enum(['public', 'unlisted']).optional().default('public'),
     // Strukturierte Maße (besser filter-/auswertbar als nur im meta-Array)
