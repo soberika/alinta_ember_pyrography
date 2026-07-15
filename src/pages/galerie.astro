@@ -39,6 +39,7 @@ const items = works.map((w) => ({
   dims: formatDimensions(w.data.dimensions),
   tags: (w.data.tags ?? []).filter(Boolean),
   etsy: w.data.etsyUrl ?? '',
+  video: w.data.videoUrl ?? '',
   gallery: (w.data.gallery ?? []).map((g) => ({ img: g.image, caption: g.caption ?? '' })),
   meta: (w.data.meta ?? []).map((m) => [m.label, m.value]),
 }));
@@ -133,6 +134,10 @@ const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))]
             <div id="modal-tags" class="mt-5 flex flex-wrap gap-2"></div>
             <div class="mt-8 flex flex-wrap gap-3">
               <a id="modal-etsy-link" href="#" target="_blank" rel="noopener" class="btn btn-yellow hidden">{t.modal.buyOnEtsy}</a>
+              <a id="modal-video-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-youtube hidden">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                {t.modal.watchMakingOf}
+              </a>
               <a id="modal-commission-link" href={`${P.kontakt}#auftrag`} class="btn btn-orange">{t.modal.requestEdition}</a>
               <button id="modal-close-2" class="btn btn-yellow">{t.modal.close}</button>
             </div>
@@ -266,6 +271,9 @@ const allTags = [...new Set(works.flatMap((w) => w.data.tags ?? []))]
       const etsyLink = document.getElementById('modal-etsy-link');
       etsyLink.href = w.etsy || '#';
       etsyLink.classList.toggle('hidden', !w.etsy);
+      const videoLink = document.getElementById('modal-video-link');
+      videoLink.href = w.video || '#';
+      videoLink.classList.toggle('hidden', !w.video);
       const tile = (k, v) => `
         <li class="rounded-xl bg-white/55 border border-wood-400/40 px-3 py-2">
           <span class="block text-[11px] uppercase tracking-[.18em] text-ember-700 font-semibold">${k}</span>

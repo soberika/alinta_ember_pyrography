@@ -104,6 +104,14 @@ body{
 }
 .btn-ghost:hover{ box-shadow: inset 0 0 0 1.5px rgba(232,93,4,.7); color:#e85d04; }
 
+/* btn-youtube — Making-Of/Timelapse-Link im Werk-Modal (kein Logo, nur generisches Rot + Play-Dreieck) */
+.btn-youtube{
+  background:#e02020;
+  color:#fff;
+  box-shadow: 0 8px 24px -8px rgba(224,32,32,.65), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.btn-youtube:hover{ box-shadow: 0 14px 36px -10px rgba(224,32,32,.75), inset 0 1px 0 rgba(255,255,255,.25); }
+
 /* tag-btn — Tags als Buttons: Filter-Leiste in der Galerie + Werk-Modal (Galerie/Startseite) */
 .tag-btn{
   display:inline-flex; align-items:center; gap:.25rem;
