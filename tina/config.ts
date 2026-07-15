@@ -595,6 +595,63 @@ export default defineConfig({
           },
         ],
       },
+
+      // ── Interner Launch-Tracker (Singleton, nicht öffentlich verlinkt) ──
+      {
+        name: 'tracker',
+        label: 'Launch-Tracker (intern)',
+        path: 'src/content/tracker',
+        format: 'json',
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: 'string', name: 'title', label: 'Titel', isTitle: true, required: true },
+          {
+            type: 'object',
+            name: 'phases',
+            label: 'Phasen',
+            list: true,
+            ui: { itemProps: (item) => ({ label: item?.titel || 'Phase' }) },
+            fields: [
+              { type: 'string', name: 'label', label: 'Label (z. B. „Phase 1“)', required: true },
+              { type: 'string', name: 'titel', label: 'Titel', required: true },
+              { type: 'string', name: 'untertitel', label: 'Untertitel' },
+              { type: 'boolean', name: 'blocker', label: 'Blockiert den Launch?' },
+              {
+                type: 'object',
+                name: 'items',
+                label: 'Punkte',
+                list: true,
+                ui: { itemProps: (item) => ({ label: item?.text || 'Punkt' }) },
+                fields: [
+                  { type: 'string', name: 'text', label: 'Text', required: true },
+                  {
+                    type: 'string',
+                    name: 'aufwand',
+                    label: 'Aufwand',
+                    required: true,
+                    options: [
+                      { value: 'niedrig', label: 'Niedrig' },
+                      { value: 'mittel', label: 'Mittel' },
+                      { value: 'hoch', label: 'Hoch' },
+                    ],
+                  },
+                  {
+                    type: 'string',
+                    name: 'status',
+                    label: 'Status',
+                    options: [
+                      { value: 'offen', label: 'Offen' },
+                      { value: 'in-arbeit', label: 'In Arbeit' },
+                      { value: 'erledigt', label: 'Erledigt' },
+                    ],
+                  },
+                  { type: 'string', name: 'notiz', label: 'Notiz (optional)', ui: { component: 'textarea' } },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 });

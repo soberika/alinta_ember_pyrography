@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /intern-status-x7k2m
 
 Sitemap: https://www.alinta-ember.com/sitemap-index.xml
