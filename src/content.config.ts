@@ -223,4 +223,34 @@ const contact = defineCollection({
   }),
 });
 
-export const collections = { works, products, posts, home, about, contact };
+// Interner Launch-Tracker → src/content/tracker/tracker.json
+const tracker = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/tracker' }),
+  schema: z.object({
+    title: z.string(),
+    phases: z
+      .array(
+        z.object({
+          label: z.string(),
+          titel: z.string(),
+          untertitel: z.string().optional(),
+          blocker: z.boolean().optional().default(false),
+          items: z
+            .array(
+              z.object({
+                text: z.string(),
+                aufwand: z.enum(['niedrig', 'mittel', 'hoch']),
+                status: z.enum(['offen', 'in-arbeit', 'erledigt']).optional().default('offen'),
+                notiz: z.string().optional(),
+              }),
+            )
+            .optional()
+            .default([]),
+        }),
+      )
+      .optional()
+      .default([]),
+  }),
+});
+
+export const collections = { works, products, posts, home, about, contact, tracker };

@@ -1,0 +1,63 @@
+{
+  "title": "Launch-Tracker",
+  "phases": [
+    {
+      "label": "Phase 1",
+      "titel": "Funnel schließen",
+      "untertitel": "Kaufabschluss ohne Reibungspunkte",
+      "blocker": true,
+      "items": [
+        { "text": "Echte E-Mail auf eigener Domain (hallo@alinta-ember.com)", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Formular-Backend anbinden (z. B. Web3Forms)", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Freiburg-Platzhalteradresse entfernen", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "„inkl. MwSt.“ korrigieren → Hinweis gem. §19 UStG", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Etsy-Buttons: echte Links oder auf „Anfrage“ umstellen", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Zahlungs-/Rückgabe-Versprechen entfernen, Verkauf via Etsy klarstellen", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Datenschutz-Checkbox im Formular korrekt verlinken", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+      ]
+    },
+    {
+      "label": "Phase 2",
+      "titel": "Recht & Domain",
+      "untertitel": "Rechtssicherheit vor dem Launch",
+      "blocker": true,
+      "items": [
+        { "text": "Pseudonym-Entscheidung: echte Adresse vs. Impressum-Service", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "Impressum live (§5 DDG)", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "Datenschutzerklärung live (inkl. Formular-Service)", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "alinta-ember.com mit Vercel verbinden + Redirect", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Fonts & Tailwind self-hosten (CDN-IP-Transfer beenden)", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "Rechtschreibkorrektur Startseite + einheitlich „Pyrografie“", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Texte auf durchgängige „ich“-Stimme", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+      ]
+    },
+    {
+      "label": "Phase 3",
+      "titel": "Content & Brand",
+      "untertitel": "Sichtbarkeit und Wiedererkennung aufbauen",
+      "blocker": false,
+      "items": [
+        { "text": "Werkfoto-Session: 6–10 Werke, fixes Setup", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "Content-Puffer: 6–9 fertige Posts", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "Bio + /links-Seite", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Mini-Brand-Kit fixieren", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Etsy-Banner + Profilbild", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+      ]
+    },
+    {
+      "label": "Design-Experimente",
+      "titel": "Design-Experimente",
+      "untertitel": "Nice-to-have, kein Blocker für den Launch",
+      "blocker": false,
+      "items": [
+        { "text": "Hero-Varianten: Werkfoto statt Illustration", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "Typo-Testseite", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Galerie-Layout-Varianten inkl. Card-Height-Bug", "aufwand": "mittel", "status": "offen", "notiz": "" },
+        { "text": "Mascot-Leitsystem", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Social-Post-Templates (design-kit/)", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Trust-Leiste unter Hero", "aufwand": "niedrig", "status": "offen", "notiz": "" },
+        { "text": "Farbklima-Test „Glut“ vs. „Werkstatt“", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+      ]
+    }
+  ]
+}
