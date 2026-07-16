@@ -7,13 +7,13 @@
       "untertitel": "Kaufabschluss ohne Reibungspunkte",
       "blocker": true,
       "items": [
-        { "text": "Echte E-Mail auf eigener Domain (hallo@alinta-ember.com)", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Formular-Backend anbinden (z. B. Web3Forms)", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Freiburg-Platzhalteradresse entfernen", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "„inkl. MwSt.“ korrigieren → Hinweis gem. §19 UStG", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Etsy-Buttons: echte Links oder auf „Anfrage“ umstellen", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Zahlungs-/Rückgabe-Versprechen entfernen, Verkauf via Etsy klarstellen", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Datenschutz-Checkbox im Formular korrekt verlinken", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+        { "text": "Echte E-Mail auf eigener Domain (hallo@alinta-ember.com)", "aufwand": "niedrig", "status": "offen", "notiz": "Die Kontaktseite nennt aktuell hallo@alitaember.de — falscher Name, fremde Domain, vermutlich nicht existent. Wer dorthin schreibt, erreicht niemanden: ein toter Kanal mit Vertrauensschaden, sobald es auffällt." },
+        { "text": "Formular-Backend anbinden (z. B. Web3Forms)", "aufwand": "niedrig", "status": "offen", "notiz": "Wirkung: hoch, Aufwand: niedrig. Formular ohne Backend, aber mit „Danke — ich melde mich!“ ist schlimmer als kein Formular: der Interessent glaubt, die Anfrage sei raus, und wartet vergeblich. Formular-Service (Web3Forms/Formspree, EU-hosted bevorzugen) hält das UX bei, muss aber in die Datenschutzerklärung." },
+        { "text": "Freiburg-Platzhalteradresse entfernen", "aufwand": "niedrig", "status": "offen", "notiz": "Legacy-Platzhalter aus der Vorlage — keine echte Werkstattadresse. Solange sie steht, behauptet die Seite einen Standort, der nicht stimmt." },
+        { "text": "„inkl. MwSt.“ korrigieren → Hinweis gem. §19 UStG", "aufwand": "niedrig", "status": "offen", "notiz": "Wirkung: mittel, Aufwand: minimal. Als Kleinunternehmer wird keine Umsatzsteuer ausgewiesen — „inkl. MwSt.“ ist eine unzutreffende, abmahnfähige Angabe. Korrekt: „Gemäß §19 UStG wird keine Umsatzsteuer ausgewiesen.“" },
+        { "text": "Etsy-Buttons: echte Links oder auf „Anfrage“ umstellen", "aufwand": "niedrig", "status": "offen", "notiz": "„Auf Etsy kaufen ↗“ führt aktuell auf #. Das ist der einzige Kauf-Button der Website — solange er ins Nichts führt, ist jede Traffic-Maßnahme (SEO, Social, Blog) nur ein Zubringer zu einer geschlossenen Tür." },
+        { "text": "Zahlungs-/Rückgabe-Versprechen entfernen, Verkauf via Etsy klarstellen", "aufwand": "niedrig", "status": "offen", "notiz": "Wirkung: hoch, Aufwand: niedrig–mittel. Shop-Seite nennt „PayPal, Klarna, Überweisung“, „14 Tage Rückgaberecht“, „Versand 5–7 Werktage“ — Legacy-Text, der die Seite als eigenen Onlineshop positioniert. Das zieht volle E-Commerce-Pflichten nach sich (Widerrufsbelehrung, AGB, Button-Lösung, PAngV). Läuft der Verkauf über Etsy, muss die Seite das auch sagen: „Kauf über Etsy, Auftragsarbeiten per Anfrage.“" },
+        { "text": "Datenschutz-Checkbox im Formular korrekt verlinken", "aufwand": "niedrig", "status": "offen", "notiz": "Die Checkbox verlinkt aktuell auf # — eine Einwilligung ohne einsehbare Hinweise ist DSGVO-seitig wertlos." }
       ]
     },
     {
@@ -22,13 +22,13 @@
       "untertitel": "Rechtssicherheit vor dem Launch",
       "blocker": true,
       "items": [
-        { "text": "Pseudonym-Entscheidung: echte Adresse vs. Impressum-Service", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "Impressum live (§5 DDG)", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "Datenschutzerklärung live (inkl. Formular-Service)", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "alinta-ember.com mit Vercel verbinden + Redirect", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Fonts & Tailwind self-hosten (CDN-IP-Transfer beenden)", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "Rechtschreibkorrektur Startseite + einheitlich „Pyrografie“", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Texte auf durchgängige „ich“-Stimme", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+        { "text": "Pseudonym-Entscheidung: echte Adresse vs. Impressum-Service", "aufwand": "mittel", "status": "offen", "notiz": "Wirkung: hoch, Aufwand: null, aber unbequem. „Alinta Ember“ ist ein Künstlername, die Kontaktseite zeigt eine erfundene Adresse — das Impressum (§5 DDG) braucht aber den bürgerlichen Namen und eine ladungsfähige Anschrift, bei gewerblichem Angebot ohne Ausnahme. Optionen: echte Adresse akzeptieren, oder eine ladungsfähige Impressum-Adresse mieten (Impressum-Service/virtuelles Büro, ~10–30 €/Monat). Muss vor Social entschieden sein, da Etsy dieselben Angaben im Shop-Impressum verlangt." },
+        { "text": "Impressum live (§5 DDG)", "aufwand": "mittel", "status": "offen", "notiz": "Hängt an der Pseudonym-Entscheidung oben. Sobald gewerblich auf Instagram gepostet wird, braucht auch der Social-Kanal ein verlinktes Impressum — gleicher Entscheidungsknoten." },
+        { "text": "Datenschutzerklärung live (inkl. Formular-Service)", "aufwand": "mittel", "status": "offen", "notiz": "Muss den eingesetzten Formular-Service (siehe Phase 1) sowie ggf. weitere Drittanbieter nennen." },
+        { "text": "alinta-ember.com mit Vercel verbinden + Redirect", "aufwand": "niedrig", "status": "offen", "notiz": "Wirkung: hoch für SEO, Aufwand: niedrig. Canonical zeigt auf alinta-ember.com, live läuft die Seite aber unter alinta-ember-pyrography.vercel.app — dazu E-Mail auf einer dritten Domain. Drei Identitäten verwässern jedes SEO-Signal; erst nach dem Domain-Fix lohnt sich SEO-Arbeit." },
+        { "text": "Fonts & Tailwind self-hosten (CDN-IP-Transfer beenden)", "aufwand": "mittel", "status": "offen", "notiz": "Tailwind-CDN + externe Google-Fonts übertragen Besucher-IPs an Dritte, bevor überhaupt eine Einwilligung möglich ist. Self-Hosting löst Datenschutz und einen Roundtrip weniger gleichzeitig — verletzt die No-Build-Regel nicht, da das CDN nur generiertes CSS/JS liefert, das sich einmalig als Datei ablegen lässt." },
+        { "text": "Rechtschreibkorrektur Startseite + einheitlich „Pyrografie“", "aufwand": "niedrig", "status": "offen", "notiz": "Aktuell u. a. „Fazination“, „Nah bringen“, „Gallerie“, „Meine Aktuellsten Arbeiten“, „Wer ist Alinta Ember.“ (Punkt statt Fragezeichen), dazu drei wechselnde Schreibweisen (Pyrography/Pyrographie/Pyrografie) und ein englischer Hero-Satz auf sonst deutscher Seite. Bei Handwerkskunst ist Sprachpräzision ein Proxy für Arbeitspräzision — Käufer schließen unbewusst vom Text aufs Produkt." },
+        { "text": "Texte auf durchgängige „ich“-Stimme", "aufwand": "niedrig", "status": "offen", "notiz": "Wirkung: niedrig–mittel, Aufwand: minimal. FAQ fragt z. B. „Liefert ihr international?“ — bei einer Solo-Künstlermarke irritierend, wo die persönliche Handschrift gerade das Verkaufsargument ist." }
       ]
     },
     {
@@ -37,11 +37,11 @@
       "untertitel": "Sichtbarkeit und Wiedererkennung aufbauen",
       "blocker": false,
       "items": [
-        { "text": "Werkfoto-Session: 6–10 Werke, fixes Setup", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "Content-Puffer: 6–9 fertige Posts", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "Bio + /links-Seite", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Mini-Brand-Kit fixieren", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Etsy-Banner + Profilbild", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+        { "text": "Werkfoto-Session: 6–10 Werke, fixes Setup", "aufwand": "mittel", "status": "offen", "notiz": "Wirkung: hoch, Aufwand: mittel–hoch. Im geprüften Pfad gibt es kein einziges echtes Werkfoto — Startseite zeigt Logo und Illustration statt Produkt, paradox für eine visuelle Kunstform. Vermutlich der größte inhaltliche Hebel überhaupt: 6–10 exzellent fotografierte Werke schlagen jedes Design-Experiment. Reproduzierbares Setup einplanen (fixe Lichtposition, fixer Hintergrund), damit Bilder ohne Nachdenken konsistent werden." },
+        { "text": "Content-Puffer: 6–9 fertige Posts", "aufwand": "mittel", "status": "offen", "notiz": "Reicht für 2–3 Wochen Vorlauf bei 3 Posts/Woche. Nicht mehr anlegen — Puffer-Perfektionismus ist die häufigste Prokrastinationsform." },
+        { "text": "Bio + /links-Seite", "aufwand": "niedrig", "status": "offen", "notiz": "Ein-Satz-Positionierung plus Link auf eine eigene /links-Seite statt Linktree — spart zusätzlich den Drittanbieter-Eintrag in der Datenschutzerklärung." },
+        { "text": "Mini-Brand-Kit fixieren", "aufwand": "niedrig", "status": "offen", "notiz": "Fixierte Markenwerte (Hexcodes, Fontnamen, Logo-Abstandsregeln) als Referenz für alle künftigen Kanäle — Basis für Etsy-Banner, Social-Templates und Design-Experimente." },
+        { "text": "Etsy-Banner + Profilbild", "aufwand": "niedrig", "status": "offen", "notiz": "Etsy-Shop-Banner (1600×400) und Profilbild (500×500) aus derselben Token-Quelle wie die Website, damit der Auftritt kanalübergreifend konsistent wirkt." }
       ]
     },
     {
@@ -50,13 +50,13 @@
       "untertitel": "Nice-to-have, kein Blocker für den Launch",
       "blocker": false,
       "items": [
-        { "text": "Hero-Varianten: Werkfoto statt Illustration", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "Typo-Testseite", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Galerie-Layout-Varianten inkl. Card-Height-Bug", "aufwand": "mittel", "status": "offen", "notiz": "" },
-        { "text": "Mascot-Leitsystem", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Social-Post-Templates (design-kit/)", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Trust-Leiste unter Hero", "aufwand": "niedrig", "status": "offen", "notiz": "" },
-        { "text": "Farbklima-Test „Glut“ vs. „Werkstatt“", "aufwand": "niedrig", "status": "offen", "notiz": "" }
+        { "text": "Hero-Varianten: Werkfoto statt Illustration", "aufwand": "mittel", "status": "offen", "notiz": "A/B-Test lokal: Hero mit echtem Werkfoto statt Banner-Illustration (Vollflächig mit Overlay vs. Split-Layout 60/40). Setzt die Werkfoto-Session aus Phase 3 voraus." },
+        { "text": "Typo-Testseite", "aufwand": "niedrig", "status": "offen", "notiz": "Nicht verlinkte Vergleichsseite mit drei Richtungen: Ist-Zustand, markantere Display-Serif für Headlines, handschriftlicher Akzent nur für Eyebrows — zum Nebeneinander-Vergleichen vor einer Entscheidung." },
+        { "text": "Galerie-Layout-Varianten inkl. Card-Height-Bug", "aufwand": "mittel", "status": "offen", "notiz": "Drei Layout-Alternativen (Masonry, festes Seitenverhältnis-Raster, große Einzelreihe mit Hover-Zoom) gegen den bekannten Card-Height-Bug antesten; Kartenmarkup liegt im Inline-JS-Template der Galerie, nicht im statischen Markup." },
+        { "text": "Mascot-Leitsystem", "aufwand": "niedrig", "status": "offen", "notiz": "Chibi-Charakter als wiederkehrendes Leitsystem (Abschnittstrenner, 404/Danke-Kontext, Blog-Sidebar) — Regel: nie neben Werkfotos, nur in Übergangs- und Textzonen, um nicht um Aufmerksamkeit mit dem Produkt zu konkurrieren." },
+        { "text": "Social-Post-Templates (design-kit/)", "aufwand": "niedrig", "status": "offen", "notiz": "Eigene Template-Kit-Dateien außerhalb des Astro-Builds (WIP-Post, Werk-Vorstellung, Zitat/Behind-the-Scenes) mit denselben Farbwerten/Fonts wie die Website, damit Social und Website identisch wirken." },
+        { "text": "Trust-Leiste unter Hero", "aufwand": "niedrig", "status": "offen", "notiz": "Schmale Vertrauens-Leiste unter dem Hero (z. B. „Handgebrannt“ · „Unikate & Kleinserien“ · „Auftragsarbeiten ab Skizze“). Zwei Varianten möglich: statischer Text ohne Schema-Änderung, oder CMS-Feld (pflegbar, aber Schema-Update + tina-lock-Regenerierung + Reindex nötig)." },
+        { "text": "Farbklima-Test „Glut“ vs. „Werkstatt“", "aufwand": "niedrig", "status": "offen", "notiz": "Zwei Klima-Varianten derselben Startseiten-Sektion nebeneinander: „Glut“ (mehr Ember-Akzente, dunklerer Grund, wärmere Fotowirkung) vs. „Werkstatt“ (hellerer Wood-Grund, Ember nur für CTAs, ruhiger). Nur bestehende Tokens, keine neuen Farbwerte ohne Rücksprache." }
       ]
     }
   ]
