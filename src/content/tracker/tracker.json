@@ -45,6 +45,18 @@
       ]
     },
     {
+      "label": "Technische Fixes",
+      "titel": "Technische Fixes",
+      "untertitel": "Klar umsetzbare Bugs aus dem Code-Audit",
+      "blocker": false,
+      "items": [
+        { "text": "Name-Tippfehler „alita“ → „alinta“ in Asset-Dateinamen + Referenzen korrigieren", "aufwand": "niedrig", "status": "erledigt", "notiz": "Betraf ausschließlich public/assets/alita-character.png, public/images/alita-character.png und die Referenz in ueber.astro. Mailadressen im Code waren bereits durchgängig korrekt (alinta-ember.com) — nur die Notiz zu Phase 1 „Echte E-Mail“ beschreibt einen historischen, inzwischen im Code behobenen Zustand." },
+        { "text": "Bild-Pfad-Bug: Leerzeichen im Ordnernamen entfernen", "aufwand": "niedrig", "status": "offen", "notiz": "public/images/Blog/2026-07-13 holzart/holzart.jpg — Ordnername mit Leerzeichen, referenziert in src/content/posts/beitrag.json (coverImage)." },
+        { "text": "CDN-Selfhosting verifizieren (Tailwind + Fonts)", "aufwand": "niedrig", "status": "offen", "notiz": "Base.astro lädt bereits /assets/tailwind.js, /assets/tw-config.js und lokale Fonts — Verifikation, dass keine externen Requests mehr an cdn.tailwindcss.com/Google Fonts ausgehen, steht noch aus." },
+        { "text": "Card-Height-Ungleichheit in Galerie/Featured-Grid beheben", "aufwand": "niedrig", "status": "offen", "notiz": "Titel-Element im define:vars-Inline-JS-Template (galerie.astro + index.astro) hat kein Zeilenlimit, dadurch wirken Karten je nach Titellänge ungleich hoch." }
+      ]
+    },
+    {
       "label": "Design-Experimente",
       "titel": "Design-Experimente",
       "untertitel": "Nice-to-have, kein Blocker für den Launch",
