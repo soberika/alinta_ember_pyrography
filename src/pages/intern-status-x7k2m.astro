@@ -29,7 +29,7 @@ const doneCount = allItems.filter(isDone).length;
 const progressPct = totalCount ? Math.round((doneCount / totalCount) * 100) : 0;
 
 const aufwandLabel = { niedrig: 'Niedrig', mittel: 'Mittel', hoch: 'Hoch' };
-const statusLabel = { offen: 'Offen', 'in-arbeit': 'In Arbeit', erledigt: 'Erledigt' };
+const statusLabel = { offen: 'Offen', 'in-arbeit': 'In Arbeit', erledigt: 'Erledigt', blockiert: 'Blockiert — wartet auf Entscheidung' };
 ---
 
 <Base title={`${tracker.title} — intern`} description="Interner Launch-Fortschritt, nicht öffentlich." noindex>
@@ -80,6 +80,7 @@ const statusLabel = { offen: 'Offen', 'in-arbeit': 'In Arbeit', erledigt: 'Erled
                         'bg-green-600': item.status === 'erledigt',
                         'bg-ember-600': item.status === 'in-arbeit',
                         'bg-wood-400': item.status === 'offen',
+                        'bg-purple-600': item.status === 'blockiert',
                       },
                     ]}
                   ></span>
@@ -91,6 +92,7 @@ const statusLabel = { offen: 'Offen', 'in-arbeit': 'In Arbeit', erledigt: 'Erled
                           'line-through text-char-800/50': item.status === 'erledigt',
                           'font-semibold text-ember-700': item.status === 'in-arbeit',
                           'text-char-800/90': item.status === 'offen',
+                          'font-semibold text-purple-700': item.status === 'blockiert',
                         },
                       ]}
                     >{item.text}</p>

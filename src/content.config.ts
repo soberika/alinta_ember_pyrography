@@ -240,7 +240,7 @@ const tracker = defineCollection({
               z.object({
                 text: z.string(),
                 aufwand: z.enum(['niedrig', 'mittel', 'hoch']),
-                status: z.enum(['offen', 'in-arbeit', 'erledigt']).optional().default('offen'),
+                status: z.enum(['offen', 'in-arbeit', 'erledigt', 'blockiert']).optional().default('offen'),
                 notiz: z.string().optional(),
               }),
             )

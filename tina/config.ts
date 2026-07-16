@@ -643,6 +643,7 @@ export default defineConfig({
                       { value: 'offen', label: 'Offen' },
                       { value: 'in-arbeit', label: 'In Arbeit' },
                       { value: 'erledigt', label: 'Erledigt' },
+                      { value: 'blockiert', label: 'Blockiert — wartet auf Entscheidung' },
                     ],
                   },
                   { type: 'string', name: 'notiz', label: 'Notiz (optional)', ui: { component: 'textarea' } },
